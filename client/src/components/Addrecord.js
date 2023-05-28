@@ -38,7 +38,7 @@ export function Addrecord(props) {
             setRecord({ orderid: '', trackingid: '', date: today, post: 'India Post', status: 1, count: json.count })
             fetchData()
         }
-
+        orderInputRef.current.focus();
 
     }
     const handleSubmit = (e) => {
