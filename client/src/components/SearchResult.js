@@ -30,7 +30,12 @@ export function SearchResult(props) {
                        
                         <tbody>
 
-                            <TableItem key={props.data._id} alert={props.alert} showAlert={props.showAlert} item={props.data}/>
+                        {props.data.map((element) => {
+                                return <TableItem key={element._id} item={element}
+                                  />
+
+                            })}
+                            {/* <TableItem key={props.data._id} alert={props.alert} showAlert={props.showAlert} item={props.data}/> */}
     
                         </tbody>
                     </table>

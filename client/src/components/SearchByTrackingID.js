@@ -17,7 +17,7 @@ export function SearchByTrackingID(props) {
         })
         let json = await response.json()
         if (!json.success) {
-            props.showAlert(json.error)
+            props.showAlert(json.error,3000)
         }
         setState({ data: json.data, isLoading: false, success: json.success })
 

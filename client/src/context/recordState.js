@@ -6,6 +6,7 @@ const RecordState = (props) => {
    // const host = 'http://localhost:5000/'
    const recordsInitial = []
    const [orders, setOrders] = useState(recordsInitial)
+   const [count, setCount] = useState('')
 
    const getallorders = async () => {
       // API Call
@@ -38,7 +39,6 @@ const RecordState = (props) => {
    //    setNotes(notes.concat(note))
    // }
 
-   // DELETE note
    const deleteRecord = async (id) => {
       // API Call
       const response = await fetch(`api/order/deleteorder/${id}`, {
@@ -52,6 +52,20 @@ const RecordState = (props) => {
 
       const newOrder = orders.filter((order) => { return order._id !== id })
       setOrders(newOrder)
+   }
+   const countRecord = async (id) => {
+      // API Call
+      const response = await fetch(`api/order/gettodaycount`, {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+
+      });
+      const json = await response.json()
+   
+      // let count=json.count
+      return json.count
    }
 
    const editRecord = async (id, orderid, trackingid, post, date, status) => {
@@ -82,7 +96,7 @@ const RecordState = (props) => {
    }
 
    return (
-      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders }}>
+      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count }}>
          {props.children}
       </recordcontext.Provider>
    )

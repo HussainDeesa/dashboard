@@ -32,13 +32,18 @@ router.get('/previoustwoorders', async (req, res) => {
 })
 
 router.post('/fetchordersbetweendates', async (req, res) => {
-
+        let parts = req.body.startDate.split('-');
+        let startDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        
+         parts = req.body.endDate.split('-');
+        let endDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        
     try {
 
         const orders = await Order.find({
             date: {
-                $gte: req.body.startDate,
-                $lte: req.body.endDate
+                $gte: startDate,
+                $lte: endDate
             }
         })
         if (orders.length == 0) {
@@ -77,10 +82,24 @@ router.post('/fetchordersbetweendates', async (req, res) => {
         return
     }
 })
+
+router.get('/gettodaycount', async (req, res) => {
+
+    try {
+        let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
+        let count=await Order.count({created_date:today_date})+1
+        res.json({count:count})
+    } catch (error) {
+        console.error(error.message)
+
+        res.status(500).send("Some Error Occured")
+        return
+    }
+})
 router.get('/fetchorderbyorderid/:orderid', async (req, res) => {
 
     try {
-        let order = await Order.findOne({ orderID: req.params.orderid })
+        let order = await Order.find({ orderID: req.params.orderid })
 
         if (!order) {
             success: false
@@ -103,7 +122,7 @@ router.get('/fetchorderbytrackingid/:trackingid', async (req, res) => {
 
     try {
 
-        let order = await Order.findOne({ trackingID: req.params.trackingid })
+        let order = await Order.find({ trackingID: req.params.trackingid })
         console.log(order);
         if (!order) {
             success = false
@@ -125,30 +144,39 @@ router.get('/fetchorderbytrackingid/:trackingid', async (req, res) => {
 
 let success = false;
 router.post('/addorder', async (req, res) => {
+
     try {
-        let order = await Order.findOne({ orderID: req.body.orderid })
+        let order;
+        if(req.body.skip_check==false){
+         order = await Order.findOne({ orderID: req.body.orderid })
         console.log(order);
         if (order) {
-            // res.json({error:"exist"})
-            res.status(400).json({ success, error: "Order already exists for this orderID" })
+            res.status(400).json({ success:false, error: "Order already exists for this orderID" })
             return
         }
-        order = await Order.findOne({ trackingID: req.body.trackingid })
+    }
+         order = await Order.findOne({ trackingID: req.body.trackingid })
         if (order) {
             // res.json({error:"exist"})
-            res.status(400).json({ success, error: "Order already exists for this trackingID" })
+            res.status(400).json({ success:false, error: "Order already exists for this trackingID" })
             return
         }
+        const parts = req.body.date.split('-');
+        const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
+        let count=await Order.count({created_date:today_date})+1
+
         order = new Order({
             orderID: req.body.orderid,
             trackingID: req.body.trackingid,
             post: req.body.post,
-            date: req.body.date,
-            status: req.body.status
+            date: formattedDate,
+            status: req.body.status,
+            created_date: today_date
 
         })
         const saveOrder = await order.save()
-        res.json(saveOrder)
+        res.json({success:true,data:saveOrder})
 
     } catch (error) {
         console.error(error.message)
@@ -159,13 +187,16 @@ router.post('/addorder', async (req, res) => {
 
 router.put('/updateorder/:id', async (req, res) => {
     const { orderid, trackingid, post, date, status } = req.body
+    const parts = req.body.date.split('-');
+        const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        console.log(formattedDate);
     try {
         const newOrder = {}
         console.log(orderid, post);
         if (orderid) { newOrder.orderID = orderid };
         if (trackingid) { newOrder.trackingID = trackingid };
         if (post) { newOrder.post = post };
-        if (date) { newOrder.date = date };
+        if (date) { newOrder.date = formattedDate };
         if (status) { newOrder.status = status };
         let order = await Order.findById(req.params.id)
         if (!order) { return res.status(404).send("Not Found") }

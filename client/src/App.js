@@ -18,11 +18,12 @@ import { Search } from './components/Search';
 import RecordState from './context/recordState';
 import { useState } from 'react';
 import { CSV } from './components/CSV';
+import { Login } from './components/Login';
 // import LoadingBar from 'react-top-loading-bar'
 
 function App() {
   const [alert, setAlert] = useState(null)
-  const showAlert = (message) => {
+  const showAlert = (message,time) => {
     setAlert({
       message: message,
       class: 'alert-danger'
@@ -32,7 +33,7 @@ function App() {
         message: "",
         class: ''
       })
-    }, 3000);
+    }, time);
   }
   // const [progress, setprogress] = useState(0)
   // const setProgress=(progress)=>{
@@ -48,6 +49,7 @@ function App() {
           progress={progress}
         /> */}
           <Routes>
+            <Route exact path="/login" element={<Login alert={alert} showAlert={showAlert} />} />
             <Route exact path="/" element={<Dashboard showAlert={showAlert} />} />
             <Route exact path="/allrecords" element={<Dashboard page={"allrecords"} showAlert={showAlert} />} />
             <Route exact path="/dashboard" element={<Dashboard alert={alert} showAlert={showAlert} />} />

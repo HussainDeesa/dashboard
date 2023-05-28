@@ -5,7 +5,6 @@ const OrdersSchema = new Schema({
     orderID:{
         type: Number,
         required:true,
-        unique:true
     },
     trackingID: {
         type: String,
@@ -23,6 +22,9 @@ const OrdersSchema = new Schema({
     date: {
         type: String,
         required:true
+    },
+    created_date:{
+        type:String
     }
 })
 

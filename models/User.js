@@ -15,10 +15,7 @@ const UserSchema = new Schema({
         required: true,
         default:'admin'
     },
-    date: {
-        type: Date,
-        default: Date.now
-    }
+
 })
 const User = mongoose.model('user', UserSchema);
 User.createIndexes()

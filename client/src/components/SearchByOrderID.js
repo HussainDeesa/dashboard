@@ -17,14 +17,14 @@ export function SearchByOrderID(props) {
         })
         let json = await response.json()
         if (!json.success) {
-            props.showAlert(json.error)
+            props.showAlert(json.error,3000)
         }
         setState({ data: json.data, isLoading: false, success: json.success })
 
 
     };
 
-
+ 
     const handleOnChange = (e) => {
         setRecord({ ...record, [e.target.name]: e.target.value })
     }

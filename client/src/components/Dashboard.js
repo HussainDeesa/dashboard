@@ -1,14 +1,22 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Search } from './Search'
 import { Addrecord } from './Addrecord'
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { Records } from './Records';
 import { CSV } from './CSV';
 import MobileMenu from './MobileMenu';
+import Cookies from 'js-cookie';
 
 export const Dashboard = (props) => {
+	let navigate = useNavigate();
+	
     const {setprogress,showAlert,alert}=props
-
+	useEffect(() => {
+		if(Cookies.get("auth-token")===undefined){
+			navigate('/login')
+		}
+	}, [])
+	
     return (
         <>
             <div className="app">
