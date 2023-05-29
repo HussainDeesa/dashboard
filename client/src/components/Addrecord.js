@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { PreviousOrder } from './Previousorder';
 import { Alert } from './Alert';
 import recordContext from "../context/recordContext";
+import Cookies from 'js-cookie';
 export function Addrecord(props) {
     const orderInputRef = useRef(null);
     const trackingInputRef = useRef(null);
@@ -23,6 +24,7 @@ export function Addrecord(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'auth-token':Cookies.get("auth-token")
                 
             },
             body: JSON.stringify({ orderid: record.orderid, trackingid: String(record.trackingid), post: record.post, date: record.date, status: record.status, skip_check: false })

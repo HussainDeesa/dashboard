@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { TableItem } from './TableItem';
-
+import Cookies from 'js-cookie';
 export function PreviousOrder(props) {
 
     let json
@@ -11,6 +11,8 @@ export function PreviousOrder(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                'auth-token':Cookies.get("auth-token")
+
                 },
             })
             json = await response.json()

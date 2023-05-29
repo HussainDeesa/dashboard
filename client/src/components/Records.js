@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { TableItem } from './TableItem';
 import {DeleteConfirmation} from './DeleteConfirmtion'
 import recordContext from "../context/recordContext";
+import Cookies from 'js-cookie';
 export function Records(props) {
 
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -29,6 +30,8 @@ export function Records(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'auth-token':Cookies.get("auth-token")
+
                 },
             })
             json = await response.json()

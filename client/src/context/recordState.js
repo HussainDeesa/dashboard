@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import recordcontext from "./recordContext";
-
+import Cookies from 'js-cookie';
 const RecordState = (props) => {
 
    // const host = 'http://localhost:5000/'
@@ -15,6 +15,8 @@ const RecordState = (props) => {
          method: 'GET',
          headers: {
             'Content-Type': 'application/json',
+            'auth-token':Cookies.get("auth-token")
+
          }
       });
       const json = await response.json()
@@ -22,29 +24,14 @@ const RecordState = (props) => {
 
    }
 
-   // ADD note
-   // const addNote = async (orderid, trackingid, post) => {
-
-   //    // API Call
-   //    // const response = await fetch(`${host}api/notes/addnote`, {
-   //    const response = await fetch('api/notes/addnote', {
-   //       method: 'POST',
-   //       headers: {
-   //          'Content-Type': 'application/json',
-   //          'auth-token': localStorage.getItem('token')
-   //       },
-   //       body: JSON.stringify({orderid, trackingid, post})
-   //    });
-   //    const note = await response.json()
-   //    setNotes(notes.concat(note))
-   // }
-
    const deleteRecord = async (id) => {
       // API Call
       const response = await fetch(`api/order/deleteorder/${id}`, {
          method: 'DELETE',
          headers: {
             'Content-Type': 'application/json',
+            'auth-token':Cookies.get("auth-token")
+
          },
 
       });
@@ -59,6 +46,8 @@ const RecordState = (props) => {
          method: 'GET',
          headers: {
             'Content-Type': 'application/json',
+            'auth-token':Cookies.get("auth-token")
+
          },
 
       });
@@ -74,6 +63,8 @@ const RecordState = (props) => {
          method: 'PUT',
          headers: {
             'Content-Type': 'application/json',
+            'auth-token':Cookies.get("auth-token")
+
          },
          body: JSON.stringify({ orderid, trackingid, post, date, status })
 

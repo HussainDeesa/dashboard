@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Cookies from 'js-cookie';
 export const Alert = (props) => {
   const today = new Date().toISOString().split('T')[0]
   const { state } =props
@@ -8,6 +8,8 @@ export const Alert = (props) => {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
+              'auth-token':Cookies.get("auth-token")
+
 
           },
           body: JSON.stringify({ orderid: state.orderid, trackingid: String(state.trackingid), post: state.post, date: state.date, status: state.status, skip_check: true })

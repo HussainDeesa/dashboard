@@ -2,7 +2,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { SearchResult } from './SearchResult';
 import { Alert } from './Alert';
-
+import Cookies from 'js-cookie';
 export function SearchByOrderID(props) {
 
     const [record, setRecord] = useState({ orderid: '' })
@@ -13,7 +13,11 @@ export function SearchByOrderID(props) {
         e.preventDefault()
         let orderid = Number(id)
         const response = await fetch(`api/order/fetchorderbyorderid/${orderid}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token':Cookies.get("auth-token")
+            },
         })
         let json = await response.json()
         if (!json.success) {

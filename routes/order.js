@@ -6,8 +6,9 @@ const XLSX = require('xlsx');
 const json2csv = require('json2csv');
 const Order = require('../models/Orders')
 const { body, validationResult } = require('express-validator');
+const fetchuser = require("../middleware/fetchuser");
 
-router.get('/fetchallorders', async (req, res) => {
+router.get('/fetchallorders', fetchuser,async (req, res) => {
     try {
         const orders = await Order.find().sort({ _id: -1 })
         res.json(orders)
@@ -18,7 +19,7 @@ router.get('/fetchallorders', async (req, res) => {
         return
     }
 })
-router.get('/previoustwoorders', async (req, res) => {
+router.get('/previoustwoorders', fetchuser,async (req, res) => {
 
     try {
         const orders = await Order.find({}).sort({ _id: -1 }).limit(2);
@@ -31,7 +32,7 @@ router.get('/previoustwoorders', async (req, res) => {
     }
 })
 
-router.post('/fetchordersbetweendates', async (req, res) => {
+router.post('/fetchordersbetweendates', fetchuser,async (req, res) => {
         let parts = req.body.startDate.split('-');
         let startDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
         
@@ -83,11 +84,11 @@ router.post('/fetchordersbetweendates', async (req, res) => {
     }
 })
 
-router.get('/gettodaycount', async (req, res) => {
+router.get('/gettodaycount', fetchuser,async (req, res) => {
 
     try {
         let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
-        let count=await Order.count({created_date:today_date})+1
+        let count=await Order.count({created_date:today_date})
         res.json({count:count})
     } catch (error) {
         console.error(error.message)
@@ -96,12 +97,12 @@ router.get('/gettodaycount', async (req, res) => {
         return
     }
 })
-router.get('/fetchorderbyorderid/:orderid', async (req, res) => {
+router.get('/fetchorderbyorderid/:orderid',fetchuser,async (req, res) => {
 
     try {
         let order = await Order.find({ orderID: req.params.orderid })
 
-        if (!order) {
+        if (order.length==0) {
             success: false
             res.status(400).json({ success, error: "OrderID does not exist" })
             return
@@ -118,13 +119,13 @@ router.get('/fetchorderbyorderid/:orderid', async (req, res) => {
         return
     }
 })
-router.get('/fetchorderbytrackingid/:trackingid', async (req, res) => {
+router.get('/fetchorderbytrackingid/:trackingid',fetchuser, async (req, res) => {
 
     try {
 
         let order = await Order.find({ trackingID: req.params.trackingid })
         console.log(order);
-        if (!order) {
+        if (order.length==0) {
             success = false
             res.status(400).json({ success, error: "TrackingID does not exist" })
             return
@@ -143,7 +144,7 @@ router.get('/fetchorderbytrackingid/:trackingid', async (req, res) => {
 })
 
 let success = false;
-router.post('/addorder', async (req, res) => {
+router.post('/addorder', fetchuser,async (req, res) => {
 
     try {
         let order;
@@ -185,7 +186,7 @@ router.post('/addorder', async (req, res) => {
     }
 })
 
-router.put('/updateorder/:id', async (req, res) => {
+router.put('/updateorder/:id', fetchuser,async (req, res) => {
     const { orderid, trackingid, post, date, status } = req.body
     const parts = req.body.date.split('-');
         const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
@@ -210,7 +211,7 @@ router.put('/updateorder/:id', async (req, res) => {
     }
 })
 
-router.delete('/deleteorder/:id', async (req, res) => {
+router.delete('/deleteorder/:id', fetchuser,async (req, res) => {
     try {
 
         let order = await Order.findById(req.params.id)

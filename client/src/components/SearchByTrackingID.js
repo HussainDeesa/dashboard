@@ -1,6 +1,6 @@
 
 import React, { useState, useContext, useEffect } from 'react';
-
+import Cookies from 'js-cookie';
 import { SearchResult } from './SearchResult';
 import { Alert } from './Alert';
 
@@ -13,7 +13,12 @@ export function SearchByTrackingID(props) {
         e.preventDefault()
         // let trackingid = String(id)
         const response = await fetch(`api/order/fetchorderbytrackingid/${id}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token':Cookies.get("auth-token")
+                
+            },
         })
         let json = await response.json()
         if (!json.success) {

@@ -2,6 +2,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Alert } from './Alert';
 import { CsvResult } from './CsvResult';
+import Cookies from 'js-cookie';
 export function CSV(props) {
 
     const [state, setState] = useState({ data: {}, isLoading: true, success: false,csv:'' })
@@ -13,6 +14,8 @@ export function CSV(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'auth-token':Cookies.get("auth-token")
+
             },
             body: JSON.stringify({ startDate: record.startDate, endDate: record.endDate })
         })
