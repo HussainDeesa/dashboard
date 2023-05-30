@@ -34,7 +34,7 @@ export function EditRecord({ onCancel, onConfirm, id, order,alert,showAlert }) {
                     <br />  <label className='search-label'>Post : </label>
                     <select required className='post-input' name="post" onChange={handleOnChange} value={record.post} id="post">
                         <option value="">Select</option>
-                        <option value="India Post">India Post</option>
+                        <option value="Indiapost">India Post</option>
                         <option value="Professional">Professional</option>
                         <option value="UPS">UPS</option>
 
