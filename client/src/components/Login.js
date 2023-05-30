@@ -85,7 +85,7 @@ export const Login = (props) => {
                                 <input required id='order-input' className='order-input' value={cred.username} name='username' onChange={handleOnChange} type='text' />
                                 <br />
                                 <label className='search-label'>Password : </label>
-                                <input required className='tracking-input' name='password' value={cred.password} onChange={handleOnChange} type='text' />
+                                <input required className='tracking-input' name='password' value={cred.password} onChange={handleOnChange} type='password' />
                                 <br />
                                 <button type="submit" className="btn btn-outline-success search-btn" onClick={(e) => {
                                     handleSubmit(e)

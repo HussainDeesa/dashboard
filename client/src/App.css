@@ -1141,3 +1141,16 @@ button:focus {
     border-radius: 7px;
     margin-bottom: 15px;
 }
+::-ms-reveal {
+  filter: invert(100%);
+}
+.tracking-details .delete-confirmation-dialog{
+  text-align: left;
+  max-width: fit-content;
+}
+.track-events{
+  margin-top: 10px;
+}
+.track{
+  margin-left: 10px;
+}

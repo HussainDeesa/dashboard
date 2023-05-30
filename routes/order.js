@@ -7,7 +7,7 @@ const json2csv = require('json2csv');
 const Order = require('../models/Orders')
 const { body, validationResult } = require('express-validator');
 const fetchuser = require("../middleware/fetchuser");
-
+const http=require("http")
 router.get('/fetchallorders', fetchuser,async (req, res) => {
     try {
         const orders = await Order.find().sort({ _id: -1 })
@@ -226,5 +226,41 @@ router.delete('/deleteorder/:id', fetchuser,async (req, res) => {
 })
 
 
+router.post('/track', (req, res) => {
+    const options = {
+      method: 'POST',
+      hostname: 'api.ship24.com',
+      port: null,
+      path: '/public/v1/trackers/track',
+      headers: {
+        Accept: '*/*',
+        Authorization: 'apik_w7P07qE2FusiXkkN3HVhjnG4bmHTGz',
+        'Content-Type': 'application/json',
+      },
+    };
+  
+    const request = http.request(options, (response) => {
+      let chunks = [];
+  
+      response.on('data', (chunk) => {
+        chunks.push(chunk);
+      });
+  
+      response.on('end', () => {
+        const body = Buffer.concat(chunks);
+        res.send(body);
+      });
+    });
+  
+    request.on('error', (error) => {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    });
+    console.log(req.body.trackingNumber);
+    request.write(JSON.stringify({ trackingNumber: req.body
+    .trackingNumber }));
+    request.end();
+  });
+  
 
 module.exports = router
