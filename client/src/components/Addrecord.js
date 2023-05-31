@@ -11,10 +11,17 @@ export function Addrecord(props) {
     const { countRecord } = context;
     const [added, setadded] = useState(false)
     const [count, setCount] = useState()
-    const today = new Date().toISOString().split('T')[0]
+    // console.log(new Date());
+    // const today = new Date().toISOString().split('T')[0]
+    // console.log(today);
+   
+    const currentDate = new Date();
+    const utcOffset = 5.5 * 60 * 60 * 1000; 
+    const istDate = new Date(currentDate.getTime() + utcOffset);
+    const today = istDate.toISOString().split('T')[0] 
     const [record, setRecord] = useState({ orderid: '', trackingid: '', date: today, post: 'India Post', status: 1, skip_check: false, count: '' })
 
-    const fetchCount = async () => {
+    const fetchCount = async () => {    
         const count = await countRecord();
         setCount(count)
     };
@@ -24,11 +31,11 @@ export function Addrecord(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token':Cookies.get("auth-token")
-                
+                'auth-token': Cookies.get("auth-token")
+
             },
             body: JSON.stringify({ orderid: record.orderid, trackingid: String(record.trackingid), post: record.post, date: record.date, status: record.status, skip_check: false })
-            
+
         })
         let json = await response.json();
         setadded(added == false ? true : false)
@@ -51,7 +58,7 @@ export function Addrecord(props) {
         const { name, value } = e.target;
         if (name === 'orderid' && value.length === 5) {
             trackingInputRef.current.focus();
-          }
+        }
     }
     useEffect(() => {
         orderInputRef.current.focus();
@@ -70,7 +77,7 @@ export function Addrecord(props) {
                     <input required id='order-input' ref={orderInputRef} className='order-input' value={record.orderid} name='orderid' onChange={handleOnChange} type='text' />
                     <br />
                     <label className='search-label'>Tracking ID : </label>
-                    <input required className='tracking-input' name='trackingid'ref={trackingInputRef}  value={record.trackingid} onChange={handleOnChange} type='text' />
+                    <input required className='tracking-input' name='trackingid' ref={trackingInputRef} value={record.trackingid} onChange={handleOnChange} type='text' />
                     <br />  <label className='search-label'>Post : </label>
                     <select required className='post-input' name="post" onChange={handleOnChange} value={record.post} id="post">
                         <option value="India Post">India Post</option>

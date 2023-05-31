@@ -85,11 +85,16 @@ router.post('/fetchordersbetweendates', fetchuser, async (req, res) => {
 router.get('/gettodaycount', fetchuser, async (req, res) => {
 
     try {
-        let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
+        // let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
+        // console.log(today_date);
+        const currentDate = new Date();
+        const utcOffset = 5.5 * 60 * 60 * 1000; 
+        const istDate = new Date(currentDate.getTime() + utcOffset);
+        const today_date = istDate.toISOString().split('T')[0]
         let count = await Order.count({ created_date: today_date })
-        res.json({ count: count })
+        res.json({ count: count }) 
     } catch (error) {
-        console.error(error.message)
+        console.error(error.message)    
 
         res.status(500).send("Some Error Occured")
         return

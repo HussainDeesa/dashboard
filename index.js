@@ -12,7 +12,7 @@ connectToMongo();
 //     res.send('hello')
 // })
 app.use('/api/auth', require('./routes/auth'))
-app.use('/api/order', require('./routes/order'))
+app.use('/api/order', require('./routes/order'))   
 // app.use('/api/menu', require('./routes/menu'))
 // app.use('/api/cart', require('./routes/cart'))
 
