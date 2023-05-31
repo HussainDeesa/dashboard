@@ -16,7 +16,7 @@ export function SearchResult(props) {
         
             <div className='table-box-outer'>
                 <div className='table-box'>
-                    <table class="table" id='table'>
+                    <table className="table" id='table'>
                         <thead>
                             <tr>
                                 <th scope="col">OrderID</th>

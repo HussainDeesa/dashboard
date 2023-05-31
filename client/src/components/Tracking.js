@@ -10,7 +10,7 @@ export function Tracking({ onCancel, onConfirm, id, order,alert,showAlert,track 
         <div className="delete-confirmation">
             <div className="delete-confirmation-dialog">
                 <h3>Tracking Details</h3>
-                
+                    <div className='track-box'>
                     <b>Tracking Id:</b> {track.data.trackings[0].tracker.trackingNumber} <br/>
                    <b>Current Status: </b> {track.data.trackings[0].shipment.statusMilestone}
                    <br/>
@@ -26,6 +26,7 @@ export function Tracking({ onCancel, onConfirm, id, order,alert,showAlert,track 
                         return <TrackList time={formattedDate} status={e.status}/>
                         
                    })}
+                   </div>
                    </div>
                     <div className="buttons">
                         <button className='btn btn-outline-success' onClick={onCancel}>Close</button>

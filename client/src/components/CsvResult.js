@@ -9,7 +9,7 @@ export function CsvResult(props) {
    
     const handleDownload = (e) => {
         e.preventDefault();
-        const blob = new Blob([props.data.csv], { type: 'text/csv' });
+        const blob = new Blob([props.data.csv], { type: 'text/x-csv' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -18,7 +18,7 @@ export function CsvResult(props) {
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        // convertToCSV();
+ 
    
       };
     return (

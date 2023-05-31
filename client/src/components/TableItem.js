@@ -39,7 +39,6 @@ export function TableItem(props) {
   };
   const track =async (e,id)=>{
     e.preventDefault()
-    console.log(id);
       const response=await fetch('api/order/track', {
         method: 'POST',
         headers: {
@@ -49,14 +48,10 @@ export function TableItem(props) {
       })
         .then(response => response.text())
         .then(data => {
-          console.log(data);
           const parsed_data = JSON.parse(data);
           setTrackDetail(parsed_data)
-          // Handle the response data here
         })
         .catch(error => {
-          console.error(error);
-          // Handle any errors here
         });
 }
   const handleTrackClick = (e,id) => {
@@ -100,7 +95,6 @@ export function TableItem(props) {
             <button
               className="btn btn-success track"
               onClick={(e) => {
-                console.log(item.trackingID);
                 setID(item.trackingID);
                 handleTrackClick(e,item.trackingID);
               }}

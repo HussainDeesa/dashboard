@@ -27,7 +27,7 @@ export const Dashboard = (props) => {
 					<img src="https://assets.codepen.io/285131/almeria-logo.svg" />
 				</span>
 				<h1 className="logo-title">
-					<span>Bookstore</span>
+					<span>MyBooksFactory</span>
 					<span>Dashboard</span>
 				</h1>
 			</div>

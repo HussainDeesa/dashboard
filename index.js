@@ -18,6 +18,7 @@ app.use('/api/order', require('./routes/order'))
 
 app.use(express.static(path.join(__dirname, "./client/build")));
 app.get("*", function (_, res) {
+
   res.sendFile(
     path.join(__dirname, "./client/build/index.html"),
     function (err) {

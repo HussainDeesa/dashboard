@@ -28,7 +28,7 @@ export function PreviousOrder(props) {
     }
     return (
             
-                <div className='table-box'>
+                <div className='table-box table-box-previous-order'>
                     <table className="table">
                         <thead>
                             <tr>

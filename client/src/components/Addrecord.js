@@ -12,9 +12,9 @@ export function Addrecord(props) {
     const [added, setadded] = useState(false)
     const [count, setCount] = useState()
     const today = new Date().toISOString().split('T')[0]
-    const [record, setRecord] = useState({ orderid: '', trackingid: '', date: today, post: 'Indiapost', status: 1, skip_check: false, count: '' })
+    const [record, setRecord] = useState({ orderid: '', trackingid: '', date: today, post: 'India Post', status: 1, skip_check: false, count: '' })
 
-    const fetchData = async () => {
+    const fetchCount = async () => {
         const count = await countRecord();
         setCount(count)
     };
@@ -37,8 +37,8 @@ export function Addrecord(props) {
             props.showAlert(json.error, 7000);
         }
         if (json.success) {
-            setRecord({ orderid: '', trackingid: '', date: today, post: 'Indiapost', status: 1, count: json.count })
-            fetchData()
+            setRecord({ orderid: '', trackingid: '', date: today, post: 'India Post', status: 1, count: json.count })
+            fetchCount()
         }
         orderInputRef.current.focus();
 
@@ -55,7 +55,7 @@ export function Addrecord(props) {
     }
     useEffect(() => {
         orderInputRef.current.focus();
-        fetchData();
+        fetchCount();
     }, []);
 
     return (
@@ -73,7 +73,7 @@ export function Addrecord(props) {
                     <input required className='tracking-input' name='trackingid'ref={trackingInputRef}  value={record.trackingid} onChange={handleOnChange} type='text' />
                     <br />  <label className='search-label'>Post : </label>
                     <select required className='post-input' name="post" onChange={handleOnChange} value={record.post} id="post">
-                        <option value="Indiapost">India Post</option>
+                        <option value="India Post">India Post</option>
                         <option value="Professional">Professional</option>
                         <option value="UPS">UPS</option>
 

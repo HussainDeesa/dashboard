@@ -21,7 +21,6 @@ export function CSV(props) {
         })
         json = await response.json()
         setState({ data: json.data, isLoading: false, success: json.success,csv:json.csv })
-        // console.log(json.data.length);
         if(json.success==false){
             props.showAlert(json.error, 3000)
         }

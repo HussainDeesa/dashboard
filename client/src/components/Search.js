@@ -1,10 +1,7 @@
-// import { Dashboard } from './Dashboard'
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchByTrackingID } from './SearchByTrackingID';
 import { SearchByOrderID } from './SearchByOrderID';
-// import appContext from '../context/appContext';
-// import Login from './Login'
 export function Search(props) {
  
 

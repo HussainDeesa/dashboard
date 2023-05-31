@@ -7,8 +7,8 @@ const json2csv = require('json2csv');
 const Order = require('../models/Orders')
 const { body, validationResult } = require('express-validator');
 const fetchuser = require("../middleware/fetchuser");
-const http=require("http")
-router.get('/fetchallorders', fetchuser,async (req, res) => {
+const http = require("http")
+router.get('/fetchallorders', fetchuser, async (req, res) => {
     try {
         const orders = await Order.find().sort({ _id: -1 })
         res.json(orders)
@@ -19,7 +19,7 @@ router.get('/fetchallorders', fetchuser,async (req, res) => {
         return
     }
 })
-router.get('/previoustwoorders', fetchuser,async (req, res) => {
+router.get('/previoustwoorders', fetchuser, async (req, res) => {
 
     try {
         const orders = await Order.find({}).sort({ _id: -1 }).limit(2);
@@ -32,13 +32,13 @@ router.get('/previoustwoorders', fetchuser,async (req, res) => {
     }
 })
 
-router.post('/fetchordersbetweendates', fetchuser,async (req, res) => {
-        let parts = req.body.startDate.split('-');
-        let startDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-        
-         parts = req.body.endDate.split('-');
-        let endDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-        
+router.post('/fetchordersbetweendates', fetchuser, async (req, res) => {
+    let parts = req.body.startDate.split('-');
+    let startDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+    parts = req.body.endDate.split('-');
+    let endDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
     try {
 
         const orders = await Order.find({
@@ -64,12 +64,10 @@ router.post('/fetchordersbetweendates', fetchuser,async (req, res) => {
             const opts = { fields };
             const parser = new json2csv.Parser(opts);
             const csvData = parser.parse(orders);
-            // const csvData = json2csv.parse(orders,opts);
-            console.log(csvData);
-            fs.writeFileSync('data.csv', csvData, (err) => {
+            fs.writeFileSync("data.csv", csvData, (err) => {
                 if (err) throw err;
 
-                const fileStream = fs.createReadStream('data.csv');
+                const fileStream = fs.createReadStream("data.csv");
                 fileStream.pipe(res);
             });
             res.json({ data: orders, success: true, csv: csvData })
@@ -84,12 +82,12 @@ router.post('/fetchordersbetweendates', fetchuser,async (req, res) => {
     }
 })
 
-router.get('/gettodaycount', fetchuser,async (req, res) => {
+router.get('/gettodaycount', fetchuser, async (req, res) => {
 
     try {
         let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
-        let count=await Order.count({created_date:today_date})
-        res.json({count:count})
+        let count = await Order.count({ created_date: today_date })
+        res.json({ count: count })
     } catch (error) {
         console.error(error.message)
 
@@ -97,12 +95,12 @@ router.get('/gettodaycount', fetchuser,async (req, res) => {
         return
     }
 })
-router.get('/fetchorderbyorderid/:orderid',fetchuser,async (req, res) => {
+router.get('/fetchorderbyorderid/:orderid', fetchuser, async (req, res) => {
 
     try {
         let order = await Order.find({ orderID: req.params.orderid })
 
-        if (order.length==0) {
+        if (order.length == 0) {
             success: false
             res.status(400).json({ success, error: "OrderID does not exist" })
             return
@@ -111,21 +109,22 @@ router.get('/fetchorderbyorderid/:orderid',fetchuser,async (req, res) => {
 
             res.json({ data: order, success: true })
             return
-        }
+        } 
     } catch (error) {
-        console.error(error.message)
-
+        if (error.message == `Cast to Number failed for value "NaN" (type string) at path "orderID" for model "orders"`) {
+            res.status(400).json({ success, error: "Invalid OrderID" })
+            return
+        }
         res.status(500).send("Some Error Occured")
         return
     }
 })
-router.get('/fetchorderbytrackingid/:trackingid',fetchuser, async (req, res) => {
+router.get('/fetchorderbytrackingid/:trackingid', fetchuser, async (req, res) => {
 
     try {
 
         let order = await Order.find({ trackingID: req.params.trackingid })
-        console.log(order);
-        if (order.length==0) {
+        if (order.length == 0) {
             success = false
             res.status(400).json({ success, error: "TrackingID does not exist" })
             return
@@ -144,28 +143,27 @@ router.get('/fetchorderbytrackingid/:trackingid',fetchuser, async (req, res) => 
 })
 
 let success = false;
-router.post('/addorder', fetchuser,async (req, res) => {
+router.post('/addorder', fetchuser, async (req, res) => {
 
     try {
         let order;
-        if(req.body.skip_check==false){
-         order = await Order.findOne({ orderID: req.body.orderid })
-        console.log(order);
-        if (order) {
-            res.status(400).json({ success:false, error: "Order already exists for this orderID" })
-            return
+        if (req.body.skip_check == false) {
+            order = await Order.findOne({ orderID: req.body.orderid })
+            if (order) {
+                res.status(400).json({ success: false, error: "Order already exists for this orderID" })
+                return
+            }
         }
-    }
-         order = await Order.findOne({ trackingID: req.body.trackingid })
+        order = await Order.findOne({ trackingID: req.body.trackingid })
         if (order) {
             // res.json({error:"exist"})
-            res.status(400).json({ success:false, error: "Order already exists for this trackingID" })
+            res.status(400).json({ success: false, error: "Order already exists for this trackingID" })
             return
         }
         const parts = req.body.date.split('-');
         const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
         let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
-        let count=await Order.count({created_date:today_date})+1
+        let count = await Order.count({ created_date: today_date }) + 1
 
         order = new Order({
             orderID: req.body.orderid,
@@ -177,7 +175,7 @@ router.post('/addorder', fetchuser,async (req, res) => {
 
         })
         const saveOrder = await order.save()
-        res.json({success:true,data:saveOrder})
+        res.json({ success: true, data: saveOrder })
 
     } catch (error) {
         console.error(error.message)
@@ -186,14 +184,12 @@ router.post('/addorder', fetchuser,async (req, res) => {
     }
 })
 
-router.put('/updateorder/:id', fetchuser,async (req, res) => {
+router.put('/updateorder/:id', fetchuser, async (req, res) => {
     const { orderid, trackingid, post, date, status } = req.body
     const parts = req.body.date.split('-');
-        const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-        console.log(formattedDate);
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
     try {
         const newOrder = {}
-        console.log(orderid, post);
         if (orderid) { newOrder.orderID = orderid };
         if (trackingid) { newOrder.trackingID = trackingid };
         if (post) { newOrder.post = post };
@@ -210,9 +206,22 @@ router.put('/updateorder/:id', fetchuser,async (req, res) => {
         return
     }
 })
+// router.put('/updateorder', fetchuser, async (req, res) => {
+//     try {
+//         let order = await Order.updateMany(
+//             { "post": "Indiapost" },
+//             { $set: { "post": "India Post" } },
+//             { new: true }
+//         );
+//         res.json(order);
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).send("Some Error Occurred");
+//     }
+// });
 
 
-router.delete('/deleteorder/:id', fetchuser,async (req, res) => {
+router.delete('/deleteorder/:id', fetchuser, async (req, res) => {
     try {
 
         let order = await Order.findById(req.params.id)
@@ -229,39 +238,40 @@ router.delete('/deleteorder/:id', fetchuser,async (req, res) => {
 
 router.post('/track', (req, res) => {
     const options = {
-      method: 'POST',
-      hostname: 'api.ship24.com',
-      port: null,
-      path: '/public/v1/trackers/track',
-      headers: {
-        Accept: '*/*',
-        Authorization: 'apik_w7P07qE2FusiXkkN3HVhjnG4bmHTGz',
-        'Content-Type': 'application/json',
-      },
+        method: 'POST',
+        hostname: 'api.ship24.com',
+        port: null,
+        path: '/public/v1/trackers/track',
+        headers: {
+            Accept: '*/*',
+            Authorization: 'apik_w7P07qE2FusiXkkN3HVhjnG4bmHTGz',
+            'Content-Type': 'application/json',
+        },
     };
-  
+
     const request = http.request(options, (response) => {
-      let chunks = [];
-  
-      response.on('data', (chunk) => {
-        chunks.push(chunk);
-      });
-  
-      response.on('end', () => {
-        const body = Buffer.concat(chunks);
-        res.send(body);
-      });
+        let chunks = [];
+
+        response.on('data', (chunk) => {
+            chunks.push(chunk);
+        });
+
+        response.on('end', () => {
+            const body = Buffer.concat(chunks);
+            res.send(body);
+        });
     });
-  
+
     request.on('error', (error) => {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     });
-    console.log(req.body.trackingNumber);
-    request.write(JSON.stringify({ trackingNumber: req.body
-    .trackingNumber }));
+    request.write(JSON.stringify({
+        trackingNumber: req.body
+            .trackingNumber
+    }));
     request.end();
-  });
-  
+});
+
 
 module.exports = router

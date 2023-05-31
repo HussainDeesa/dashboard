@@ -71,7 +71,6 @@ const RecordState = (props) => {
       });
       const json = response.json()
       let newOrder = JSON.parse(JSON.stringify(orders))
-      console.log(newOrder);
       for (let index = 0; index < newOrder.length; index++) {
          const element = newOrder[index];
          if (element._id === id) {
