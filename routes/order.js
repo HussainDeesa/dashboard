@@ -64,12 +64,12 @@ router.post('/fetchordersbetweendates', fetchuser, async (req, res) => {
             const opts = { fields };
             const parser = new json2csv.Parser(opts);
             const csvData = parser.parse(orders);
-            fs.writeFileSync("data.csv", csvData, (err) => {
-                if (err) throw err;
+            // fs.writeFileSync("data.csv", csvData, (err) => {
+            //     if (err) throw err;
 
-                const fileStream = fs.createReadStream("data.csv");
-                fileStream.pipe(res);
-            });
+            //     const fileStream = fs.createReadStream("data.csv");
+            //     fileStream.pipe(res);
+            // });
             res.json({ data: orders, success: true, csv: csvData })
             return
 
