@@ -90,7 +90,8 @@ router.get('/gettodaycount', fetchuser, async (req, res) => {
         const currentDate = new Date();
         const utcOffset = 5.5 * 60 * 60 * 1000; 
         const istDate = new Date(currentDate.getTime() + utcOffset);
-        const today_date = istDate.toISOString().split('T')[0]
+        let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
+        console.log(today_date);
         let count = await Order.count({ created_date: today_date })
         res.json({ count: count }) 
     } catch (error) {
