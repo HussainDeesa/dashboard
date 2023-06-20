@@ -4,6 +4,7 @@ export const Alert = (props) => {
   const today = new Date().toISOString().split('T')[0]
   const { state } =props
   const addRecord = async (e) => {
+    console.log(props.alert.message);
       const response = await fetch(`api/order/addorder`, {
           method: 'POST',
           headers: {

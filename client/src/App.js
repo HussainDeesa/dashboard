@@ -58,6 +58,7 @@ function App() {
             <Route exact path="/searchbyorderID" element={<Dashboard alert={alert} showAlert={showAlert} page={"Search"} searchPage={"searchbyorderID"} />} />
             <Route exact path="/searchbytrackingID" element={<Dashboard showAlert={showAlert} alert={alert} page={"Search"} searchPage={"searchbytrackingID"} />} />
             <Route exact path="/csv" element={<Dashboard showAlert={showAlert} alert={alert} page={"csv"} />} />
+            <Route exact path="/report" element={<Dashboard showAlert={showAlert} alert={alert} page={"report"} />} />
 
 
           </Routes>

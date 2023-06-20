@@ -4,10 +4,12 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const json2csv = require('json2csv');
+const multer = require('multer');
 const Order = require('../models/Orders')
 const { body, validationResult } = require('express-validator');
 const fetchuser = require("../middleware/fetchuser");
 const http = require("http")
+const csv = require('csv-parser');
 router.get('/fetchallorders', fetchuser, async (req, res) => {
     try {
         const orders = await Order.find().sort({ _id: -1 })
@@ -64,12 +66,6 @@ router.post('/fetchordersbetweendates', fetchuser, async (req, res) => {
             const opts = { fields };
             const parser = new json2csv.Parser(opts);
             const csvData = parser.parse(orders);
-            // fs.writeFileSync("data.csv", csvData, (err) => {
-            //     if (err) throw err;
-
-            //     const fileStream = fs.createReadStream("data.csv");
-            //     fileStream.pipe(res);
-            // });
             res.json({ data: orders, success: true, csv: csvData })
             return
 
@@ -88,14 +84,13 @@ router.get('/gettodaycount', fetchuser, async (req, res) => {
         // let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
         // console.log(today_date);
         const currentDate = new Date();
-        const utcOffset = 5.5 * 60 * 60 * 1000; 
+        const utcOffset = 5.5 * 60 * 60 * 1000;
         const istDate = new Date(currentDate.getTime() + utcOffset);
         let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
-        console.log(today_date);
         let count = await Order.count({ created_date: today_date })
-        res.json({ count: count }) 
+        res.json({ count: count })
     } catch (error) {
-        console.error(error.message)    
+        console.error(error.message)
 
         res.status(500).send("Some Error Occured")
         return
@@ -115,7 +110,7 @@ router.get('/fetchorderbyorderid/:orderid', fetchuser, async (req, res) => {
 
             res.json({ data: order, success: true })
             return
-        } 
+        }
     } catch (error) {
         if (error.message == `Cast to Number failed for value "NaN" (type string) at path "orderID" for model "orders"`) {
             res.status(400).json({ success, error: "Invalid OrderID" })
@@ -228,6 +223,7 @@ router.put('/updateorder/:id', fetchuser, async (req, res) => {
 
 
 router.delete('/deleteorder/:id', fetchuser, async (req, res) => {
+
     try {
 
         let order = await Order.findById(req.params.id)
@@ -239,6 +235,55 @@ router.delete('/deleteorder/:id', fetchuser, async (req, res) => {
         res.status(500).send("Some Error Occured")
         return
     }
+})
+
+
+router.post('/generatereport', fetchuser, async (req, res) => {
+    const rows = [];
+
+    let cust_name, cust_phone, cust_pin, cust_tracking
+
+    for (i of req.body.orderids) {
+        try {
+            let order = await Order.find({ orderID: i })
+            cust_tracking = order[0]["trackingID"];
+        } catch (error) {
+            console.error(error.message)
+        }
+
+
+        const parentDir = path.resolve(__dirname, '..');
+        fs.createReadStream(path.join(parentDir, '/uploads/data.csv'))
+            .pipe(csv())
+            .on('data', (row) => {
+                if (row['Order Number'] === String(i)) {
+                    let lower_case = row["First Name (Billing)"] + row["Last Name (Billing)"];
+                     cust_name = lower_case.toUpperCase();
+                    cust_phone = row["Phone (Billing)"];
+                    cust_pin = row["Postcode (Shipping)"];
+                }
+
+            })
+        const row = {
+            trackingId: cust_tracking,
+            name: cust_name,
+            pincode: cust_pin,
+            phone: cust_phone
+        };
+        rows.push(row);
+        cust_name = '', cust_phone = '', cust_pin = '', cust_tracking = ''
+    }
+    const fields = [
+        { label: 'Tracking ID', value: 'trackingId' },
+        { label: 'Name', value: 'name' },
+        { label: 'Pincode', value: 'pincode' },
+        { label: 'Mobile Number', value: 'phone' }
+      ];
+    const opts = { fields };
+    const parser = new json2csv.Parser(opts);
+    const csvData = parser.parse(rows);
+    res.json({ success: true, csv: csvData })
+    return
 })
 
 
@@ -278,6 +323,29 @@ router.post('/track', (req, res) => {
     }));
     request.end();
 });
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Set the destination folder where files will be saved
+    },
+    filename: function (req, file, cb) {
+        const fileName = file.originalname;
+        cb(null, fileName); // Set the filename to be the original name of the uploaded file
+    }
+});
+
+const upload = multer({ storage: storage });
+router.post('/upload', upload.single('file'), (req, res) => {
+    if (req.file) {
+        res.json({ message: "File uploaded successfully", success: true })
+    } else {
+        res.status(400).json({ error: "File uplaod unsuccessful", success: false });
+    }
+
+
+});
+
 
 
 module.exports = router

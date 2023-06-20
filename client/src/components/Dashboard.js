@@ -4,6 +4,7 @@ import { Addrecord } from './Addrecord'
 import { Link,useNavigate } from "react-router-dom";
 import { Records } from './Records';
 import { CSV } from './CSV';
+import { Report } from './Report';
 import MobileMenu from './MobileMenu';
 import Cookies from 'js-cookie';
 
@@ -34,12 +35,12 @@ export const Dashboard = (props) => {
 		</div>
 		<div className="app-header-navigation">
 			<div className="tabs">
-				<Link to="/allrecords">
-					Records
-				</Link>
+			
 				<Link to="/csv" >
-				{/* <a href="#" className="active"> */}
 					CSV
+				</Link>
+				<Link to="/report" >
+					Report
 				</Link>
 				<Link to="/search">
 					Search
@@ -83,6 +84,10 @@ export const Dashboard = (props) => {
 					<i className="ph-check-square"></i>
 					<span>Add Record</span>
 				</Link>
+				<Link to="/allrecords">
+				<i className="ph-check-square"></i>
+					Records
+				</Link>
 				
 			</nav>
 		</div>
@@ -113,6 +118,11 @@ export const Dashboard = (props) => {
         if (props.page=="csv") {
 			return (
 				<CSV alert={alert} showAlert={props.showAlert}/>
+			)
+        } 
+        if (props.page=="report") {
+			return (
+				<Report alert={alert} showAlert={props.showAlert}/>
 			)
         } 
       })()}

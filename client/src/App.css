@@ -16,7 +16,12 @@
   --c-text-secondary: var(--c-gray-200);
   --c-text-tertiary: var(--c-gray-500);
 }
-
+.hide{
+  display: none;
+}
+.show{
+  display: block;
+}
 body {
   line-height: 1.5;
   min-height: 100vh;
@@ -51,7 +56,17 @@ textarea {
 a {
   color: inherit;
 }
-
+input[type="file"]{
+  width: 240px;
+ }
+ .textarea-input{
+  margin-top: 15px;
+  background-color: #fff1f1;
+  height: 115px;
+  width: 250px;
+  padding: 7px;
+  border-radius: 7px;
+ }
 .responsive-wrapper {
   width: 90%;
   max-width: 1600px;
@@ -181,6 +196,7 @@ a {
   margin-left: -50px;
 
  }
+
 }
 .table-box{
   height: 700px;

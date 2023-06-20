@@ -38,6 +38,12 @@ const MobileMenu = () => {
             </Link>
           </li>
           <li onClick={handleMenuItemClick}>
+        	<Link to="/report">
+          <i className="ph-check-square"></i>
+					    <span>Report</span>
+				</Link>
+          </li>
+          <li onClick={handleMenuItemClick}>
             <Link to="/search">
               <i className="ph-check-square"></i>
               <span>Search</span>
