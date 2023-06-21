@@ -5,13 +5,17 @@ import { CsvResult } from './CsvResult';
 import Cookies from 'js-cookie';
 export function Report1(props) {
 
-    const [state, setState] = useState({ csv: '', isLoading: true, success: false, message: '' })
+    const [state, setState] = useState({ csv: '', isLoading: true, success: false, message: '', not_db: ' ', not_excel: ' ' })
     const [show, setShow] = useState("hide")
     const [orderIds, setOrderIds] = useState([]);
+    const [showAlert, setShowAlert] = useState(false);
+    const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+
     const generateReport = async (e) => {
         setShow('hide')
-        orderIds.unshift("\n")
-        e.preventDefault()       
+        setShowAlert(false)
+        // orderIds.unshift("\n")
+        e.preventDefault()
         const response = await fetch(`api/order/generatereport`, {
             method: 'POST',
             headers: {
@@ -21,14 +25,24 @@ export function Report1(props) {
             body: JSON.stringify({ orderids: orderIds })
         })
         let json = await response.json()
-        if (json.success) {        
-        setState({ csv: json.csv, isLoading: false, success: json.success })
-        setOrderIds([])
-        setShow("show")
-    }
+        if (json.success) {
+            setState({ csv: json.csv, isLoading: false, success: json.success, not_db: json.not_db, not_excel: json.not_excel })
+            if(json.not_db.length===0 && json.not_excel.length===0){
+                setOrderIds([])
+            }
+            if(json.not_db.length!==0 && json.not_excel.length!==0){
+                setShowAlertSuccess(true)
+                setShowAlert(true)
+            }
+            if(json.not_db.length===0 && json.not_excel.length===0){
+                setShowAlertSuccess(true)
+                setShowAlert(false)
+            }
+            setShow("show")
+        }
     };
     const handleOnChange = (e) => {
-        let inputValues=e.target.value.split('\n')
+        let inputValues = e.target.value.split('\n')
         setOrderIds(inputValues);
     };
     const handleDownload = (e) => {
@@ -42,7 +56,8 @@ export function Report1(props) {
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-
+        setShowAlert(false)
+        setShowAlertSuccess(false)
 
     };
 
@@ -65,12 +80,22 @@ export function Report1(props) {
                 if (state.success) {
 
                     return (
-                        <button type="submit" className={`btn btn-outline-success search-btn ${show}`} onClick={(e) => {
-                            handleDownload(e)
-                        }}
-                        >
-                            Download Report</button>
-
+                        <>  
+                       {showAlertSuccess&& <div className="alert alert-success" role="alert">
+                        <b>Report Generated successfully</b>
+                            </div>}
+                            {showAlert && (
+                                <div className="alert alert-danger" role="alert">
+                                    <b>Not present in Database:</b> {state.not_db.join(', ')} <br/>
+                                    <b>Not present in Excel:</b> {state.not_excel.join(', ')}
+                                </div>
+                            )}
+                            <button type="submit" className={`btn btn-outline-success search-btn ${show}`} onClick={(e) => {
+                                handleDownload(e)
+                            }}
+                            >
+                                Download Report</button>
+                        </>
                     )
                 }
 

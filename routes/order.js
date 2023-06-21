@@ -240,30 +240,67 @@ router.delete('/deleteorder/:id', fetchuser, async (req, res) => {
 
 router.post('/generatereport', fetchuser, async (req, res) => {
     const rows = [];
+    let not_present_in_db = []
+    let not_present_in_excel = []
+    let csv_data_rows = []
+    const parentDir = path.resolve(__dirname, '..');
+
+    fs.createReadStream(path.join(parentDir, '/uploads/data.csv'))
+        .pipe(csv())
+        .on('data', (row) => {
+            csv_data_rows.push(row)
+
+        })
+        .on('error', (error) => {
+            console.error(error);
+        })
 
     let cust_name, cust_phone, cust_pin, cust_tracking
-
     for (i of req.body.orderids) {
         try {
-            let order = await Order.find({ orderID: i })
-            cust_tracking = order[0]["trackingID"];
+            if (i != '\n') {
+                let order = await Order.find({ orderID: i })
+                if (order.length == 0) {
+                    not_present_in_db.push(i)
+                }
+                else {
+                    cust_tracking = order[0]["trackingID"];
+                }
+            }
         } catch (error) {
             console.error(error.message)
         }
 
 
-        const parentDir = path.resolve(__dirname, '..');
-        fs.createReadStream(path.join(parentDir, '/uploads/data.csv'))
-            .pipe(csv())
-            .on('data', (row) => {
-                if (row['Order Number'] === String(i)) {
-                    let lower_case = row["First Name (Billing)"] + row["Last Name (Billing)"];
-                     cust_name = lower_case.toUpperCase();
-                    cust_phone = row["Phone (Billing)"];
-                    cust_pin = row["Postcode (Shipping)"];
-                }
+        // const parentDir = path.resolve(__dirname, '..');
+        // fs.createReadStream(path.join(parentDir, '/uploads/data.csv'))
+        //     .pipe(csv())
+        //     .on('data', (row) => {
+        //         if (row['Order Number'] === String(i)) {
+        //             let lower_case = row["First Name (Billing)"] + " "+ row["Last Name (Billing)"];
+        //              cust_name = lower_case.toUpperCase();
+        //             cust_phone = row["Phone (Billing)"];
+        //             cust_pin = row["Postcode (Shipping)"];
+        //         }
 
-            })
+        //     })
+        let found=false
+        if(i!='\n'){
+        for (let r of csv_data_rows) {
+            if (r['Order Number'] === String(i)) {
+                let lower_case = r["First Name (Billing)"] + " " + r["Last Name (Billing)"];
+                cust_name = lower_case.toUpperCase();
+                cust_phone = r["Phone (Billing)"];
+                cust_pin = r["Postcode (Shipping)"];
+                found=true
+                break
+            }
+        }
+        
+        if(found==false){
+            not_present_in_excel.push(i)
+        }
+    }
         const row = {
             trackingId: cust_tracking,
             name: cust_name,
@@ -278,11 +315,11 @@ router.post('/generatereport', fetchuser, async (req, res) => {
         { label: 'Name', value: 'name' },
         { label: 'Pincode', value: 'pincode' },
         { label: 'Mobile Number', value: 'phone' }
-      ];
+    ];
     const opts = { fields };
     const parser = new json2csv.Parser(opts);
     const csvData = parser.parse(rows);
-    res.json({ success: true, csv: csvData })
+    res.json({ success: true, csv: csvData,not_db:not_present_in_db,not_excel:not_present_in_excel })
     return
 })
 
