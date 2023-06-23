@@ -1,7 +1,5 @@
 
 import React, { useState, useContext, useEffect } from 'react';
-import { Alert } from './Alert';
-import { CsvResult } from './CsvResult';
 import Cookies from 'js-cookie';
 export function Report1(props) {
 
@@ -46,12 +44,13 @@ export function Report1(props) {
         setOrderIds(inputValues);
     };
     const handleDownload = (e) => {
+        let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
         e.preventDefault();
         const blob = new Blob([state.csv], { type: 'text/x-csv' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'Report.csv';
+        a.download = `${today_date}.csv`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

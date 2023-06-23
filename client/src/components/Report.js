@@ -1,8 +1,5 @@
 
 import React, { useState, useContext, useEffect } from 'react';
-import { Alert } from './Alert';
-import { CsvResult } from './CsvResult';
-import Cookies from 'js-cookie';
 import { Report1 } from './Report1';
 export function Report(props) {
 
