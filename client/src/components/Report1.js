@@ -28,7 +28,7 @@ export function Report1(props) {
             if(json.not_db.length===0 && json.not_excel.length===0){
                 setOrderIds([])
             }
-            if(json.not_db.length!==0 && json.not_excel.length!==0){
+            if(json.not_db.length!==0 || json.not_excel.length!==0){
                 setShowAlertSuccess(true)
                 setShowAlert(true)
             }

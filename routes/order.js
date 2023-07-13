@@ -288,7 +288,7 @@ router.post('/generatereport', fetchuser, async (req, res) => {
         if(i!='\n'){
         for (let r of csv_data_rows) {
             if (r['Order Number'] === String(i)) {
-                let lower_case = r["First Name (Billing)"] + " " + r["Last Name (Billing)"];
+                let lower_case = r["First Name (Shipping)"] + " " + r["Last Name (Shipping)"];
                 cust_name = lower_case.toUpperCase();
                 cust_phone = r["Phone (Billing)"];
                 cust_pin = r["Postcode (Shipping)"];
@@ -364,11 +364,11 @@ router.post('/track', (req, res) => {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Set the destination folder where files will be saved
+        cb(null, 'uploads/'); 
     },
     filename: function (req, file, cb) {
         const fileName = file.originalname;
-        cb(null, fileName); // Set the filename to be the original name of the uploaded file
+        cb(null, fileName); 
     }
 });
 
