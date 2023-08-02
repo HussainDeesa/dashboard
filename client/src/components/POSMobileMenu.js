@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
-const MobileMenu = (props) => {
+const POSMobileMenu = (props) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -18,40 +18,40 @@ const MobileMenu = (props) => {
       </div>
       {isMenuOpen && (
         <ul className="menu-items">
-          <li onClick={handleMenuItemClick} >
+          {/* <li onClick={handleMenuItemClick} >
             <Link to="/allrecords">
               <i className="ph-browsers"></i>
               <span>All Records</span>
             </Link>
-          </li>
+          </li> */}
           <li onClick={handleMenuItemClick}>
-            <Link to="/addrecord">
+            <Link to="/stock">
               <i className="ph-check-square"></i>
-              <span>Add Record</span>
+              <span>Stocks</span>
             </Link>
           </li>
           <li onClick={handleMenuItemClick}>
-            <Link to="/csv">
+            <Link to="/invoice">
               <i className="ph-check-square"></i>
-              <span>CSV</span>
+              <span>Invoice</span>
             </Link>
           </li>
-          <li onClick={handleMenuItemClick}>
+          {/* <li onClick={handleMenuItemClick}>
             <Link to="/report">
               <i className="ph-check-square"></i>
               <span>Report</span>
             </Link>
-          </li>
-          <li onClick={handleMenuItemClick}>
+          </li> */}
+          {/* <li onClick={handleMenuItemClick}>
             <Link to="/search">
               <i className="ph-check-square"></i>
               <span>Search</span>
             </Link>
-          </li>
+          </li> */}
           <hr></hr>
-          <Link to="/posdashboard">
+          <Link to="/dashboard">
             <i className="ph-check-square"></i>
-            <span>Switch to POS</span>
+            <span>Switch to Order</span>
           </Link>
         </ul>
       )}
@@ -59,4 +59,4 @@ const MobileMenu = (props) => {
   );
 };
 
-export default MobileMenu;
+export default POSMobileMenu;

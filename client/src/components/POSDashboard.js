@@ -7,8 +7,12 @@ import { CSV } from './CSV';
 import { Report } from './Report';
 import MobileMenu from './MobileMenu';
 import Cookies from 'js-cookie';
+import { Stock } from './Stock';
+import { Invoice } from './Invoice';
+import POSMobileMenu from './POSMobileMenu';
+import { CreateInvoice } from './Createinvoice';
 
-export const Dashboard = (props) => {
+export const POSDashboard = (props) => {
 	let navigate = useNavigate();
 	
     const {setprogress,showAlert,alert}=props
@@ -29,21 +33,21 @@ export const Dashboard = (props) => {
 				</span>
 				<h1 className="logo-title">
 					<span>MyBooksFactory</span>
-					<span>Dashboard</span>
+					<span>POSDashboard</span>
 				</h1>
 			</div>
 		</div>
 		<div className="app-header-navigation">
 			<div className="tabs">
 			
-				<Link to="/csv" >
-					CSV
+				<Link to="/stock" >
+					Stock
 				</Link>
-				<Link to="/report" >
-					Report
+				<Link to="/invoice" >
+					Invoice
 				</Link>
-				<Link to="/search">
-					Search
+				<Link to="">
+					{/* Search */}
 				</Link>
 				<a href="#">
 					
@@ -68,7 +72,7 @@ export const Dashboard = (props) => {
 		<div className="app-header-mobile">
 			<button className="icon-button large">
 				<i className="ph-list"></i>
-				<MobileMenu dash={"posdashboard"}/>
+				<POSMobileMenu dash={"dashboard"}/>
 			</button>
 		</div>
 
@@ -76,58 +80,49 @@ export const Dashboard = (props) => {
 	<div className="app-body">
 		<div className="app-body-navigation">
 			<nav className="navigation">
-				<Link to="/">
+				<Link to="/stock">
 					<i className="ph-browsers"></i>
-					<span>Dashboard</span>
+					<span>Stock</span>
 				</Link>
-				<Link to="/addrecord">
+				<Link to="/invoice">
 					<i className="ph-check-square"></i>
-					<span>Add Record</span>
+					<span>Invoice</span>
 				</Link>
-				<Link to="/allrecords">
+				{/* <Link to="/allrecords">
 				<i className="ph-check-square"></i>
 					Records
-				</Link>
-				<Link to="/posdashboard">
-				<button className='btn btn-outline-success search-btn switch-order'>Switch to POS</button>	
+				</Link> */}
+				<Link to="/">
+				<button className='btn btn-outline-success search-btn switch-order'>Switch to Order</button>	
 				</Link>
 
 				
 			</nav>
 		</div>
 		<div className="app-body-main-content">
-			<section className="service-section">
+			<section >
 				<div className='dashboard'></div>
 		
 				
 				 <div>
       {(() => {
-        if (props.page=="Search") {
+        if (props.page=="stock") {
 			
 			return (
-				<Search  alert={alert} showAlert={props.showAlert} searchpage={props.searchPage}/>
+				<Stock  alert={alert} showAlert={props.showAlert} />
 			)
         } 
-        if (props.page=="Addrecord") {
+        if (props.page=="invoice") {
 			return (
-				<Addrecord alert={alert} showAlert={props.showAlert}/>
+				<Invoice alert={alert} showAlert={props.showAlert}/>
 			)
-        } 
-        if (props.page=="allrecords") {
+        }
+		if (props.page=="createinvoice") {
 			return (
-				<Records alert={alert} showAlert={props.showAlert}/>
+				<CreateInvoice alert={alert} showAlert={props.showAlert}/>
 			)
         } 
-        if (props.page=="csv") {
-			return (
-				<CSV alert={alert} showAlert={props.showAlert}/>
-			)
-        } 
-        if (props.page=="report") {
-			return (
-				<Report alert={alert} showAlert={props.showAlert}/>
-			)
-        } 
+        
       })()}
     </div>
 			</section>

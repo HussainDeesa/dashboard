@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import Home from './components/Home';
 import { Dashboard } from './components/Dashboard';
+import { POSDashboard } from './components/POSDashboard';
 import { Search } from './components/Search';
 // import Navbar from './components/Navbar';
 // import About from './components/About';
@@ -59,7 +60,10 @@ function App() {
             <Route exact path="/searchbytrackingID" element={<Dashboard showAlert={showAlert} alert={alert} page={"Search"} searchPage={"searchbytrackingID"} />} />
             <Route exact path="/csv" element={<Dashboard showAlert={showAlert} alert={alert} page={"csv"} />} />
             <Route exact path="/report" element={<Dashboard showAlert={showAlert} alert={alert} page={"report"} />} />
-
+            <Route exact path="/posdashboard" element={<POSDashboard showAlert={showAlert} alert={alert} />} />
+            <Route exact path="/stock" element={<POSDashboard showAlert={showAlert} alert={alert} page={"stock"}  />} />
+            <Route exact path="/invoice" element={<POSDashboard showAlert={showAlert} alert={alert} page={"invoice"}  />} />
+            <Route exact path="/createinvoice" element={<POSDashboard showAlert={showAlert} alert={alert} page={"createinvoice"}  />} />
 
           </Routes>
         </div>
