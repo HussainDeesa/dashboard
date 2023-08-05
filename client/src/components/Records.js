@@ -7,7 +7,6 @@ export function Records(props) {
 
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const context = useContext(recordContext);
-    // const { getallorders, orders } = context;
     const handleDeleteClick = () => {
         setShowDeleteConfirmation(true);
     };
@@ -38,9 +37,7 @@ export function Records(props) {
             setState({ data: json, isLoading: false })
 
         };
-        // getpreviousorder()
         getallorders();
-        // setState({data:orders,isLoading:false})
         // eslint-disable-next-line
     }, [props.added])
 

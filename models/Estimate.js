@@ -22,16 +22,9 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
-  discount:{
-    type:Number,
-  }
 });
 
-const invoiceSchema = new mongoose.Schema({
-  invoicenumber:{
-    type:Number,
-    required:true,
-  },
+const estimateSchema = new mongoose.Schema({
   customerName: {
     type: String,
     required: true,
@@ -43,5 +36,5 @@ const invoiceSchema = new mongoose.Schema({
   products: [productSchema], 
 });
 
-module.exports = mongoose.model('invoice', invoiceSchema);
+module.exports = mongoose.model('estimate', estimateSchema);
 

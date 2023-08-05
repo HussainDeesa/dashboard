@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from "react";
+import Cookies from "js-cookie";
 import { Link,useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
-export function CreateInvoice(props) {
+export function CreateEstimate(props) {
   let navigate = useNavigate();
   const currentDate = new Date();
   const utcOffset = 5.5 * 60 * 60 * 1000;
@@ -10,20 +10,22 @@ export function CreateInvoice(props) {
   const [invoiceTotal, setInvoiceTotal] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
-
-  const [invoiceDetails, setinvoiceDetails] = useState(
-    { customerName: '', invoiceNumber: '', invoiceDate: today }
-  );
+  const [invoiceDetails, setinvoiceDetails] = useState({
+    customerName: "",
+    invoiceDate: today,
+  });
   const handleInvoiceChange = (e) => {
-    setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value })
-
-  }
+    setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value });
+  };
   const [products, setProducts] = useState([
-    { productCode: '', productName: '', author: '', price: '', quantity: '', discount: '' }
+    { productCode: "", productName: "", author: "", price: "", quantity: "" },
   ]);
 
   const handleAddRow = () => {
-    setProducts([...products, { productCode: '', productName: '', author: '', price: '', quantity: '', discount: '' }]);
+    setProducts([
+      ...products,
+      { productCode: "", productName: "", author: "", price: "", quantity: "" },
+    ]);
     console.log(products);
   };
 
@@ -36,6 +38,21 @@ export function CreateInvoice(props) {
     const updatedProducts = [...products];
     updatedProducts[index][field] = value;
     setProducts(updatedProducts);
+  };
+
+  const createEstimate = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`api/estimate/createestimate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": Cookies.get("auth-token"),
+      },
+      body: JSON.stringify({
+        invoiceDetails: invoiceDetails,
+        products: products,
+      }),
+    });
   };
 
   const calculateTotal = () => {
@@ -60,27 +77,11 @@ const calculateTotalItems = () => {
     setTotalItems(totalCount)
 }
 
-
-
-  const createInvoice = async (e) => {
-    e.preventDefault();
-    const response = await fetch(`api/invoice/createinvoice`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": Cookies.get("auth-token"),
-      },
-      body: JSON.stringify({
-        invoiceDetails: invoiceDetails,
-        products: products
-      }),
-    });
-  };
-
   const handleSubmit = (e) => {
-    createInvoice(e).then(()=>{
+    createEstimate(e).then(()=>{
       navigate("/invoice")
     })
+
   };
 
   useEffect(() => {
@@ -88,104 +89,110 @@ const calculateTotalItems = () => {
     calculateTotalItems();
     calculateDiscount();
 }, [products]);
-
   return (
     <>
       <div>
-        <h5>Create Invoice</h5>
-        <div className='invoice-details'>
-          <div className='invoiceDetail-inputRow'>
-            <label className='search-label invoice-label'>Customer Name:</label>
-            <input
-              type="text"
-              className='invoiceDetail-input'
-              value={invoiceDetails.customerName}
-              onChange={handleInvoiceChange}
-              name={"customerName"}
-            />
-          </div>
-          <div className='invoiceDetail-inputRow'>
-            <label className='search-label invoice-label'>Invoice Number:</label>
-            <input
-              type="text"
-              className='invoiceDetail-input'
-              value={invoiceDetails.invoiceNumber}
-              onChange={handleInvoiceChange}
-              name={"invoiceNumber"}
-            />
-          </div>
-        </div>
-        <div >
-          <label className='search-label invoice-label'>Invoice Date:</label>
+        <h5>Create Estimate</h5>
+        <div className="invoice-details">
+          <label className="search-label invoice-label">Customer Name:</label>
           <input
-            type="date"
-            className='invoiceDetail-input'
-            value={invoiceDetails.invoiceDate}
+            type="text"
+            className="invoiceDetail-input"
+            value={invoiceDetails.customerName}
             onChange={handleInvoiceChange}
-            name={"invoicedate"}
+            name={"customerName"}
           />
+          <div>
+            <label className="search-label invoice-label">Estimate Date:</label>
+            <input
+              type="date"
+              className="invoiceDetail-input"
+              value={invoiceDetails.invoiceDate}
+              onChange={handleInvoiceChange}
+              name={"invoiceDate"}
+            />
+          </div>
         </div>
-        <div className='product-list'>
-
-          <div className='scroll-container'>
+        <div className="product-list">
+          <div className="scroll-container">
             {products.map((product, index) => (
               <div className="product-row" key={index}>
                 <input
                   type="text"
-                  id='productCode'
+                  id="productCode"
                   placeholder=" Code"
                   value={product.code}
-                  onChange={(e) => handleInputChange(index, 'productCode', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "productCode", e.target.value)
+                  }
                 />
                 <input
                   type="text"
-                  id='author'
+                  id="author"
                   placeholder="Author"
                   value={product.author}
-                  onChange={(e) => handleInputChange(index, 'author', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "author", e.target.value)
+                  }
                 />
                 <input
                   type="text"
-                  id='productName'
+                  id="productname"
                   placeholder="Product Name"
                   value={product.name}
-                  onChange={(e) => handleInputChange(index, 'productName', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "productName", e.target.value)
+                  }
                 />
                 <input
                   type="number"
-                  id='quantity'
+                  id="quantity"
                   placeholder="Qty"
                   value={product.quantity}
-                  onChange={(e) => handleInputChange(index, 'quantity', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "quantity", e.target.value)
+                  }
                 />
                 <input
                   type="number"
-                  id='productprice'
-                  placeholder="Rate"
+                  id="productprice"
+                  placeholder="Price"
                   value={product.price}
-                  onChange={(e) => handleInputChange(index, 'price', e.target.value)}
-                />
-                <input
-                  id='productdiscount'
-                  type="number"
-                  placeholder='Disc %'
-                  value={product.discount}
-                  onChange={(e) => handleInputChange(index, 'discount', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "price", e.target.value)
+                  }
                 />
                 <input
                   type="number"
-                  id='producttotal'
+                  id="producttotal"
                   placeholder="Total"
-                  value={((product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)).toFixed(2)}
+                  value={product.quantity * product.price}
                   readOnly
                 />
 
-                <button className="delete-button" onClick={() => handleDeleteRow(index)}>-</button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDeleteRow(index)}
+                >
+                  -
+                </button>
               </div>
             ))}
           </div>
         </div>
-        <button className="add-button" onClick={handleAddRow}>+</button>
+        <button className="add-button" onClick={handleAddRow}>
+          +
+        </button>
+        <div className="generate-buttons">
+          {/* <button
+            className="btn btn-outline-success search-btn generate-estimate-btn"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            Generate Estimate
+          </button> */}
+        </div>
         <div className='invoice-footer invoice-footer-mobile'>
                    <span><b>Total: ₹{invoiceTotal}</b></span> 
                     <span><b>Items: {totalItems}</b></span>
@@ -199,10 +206,6 @@ const calculateTotalItems = () => {
                     </div>
                 </div>
       </div>
-
     </>
-  )
+  );
 }
-
-
-

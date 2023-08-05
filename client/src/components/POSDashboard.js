@@ -1,16 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Search } from './Search'
-import { Addrecord } from './Addrecord'
 import { Link,useNavigate } from "react-router-dom";
-import { Records } from './Records';
-import { CSV } from './CSV';
-import { Report } from './Report';
-import MobileMenu from './MobileMenu';
 import Cookies from 'js-cookie';
 import { Stock } from './Stock';
 import { Invoice } from './Invoice';
 import POSMobileMenu from './POSMobileMenu';
 import { CreateInvoice } from './Createinvoice';
+import { CreateEstimate } from './Createestimate';
 
 export const POSDashboard = (props) => {
 	let navigate = useNavigate();
@@ -120,6 +115,11 @@ export const POSDashboard = (props) => {
 		if (props.page=="createinvoice") {
 			return (
 				<CreateInvoice alert={alert} showAlert={props.showAlert}/>
+			)
+        } 
+		if (props.page=="createestimate") {
+			return (
+				<CreateEstimate alert={alert} showAlert={props.showAlert}/>
 			)
         } 
         

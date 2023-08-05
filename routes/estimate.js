@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const fetchuser = require("../middleware/fetchuser");
-const Invoice = require('../models/Invoice');
+const Estimate = require('../models/Estimate');
 
-router.post('/createinvoice', fetchuser, async (req, res) => {
+router.post('/createestimate', fetchuser, async (req, res) => {
     try {
       const { invoiceDetails, products } = req.body;
-      const invoice = new Invoice({
+      console.log(products);
+      const invoice = new Estimate({
         customerName:invoiceDetails.customerName,
         invoiceDate:invoiceDetails.invoiceDate,
-        invoicenumber:invoiceDetails.invoiceNumber,
         products,   
       });
   
@@ -22,9 +22,9 @@ router.post('/createinvoice', fetchuser, async (req, res) => {
     }
   });
   
-  router.get('/fetchallinvoices', fetchuser, async (req, res) => {
+  router.get('/fetchallestimates', fetchuser, async (req, res) => {
     try {
-      const invoices = await Invoice.find().sort({ _id: -1 });
+      const invoices = await Estimate.find({ user: req.user.id }).sort({ _id: -1 });
       res.json(invoices);
     } catch (error) {
       console.error(error.message);

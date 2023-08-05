@@ -5,7 +5,6 @@ import { TableItem } from './TableItem';
 
 
 export function SearchResult(props) {
-
     
     useEffect(() => {
       
