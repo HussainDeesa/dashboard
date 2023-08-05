@@ -203,7 +203,7 @@ export function CreateInvoicePC(props) {
                                             <input
                                                 type="number"
                                                 id='producttotal-pc'
-                                                value={(product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)}
+                                                value={((product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)).toFixed(2)}
                                                 readOnly
                                             />
                                         </td>
