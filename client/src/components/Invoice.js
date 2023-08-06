@@ -1,9 +1,10 @@
-
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { InvoiceItem } from './invoiceitem';
 import Cookies from 'js-cookie';
 import { Accordion } from './Accordion';
+import { InvoiceDisplay } from './InvoiceDisplay';
+import { EstimateDisplay } from './EstimateDisplay';
 
 export function Invoice(props) {
 
@@ -35,7 +36,34 @@ export function Invoice(props) {
             <Link to="/createestimate">
                 <button className='btn btn-outline-success search-btn generate-estimate-btn'>Create Estimate</button>
             </Link>
-            <div class="accordion" id="accordionExample">
+            <div className="search-header-navigation">
+
+<div className="search-tabs mobile-tabs">
+    <Link to="/invoice">
+        Invoices
+    </Link>
+    <Link to="/estimate" >
+        {/* <a href="#" className="active"> */}
+        Estimates
+    </Link>
+    </div>
+    </div>
+    {(() => {
+
+        if (props.searchPage == "invoice") {
+            
+            return (
+                <InvoiceDisplay  alert={props.alert} showAlert={props.showAlert} />
+            )
+        }
+        if (props.searchPage == "estimate") {
+            
+            return (
+                <EstimateDisplay  alert={props.alert} showAlert={props.showAlert} />
+            )
+        }
+    })()}
+            {/* <div class="accordion" id="accordionExample">
 
                 { 
                     state.data.map((element) => {
@@ -43,10 +71,8 @@ export function Invoice(props) {
                         />
 
                     })}
-            </div>
-            {/* <div class="accordion" id="accordionExample">
-                <InvoiceItem data={state} />
             </div> */}
+
         </>
 
     )

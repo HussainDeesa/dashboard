@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
+import '../PC-App.css'
+
 import { Link,useNavigate } from "react-router-dom";
 export function CreateEstimatePC(props) {
     let navigate = useNavigate();
@@ -82,7 +84,14 @@ export function CreateEstimatePC(props) {
     const handleBack = (e) => {
         navigate("/invoice");
     };
-
+    useEffect(() => {
+        document.body.classList.add('pc-body');
+    
+        return () => {
+          document.body.classList.remove('pc-body');
+        };
+    }, [])
+    
 
 
     useEffect(() => {

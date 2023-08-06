@@ -107,11 +107,12 @@ export const POSDashboard = (props) => {
 				<Stock  alert={alert} showAlert={props.showAlert} />
 			)
         } 
-        if (props.page=="invoice") {
+        if (props.page=="invoice" ) {
 			return (
-				<Invoice alert={alert} showAlert={props.showAlert}/>
+				<Invoice alert={alert} showAlert={props.showAlert} searchPage={props.searchPage}/>
 			)
         }
+
 		if (props.page=="createinvoice") {
 			return (
 				<CreateInvoice alert={alert} showAlert={props.showAlert}/>

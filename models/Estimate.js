@@ -22,6 +22,9 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
+  discount:{
+    type:Number,
+  }
 });
 
 const estimateSchema = new mongoose.Schema({

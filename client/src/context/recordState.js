@@ -40,6 +40,18 @@ const RecordState = (props) => {
       const newOrder = orders.filter((order) => { return order._id !== id })
       setOrders(newOrder)
    }
+
+   const deleteInvoice = async (id) => {
+      const response = await fetch(`api/invoice/deleteinvoice/${id}`, {
+         method: 'DELETE',
+         headers: {
+            'Content-Type': 'application/json',
+            'auth-token':Cookies.get("auth-token")
+         },
+
+      });
+      
+   }
    const countRecord = async (id) => {
       // API Call
       const response = await fetch(`api/order/gettodaycount`, {
@@ -86,7 +98,7 @@ const RecordState = (props) => {
    }
 
    return (
-      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count }}>
+      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count,deleteInvoice }}>
          {props.children}
       </recordcontext.Provider>
    )

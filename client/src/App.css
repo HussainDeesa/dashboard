@@ -23,15 +23,13 @@
   display: block;
 }
 body {
-  line-height: 1.5;
-  min-height: 100vh;
-  font-family: "Be Vietnam Pro", sans-serif;
-  background-color: var(--c-gray-900);
-  color: var(--c-text-primary);
-  /* display: flex; */
-  padding-top: 3vw;
-  padding-bottom: 3vw;
-  /* justify-content: center; */
+  line-height: 1.5 !important;
+  min-height: 100vh !important;
+  font-family: "Be Vietnam Pro", sans-serif !important;
+  background-color: var(--c-gray-900) !important;
+  color: var(--c-text-primary) !important;
+  padding-top: 3vw !important;
+  padding-bottom: 3vw !important;
 }
 
 *,
@@ -232,10 +230,20 @@ input[type="file"] {
     width: 180px;
   }
   .invoice-items{
-    width: 350px !important;
+    width: 344px !important;
   }
   .invoice-details{
     width: 365px !important;
+  }
+  .accordion-invoice-details{
+   display: block !important;
+  }
+  .accordion-invoice-number{
+    margin-bottom: 5px;
+    width: 160px !important;
+  }
+  .mobile-tabs{
+    margin-left: 35px;
   }
 }
 .table-box {
@@ -1363,17 +1371,33 @@ input {
 
 
 .accordion-del-img,.accordion-edit-img,.accordion-download-img{
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
   margin-top: 10px;
-  margin-right: 5px;
+  margin-right:3px;
 }
+.accordion-del-img:hover,.accordion-edit-img:hover,.accordion-download-img:hover{
+cursor: pointer;}
 .accordion-head{
   display: flex;
 }
 .accordion-body .table-box{
   margin-left: -42px;
   height: fit-content;
+}
+.accordion-button{
+  background-color: #acacac !important;
+}
+
+.accordion-invoice-details {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 13px;
+}
+
+.accordion-invoice-number {
+  width: 210px; /* Adjust the width as needed */
 }
 .invoice-pc-container{
   margin-left: 30px;

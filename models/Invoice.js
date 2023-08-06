@@ -29,7 +29,7 @@ const productSchema = new Schema({
 
 const invoiceSchema = new mongoose.Schema({
   invoicenumber:{
-    type:Number,
+    type:String,
     required:true,
   },
   customerName: {

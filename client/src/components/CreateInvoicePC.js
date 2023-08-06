@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+import '../PC-App.css'
 import Cookies from 'js-cookie';
 import { Link,useNavigate } from "react-router-dom";
 export function CreateInvoicePC(props) {
@@ -85,8 +86,16 @@ export function CreateInvoicePC(props) {
     };
 
 
+useEffect(() => {
+    document.body.classList.add('pc-body');
+
+    return () => {
+      document.body.classList.remove('pc-body');
+    };
+}, [])
 
     useEffect(() => {
+
         calculateTotal();
         calculateTotalItems();
         calculateDiscount();
