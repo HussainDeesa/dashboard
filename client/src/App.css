@@ -57,6 +57,9 @@ a {
 input[type="file"] {
   width: 240px;
 }
+.supplierName-select{
+  font-size: 13px;
+}
 .textarea-input {
   margin-top: 15px;
   background-color: #fff1f1;
@@ -245,6 +248,9 @@ input[type="file"] {
   .mobile-tabs{
     margin-left: 35px;
   }
+  .edit-invoice-dialoge-pc {
+    width: auto !important;
+  }
 }
 .table-box {
   height: 700px;
@@ -307,7 +313,9 @@ input[type="file"] {
     display: flex;
   }
 }
-
+.edit-invoice-dialoge-pc {
+  width: -webkit-fill-available;
+}
 .app-body {
   height: 100%;
   display: grid;
@@ -1292,9 +1300,9 @@ input {
   width: 40px;
   height: 40px;
 }
-.delete-button {
-  background-color: #ff0000;
-  color: #fff;
+.delete-button{
+  background-color: red;
+  color:#fff
 }
 #productprice,
 #quantity,
@@ -1329,7 +1337,7 @@ input {
 .product-list{
   overflow: auto;
   padding-left: 73px;
-  height: 44vh;
+  height: 40vh;
   overflow: auto;
 }
 
@@ -1382,11 +1390,16 @@ cursor: pointer;}
   display: flex;
 }
 .accordion-body .table-box{
-  margin-left: -42px;
+  margin-left: -20px;
   height: fit-content;
 }
 .accordion-button{
-  background-color: #acacac !important;
+  background-color: #acacacb5 !important;
+}
+.accordion-button:focus{
+  color: #000;
+  border-color: 1px solid #000 !important;
+  box-shadow: #000 !important;
 }
 
 .accordion-invoice-details {
@@ -1431,7 +1444,7 @@ cursor: pointer;}
   font-size: 18px;
 }
 .invoice-details-container{
-  max-height: 60vh;
+  max-height: 55vh;
   overflow: auto;
 }
 
@@ -1473,4 +1486,30 @@ cursor: pointer;}
 }
 .invoice-footer-mobile{
   padding: 10px
+}
+.edit-invoice-dialoge-pc{
+  max-width: 800px !important;
+  max-height: 700px !important;
+}
+.edit-scroll-conatiner{
+  max-height: 40vh;
+  width: 600px ;
+}
+.edit-invoice-dialoge-pc .addrecord-form{
+  margin-left: 30px;
+}
+.edit-invoice-dialoge-pc .delete-button {
+  background-color: #ff0000;
+  color: #fff;
+  margin-top: 0 !important;
+  border-radius: 30px !important;
+}
+.edit-invoice-dialoge-pc .date-input,.edit-invoice-dialoge-pc .tracking-input{
+  margin-left: 40px;
+}
+.edit-invoice-dialoge-pc .order-input{
+  margin-left: 0px;
+}
+.edit-invoice-dialoge-pc .buttons{
+  justify-content: flex-start;
 }

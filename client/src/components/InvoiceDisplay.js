@@ -21,7 +21,6 @@ export function InvoiceDisplay(props) {
             setState({ data: json, isLoading: false, success: json.success })
         };
         getallinvoice(e)
-        console.log(state);
     }, [])
     if (state.isLoading) {
         return null;
@@ -33,7 +32,7 @@ export function InvoiceDisplay(props) {
 
                 { 
                     state.data.map((element) => {
-                        return <Accordion count={count++} key={element._id} invoiceType={"In"} item={element}
+                        return <Accordion count={count++} key={element._id} invoiceType={"Invoice No."} item={element}
                         />
 
                     })}

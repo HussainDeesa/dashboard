@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
   productCode: {
     type: String,
-    required: true,
   },
   productName: {
     type: String,
@@ -28,6 +27,9 @@ const productSchema = new Schema({
 });
 
 const estimateSchema = new mongoose.Schema({
+  supplierName:{
+    type:String
+  },
   customerName: {
     type: String,
     required: true,

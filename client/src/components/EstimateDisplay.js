@@ -18,11 +18,9 @@ export function EstimateDisplay(props) {
                 },
             })
             let json = await response.json()
-            console.log(json);
             setState({ data: json, isLoading: false, success: json.success })
         };
         getallestimates(e) 
-        console.log(state);
     }, [])
     if (state.isLoading) {
         return null;
@@ -34,7 +32,7 @@ export function EstimateDisplay(props) {
 
                 { 
                     state.data.map((element) => {
-                        return <Accordion count={count++} key={element._id} invoiceType={"Est"} item={element}
+                        return <Accordion count={count++} key={element._id} invoiceType={"Estimate No."} item={element}
                         />
 
                     })}

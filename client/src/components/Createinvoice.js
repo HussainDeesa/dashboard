@@ -12,8 +12,16 @@ export function CreateInvoice(props) {
   const [totalDiscount, setTotalDiscount] = useState(0);
 
   const [invoiceDetails, setinvoiceDetails] = useState(
-    { customerName: '', invoiceNumber: '', invoiceDate: today }
-  );
+    { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0, supplierName: 'SHAH BOOK DEPOT' }
+);
+const supplierNames = [
+    'SHAH BOOK DEPOT',
+    'PARAMOUNT MEDICAL BOOKS',
+    'PARAMOUNT BOOK STALL',
+    'MYBOOKSFACTORY',
+    'MBF PUBLICATION',
+    'ALPHA BOOKS'
+];
   const handleInvoiceChange = (e) => {
     setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value })
 
@@ -43,14 +51,14 @@ export function CreateInvoice(props) {
     products.forEach(product => {
         total += (product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)
     });
-    setInvoiceTotal(total.toFixed(2));
+    setInvoiceTotal(total.toFixed(0));
 }
 const calculateDiscount = () => {
     let total = 0
     products.forEach(product => {
         total += ((product.discount / 100) * product.price * product.quantity)
     });
-    setTotalDiscount(total.toFixed(2));
+    setTotalDiscount(total.toFixed(0));
 }
 const calculateTotalItems = () => {
     let totalCount = 0
@@ -93,6 +101,22 @@ const calculateTotalItems = () => {
     <>
       <div>
         <h5>Create Invoice</h5>
+        <div className='invoiceDetail-inputRow-pc'>
+                    <label className='search-label invoice-label '>Supplier Name:</label>
+                    <select
+                        className='supplierName-select'
+                        value={invoiceDetails.supplierName}
+                        onChange={handleInvoiceChange}
+                        name='supplierName'
+                    >
+                        <option value="">Select Supplier</option>
+                        {supplierNames.map((supplier, index) => (
+                            <option key={index} value={supplier}>
+                                {supplier}
+                            </option>
+                        ))}
+                    </select>
+                </div>
         <div className='invoice-details'>
           <div className='invoiceDetail-inputRow'>
             <label className='search-label invoice-label'>Customer Name:</label>
@@ -176,7 +200,7 @@ const calculateTotalItems = () => {
                   type="number"
                   id='producttotal'
                   placeholder="Total"
-                  value={((product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)).toFixed(2)}
+                  value={((product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)).toFixed(0)}
                   readOnly
                 />
 

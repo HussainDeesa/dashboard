@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import '../PC-App.css'
 import Cookies from 'js-cookie';
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export function CreateInvoicePC(props) {
     const currentDate = new Date();
     const utcOffset = 5.5 * 60 * 60 * 1000;
@@ -11,21 +11,30 @@ export function CreateInvoicePC(props) {
     const [totalItems, setTotalItems] = useState(0);
     const [totalDiscount, setTotalDiscount] = useState(0);
     const [invoiceDetails, setinvoiceDetails] = useState(
-        { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0 }
+        { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0, supplierName: 'SHAH BOOK DEPOT' }
     );
+    const supplierNames = [
+        'SHAH BOOK DEPOT',
+        'PARAMOUNT MEDICAL BOOKS',
+        'PARAMOUNT BOOK STALL',
+        'MYBOOKSFACTORY',
+        'MBF PUBLICATION',
+        'ALPHA BOOKS'
+    ];
+
     const calculateTotal = () => {
         let total = 0
         products.forEach(product => {
             total += (product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)
         });
-        setInvoiceTotal(total);
+        setInvoiceTotal(total.toFixed(0));
     }
     const calculateDiscount = () => {
         let total = 0
         products.forEach(product => {
             total += ((product.discount / 100) * product.price * product.quantity)
         });
-        setTotalDiscount(total);
+        setTotalDiscount(total.toFixed(0));
     }
     const calculateTotalItems = () => {
         let totalCount = 0
@@ -74,10 +83,10 @@ export function CreateInvoicePC(props) {
             }),
         });
     };
-	let navigate = useNavigate();
+    let navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        createInvoice(e).then(()=>{
+        createInvoice(e).then(() => {
             navigate("/invoice")
         })
     };
@@ -86,13 +95,13 @@ export function CreateInvoicePC(props) {
     };
 
 
-useEffect(() => {
-    document.body.classList.add('pc-body');
+    useEffect(() => {
+        document.body.classList.add('pc-body');
 
-    return () => {
-      document.body.classList.remove('pc-body');
-    };
-}, [])
+        return () => {
+            document.body.classList.remove('pc-body');
+        };
+    }, [])
 
     useEffect(() => {
 
@@ -104,11 +113,26 @@ useEffect(() => {
         <>
             <div className='invoice-pc-container'>
                 <div>
-                <button className='btn btn-outline-success invoice-back-button'   onClick={(e) => {
-                                handleBack(e);
-                            }}>
-                    Back</button>
-                <h5>Create Invoice</h5>
+                    <button className='btn btn-outline-success invoice-back-button' onClick={(e) => {
+                        handleBack(e);
+                    }}>
+                        Back</button>
+                    <h5>Create Invoice</h5>
+                </div>
+                <div className='invoiceDetail-inputRow-pc'>
+                    <label className='search-label invoice-label'>Supplier Name:</label>
+                    <select
+                        value={invoiceDetails.supplierName}
+                        onChange={handleInvoiceChange}
+                        name='supplierName'
+                    >
+                        <option value="">Select Supplier</option>
+                        {supplierNames.map((supplier, index) => (
+                            <option key={index} value={supplier}>
+                                {supplier}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className='invoice-details'>
                     <div className='invoiceDetail-inputRow-pc'>
@@ -212,7 +236,7 @@ useEffect(() => {
                                             <input
                                                 type="number"
                                                 id='producttotal-pc'
-                                                value={((product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)).toFixed(2)}
+                                                value={((product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)).toFixed(0)}
                                                 readOnly
                                             />
                                         </td>
@@ -230,7 +254,7 @@ useEffect(() => {
                 {/* <button className="add-button" onClick={handleAddRow}>+</button> */}
 
                 <div className='invoice-footer'>
-                   <span><b>Invoice Total: ₹{invoiceTotal}</b></span> 
+                    <span><b>Invoice Total: ₹{invoiceTotal}</b></span>
                     <span><b>Total Items: {totalItems}</b></span>
                     <span><b>Total Discount:  ₹{totalDiscount}</b></span>
                     <div className='generate-buttons'>

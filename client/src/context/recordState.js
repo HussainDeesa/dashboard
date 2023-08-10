@@ -96,9 +96,37 @@ const RecordState = (props) => {
       }
       setOrders(newOrder)
    }
+   const editInvoice = async (id, invoiceDetails, products) => {
+      // API Call
+      const response = await fetch(`api/invoice/editInvoice/${id}`, {
+         method: 'PUT',
+         headers: {
+            'Content-Type': 'application/json',
+            'auth-token':Cookies.get("auth-token")
+
+         },
+         body: JSON.stringify({ editedInvoiceDetails:invoiceDetails,editedProducts:products })
+
+      });
+      const json = response.json()
+   }
+   const editEstimate = async (id, invoiceDetails, products) => {
+      // API Call
+      const response = await fetch(`api/estimate/editestimate/${id}`, {
+         method: 'PUT',
+         headers: {
+            'Content-Type': 'application/json',
+            'auth-token':Cookies.get("auth-token")
+
+         },
+         body: JSON.stringify({ editedEstimateDetails:invoiceDetails,editedProducts:products })
+
+      });
+      const json = response.json()
+   }
 
    return (
-      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count,deleteInvoice }}>
+      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count,deleteInvoice,editInvoice,editEstimate }}>
          {props.children}
       </recordcontext.Provider>
    )

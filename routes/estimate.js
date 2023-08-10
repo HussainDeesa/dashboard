@@ -6,15 +6,16 @@ const Estimate = require('../models/Estimate');
 router.post('/createestimate', fetchuser, async (req, res) => {
     try {
       const { invoiceDetails, products } = req.body;
-      const invoice = new Estimate({
+      const estimate = new Estimate({
+        supplierName:invoiceDetails.supplierName,
         customerName:invoiceDetails.customerName,
         invoiceDate:invoiceDetails.invoiceDate,
         products,   
       });
   
-      const savedInvoice = await invoice.save();
+      const savedestimate = await estimate.save();
   
-      res.json(savedInvoice);
+      res.json(savedestimate);
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Some Error Occurred");
@@ -45,5 +46,23 @@ router.post('/createestimate', fetchuser, async (req, res) => {
 //         return
 //     }
 // })
-
+router.put('/editestimate/:id', fetchuser, async (req, res) => {
+  const { editedProducts,editedEstimateDetails } = req.body
+  let products=editedProducts
+  try {
+      const editedEstimate = {
+        supplierName:editedEstimateDetails.supplierName,
+        customerName:editedEstimateDetails.customerName,
+        invoiceDate:editedEstimateDetails.invoiceDate,
+        products,   
+      };
+      // console.log(editedEstimate);
+      let estimate = await Estimate.findByIdAndUpdate(req.params.id, { $set: editedEstimate }, { new: true })
+      res.json(estimate)
+  } catch (error) {
+      console.error(error.message)
+      res.status(500).send("Some Error Occured")
+      return
+  }
+})
 module.exports = router

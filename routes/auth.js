@@ -10,7 +10,6 @@ const JWT_SECRET="sdhsvhcb65c2ewc91cc2"
 
 let success = false
 
-//ROUTE:2 Authenticate a user using POST /api/auth/login
 
 router.post('/login', async (req, res) => {
     
