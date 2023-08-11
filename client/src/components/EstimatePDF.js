@@ -177,7 +177,6 @@ const EstimatePDF = ({ invoice,invoiceFooter }) => {
               <Text style={styles.invoiceTitle}>ESTIMATE</Text>
               <Text style={styles.shopName}>{invoice.supplierName}</Text>
               <Text style={styles.shopAddress}>
-                (MEDICAL BOOKSELLER) {'\n'}
   
                 No. 16 B Ground Floor, Lily Pond Shopping Complex 
                  {'\n'}

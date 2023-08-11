@@ -207,19 +207,6 @@ router.put('/updateorder/:id', fetchuser, async (req, res) => {
         return
     }
 })
-// router.put('/updateorder', fetchuser, async (req, res) => {
-//     try {
-//         let order = await Order.updateMany(
-//             { "post": "Indiapost" },
-//             { $set: { "post": "India Post" } },
-//             { new: true }
-//         );
-//         res.json(order);
-//     } catch (error) {
-//         console.error(error.message);
-//         res.status(500).send("Some Error Occurred");
-//     }
-// });
 
 
 router.delete('/deleteorder/:id', fetchuser, async (req, res) => {

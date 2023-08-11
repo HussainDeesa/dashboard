@@ -1,15 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import recordContext from "../context/recordContext";
-import { Alert } from "./Alert";
 export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
   if (invoiceType == "Estimate No.") {
     invoice.invoicenumber = "Estimate";
   }
-  // const [invoiceDetails, setinvoiceDetails] = useState({
-  //   customerName: invoice.customerName,
-  //   invoiceNumber: invoice.invoicenumber,
-  //   invoiceDate: invoice.invoiceDate,
-  // });
+
   const [invoiceDetails, setinvoiceDetails] = useState(
     {
       customerName: invoice.customerName,
@@ -37,19 +32,34 @@ export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
     },
   ]);
   const context = useContext(recordContext);
-  const { editInvoice, editEstimate } = context;
+  const { editInvoice, editEstimate,getallproducts,availableProducts } = context;
   const handleDeleteRow = (index, e) => {
     e.preventDefault();
     const updatedProducts = products.filter((_, i) => i !== index);
     setProducts(updatedProducts);
   };
 
-
+  const searchProductByISBN = (isbn) => {
+    const foundProduct = availableProducts.data.find(product => product.ISBNCode === isbn);
+    return foundProduct;
+  };
   const handleInputChange = (index, field, value) => {
     const updatedProducts = [...products];
     updatedProducts[index][field] = value;
     setProducts(updatedProducts);
-
+    if (field === 'productCode') {
+      const foundProduct = searchProductByISBN(value);
+      if (foundProduct) {
+        updatedProducts[index]['author'] = foundProduct.Author;
+        updatedProducts[index]['productName'] = foundProduct.Title;
+        updatedProducts[index]['price'] = foundProduct.Price;
+      }
+            if (!foundProduct) {
+              updatedProducts[index]['author'] = '';
+              updatedProducts[index]['productName'] = '';
+              updatedProducts[index]['price'] = '';
+          } 
+    }
     if (index === products.length - 1) {
       setProducts([
         ...products,
@@ -87,7 +97,12 @@ export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
   useEffect(() => {
     setProducts([...invoice.products]);
   }, [invoice.products]);
-
+  useEffect((e) => {
+    getallproducts()
+    }, []) 
+  if (availableProducts.isLoading) {
+    return null;
+  }
 
   return (
     <div className="delete-confirmation">

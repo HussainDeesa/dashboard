@@ -124,9 +124,22 @@ const RecordState = (props) => {
       });
       const json = response.json()
    }
+   const [availableProducts, setAvailableProducts] = useState({ data: {}, isLoading: true, success: false, message:'' })
+
+   const getallproducts = async (e) => {
+      const response = await fetch(`api/product/fetchallproducts`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'auth-token': Cookies.get("auth-token")
+          },
+      })
+      let json = await response.json()
+      setAvailableProducts({ data: json, isLoading: false, success: json.success })
+  };
 
    return (
-      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count,deleteInvoice,editInvoice,editEstimate }}>
+      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count,deleteInvoice,editInvoice,editEstimate,getallproducts,availableProducts }}>
          {props.children}
       </recordcontext.Provider>
    )

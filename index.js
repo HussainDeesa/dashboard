@@ -15,6 +15,7 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/order', require('./routes/order'))   
 app.use('/api/invoice', require('./routes/invoice'))   
 app.use('/api/estimate', require('./routes/estimate'))   
+app.use('/api/product', require('./routes/product'))   
 // app.use('/api/menu', require('./routes/menu'))
 // app.use('/api/cart', require('./routes/cart'))
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link,useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import recordContext from "../context/recordContext";
 export function CreateInvoice(props) {
   let navigate = useNavigate();
   const currentDate = new Date();
@@ -14,6 +15,8 @@ export function CreateInvoice(props) {
   const [invoiceDetails, setinvoiceDetails] = useState(
     { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0, supplierName: 'SHAH BOOK DEPOT' }
 );
+const context = useContext(recordContext);
+const { getallproducts, availableProducts } = context;
 const supplierNames = [
     'SHAH BOOK DEPOT',
     'PARAMOUNT MEDICAL BOOKS',
@@ -30,6 +33,7 @@ const supplierNames = [
     { productCode: '', productName: '', author: '', price: '', quantity: '', discount: '' }
   ]);
 
+
   const handleAddRow = () => {
     setProducts([...products, { productCode: '', productName: '', author: '', price: '', quantity: '', discount: '' }]);
     console.log(products);
@@ -39,10 +43,28 @@ const supplierNames = [
     const updatedProducts = products.filter((_, i) => i !== index);
     setProducts(updatedProducts);
   };
-
+  const searchProductByISBN = (isbn) => {
+    const foundProduct = availableProducts.data.find(product => product.ISBNCode === isbn);
+    return foundProduct;
+  };
   const handleInputChange = (index, field, value) => {
     const updatedProducts = [...products];
     updatedProducts[index][field] = value;
+
+    if (field === 'productCode') {
+      const foundProduct = searchProductByISBN(value);
+      if (foundProduct) {
+        updatedProducts[index]['author'] = foundProduct.Author;
+        updatedProducts[index]['productName'] = foundProduct.Title;
+        updatedProducts[index]['price'] = foundProduct.Price;
+      }
+            if (!foundProduct) {
+              updatedProducts[index]['author'] = '';
+              updatedProducts[index]['productName'] = '';
+              updatedProducts[index]['price'] = '';
+          } 
+    }
+
     setProducts(updatedProducts);
   };
 
@@ -96,7 +118,12 @@ const calculateTotalItems = () => {
     calculateTotalItems();
     calculateDiscount();
 }, [products]);
-
+useEffect((e) => {
+  getallproducts()
+  }, []) 
+if (availableProducts.isLoading) {
+  return null;
+}
   return (
     <>
       <div>
@@ -149,7 +176,7 @@ const calculateTotalItems = () => {
             name={"invoicedate"}
           />
         </div>
-        <div className='product-list'>
+        <div className='product-list product-list-invoice'>
 
           <div className='scroll-container'>
             {products.map((product, index) => (
@@ -172,7 +199,7 @@ const calculateTotalItems = () => {
                   type="text"
                   id='productName'
                   placeholder="Product Name"
-                  value={product.name}
+                  value={product.productName}
                   onChange={(e) => handleInputChange(index, 'productName', e.target.value)}
                 />
                 <input

@@ -168,9 +168,7 @@ const InvoicePDF = ({ invoice,invoiceFooter }) => {
             <View style={styles.shopContainer}>
               <Text style={styles.invoiceTitle}>INVOICE</Text>
               <Text style={styles.shopName}>{invoice.supplierName}</Text>
-              <Text style={styles.shopAddress}>
-                (MEDICAL BOOKSELLER) {'\n'}
-  
+              <Text style={styles.shopAddress}>  
                 No. 16 B Ground Floor, Lily Pond Shopping Complex 
                  {'\n'}
                 (Nr Central Railway Station) Chennai-600 003 {'\n'}

@@ -251,6 +251,10 @@ input[type="file"] {
   .edit-invoice-dialoge-pc {
     width: auto !important;
   }
+  .product-box{
+    margin-left: 0px !important;
+    padding-left: 44px !important    ;
+  }
 }
 .table-box {
   height: 700px;
@@ -1340,7 +1344,9 @@ input {
   height: 40vh;
   overflow: auto;
 }
-
+.product-list-invoice{
+  height: 34vh;
+}
 .scroll-container{
     
     margin-left: -75px;
@@ -1512,4 +1518,7 @@ cursor: pointer;}
 }
 .edit-invoice-dialoge-pc .buttons{
   justify-content: flex-start;
+}
+.product-box{
+  margin-left: -27px;
 }

@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import '../PC-App.css'
 import Cookies from 'js-cookie';
+import recordContext from "../context/recordContext";
+
 import { Link, useNavigate } from "react-router-dom";
 export function CreateInvoicePC(props) {
     const currentDate = new Date();
@@ -13,6 +15,8 @@ export function CreateInvoicePC(props) {
     const [invoiceDetails, setinvoiceDetails] = useState(
         { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0, supplierName: 'SHAH BOOK DEPOT' }
     );
+    const context = useContext(recordContext);
+    const { getallproducts, availableProducts } = context;
     const supplierNames = [
         'SHAH BOOK DEPOT',
         'PARAMOUNT MEDICAL BOOKS',
@@ -43,6 +47,11 @@ export function CreateInvoicePC(props) {
         });
         setTotalItems(totalCount)
     }
+    const searchProductByISBN = (isbn) => {
+        console.log(isbn);
+        const foundProduct = availableProducts.data.find(product => product.ISBNCode === isbn);
+        return foundProduct;
+    };
     const handleInvoiceChange = (e) => {
         setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value })
 
@@ -60,11 +69,24 @@ export function CreateInvoicePC(props) {
     const handleInputChange = (index, field, value) => {
         const updatedProducts = [...products];
         updatedProducts[index][field] = value;
-        setProducts(updatedProducts);
 
-        if (index === products.length - 1) {
-            setProducts([...products, { productCode: '', author: '', productName: '', quantity: 0, price: '', discount: 0 }]);
+        if (field === 'productCode') {
+            const foundProduct = searchProductByISBN(value);
+            if (foundProduct) {
+                updatedProducts[index]['author'] = foundProduct.Author;
+                updatedProducts[index]['productName'] = foundProduct.Title;
+                updatedProducts[index]['price'] = foundProduct.Price;
+            }
+            if (!foundProduct) {
+                updatedProducts[index]['author'] = '';
+                updatedProducts[index]['productName'] = '';
+                updatedProducts[index]['price'] = '';
+            }
         }
+        if (index === updatedProducts.length - 1) {
+            updatedProducts.push({ productCode: '', author: '', productName: '', quantity: 0, price: '', discount: 0 });
+        }
+        setProducts(updatedProducts);
 
     };
 
@@ -109,6 +131,12 @@ export function CreateInvoicePC(props) {
         calculateTotalItems();
         calculateDiscount();
     }, [products]);
+    useEffect((e) => {
+        getallproducts()
+    }, [])
+    if (availableProducts.isLoading) {
+        return null;
+    }
     return (
         <>
             <div className='invoice-pc-container'>
@@ -203,7 +231,7 @@ export function CreateInvoicePC(props) {
                                         <td>
                                             <input
                                                 type="text"
-                                                value={product.name}
+                                                value={product.productName}
                                                 id='productName-pc'
                                                 onChange={(e) => handleInputChange(index, 'productName', e.target.value)}
                                             />

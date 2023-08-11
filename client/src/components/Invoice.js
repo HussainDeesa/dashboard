@@ -23,7 +23,6 @@ export function Invoice(props) {
             setState({ data: json, isLoading: false, success: json.success })
         };
         getallinvoice(e)
-        console.log(state);
     }, [])
     if (state.isLoading) {
         return null;
