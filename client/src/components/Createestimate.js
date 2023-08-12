@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
-import { Link,useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import recordContext from "../context/recordContext";
+import Autosuggest from 'react-autosuggest';
+
 export function CreateEstimate(props) {
   let navigate = useNavigate();
   const currentDate = new Date();
@@ -37,7 +39,6 @@ const supplierNames = [
       ...products,
       { productCode: "", productName: "", author: "", price: "", quantity: "" },
     ]);
-    console.log(products);
   };
 
   const handleDeleteRow = (index) => {
@@ -48,6 +49,19 @@ const supplierNames = [
     const foundProduct = availableProducts.data.find(product => product.ISBNCode === isbn);
     return foundProduct;
   };
+
+const getSuggestions = (value) => {
+  const inputValue = value.trim().toLowerCase(); 
+  return availableProducts.data.filter(
+    (product) =>{
+     return product.Title.toLowerCase().includes(inputValue) ||
+      product.ISBNCode.toLowerCase().includes(inputValue)
+    } 
+  );
+};
+
+const [suggestions, setSuggestions] = useState([]);
+
   const handleInputChange = (index, field, value) => {
     const updatedProducts = [...products];
     updatedProducts[index][field] = value;
@@ -171,7 +185,7 @@ if (availableProducts.isLoading) {
                   type="text"
                   id="productCode"
                   placeholder=" Code"
-                  value={product.code}
+                  value={product.productCode}
                   onChange={(e) =>
                     handleInputChange(index, "productCode", e.target.value)
                   }
@@ -185,7 +199,7 @@ if (availableProducts.isLoading) {
                     handleInputChange(index, "author", e.target.value)
                   }
                 />
-                <input
+                {/* <input
                   type="text"
                   id="productname"
                   placeholder="Product Name"
@@ -193,6 +207,31 @@ if (availableProducts.isLoading) {
                   onChange={(e) =>
                     handleInputChange(index, "productName", e.target.value)
                   }
+                /> */}
+                 <Autosuggest
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={({ value }) =>{
+                    setSuggestions(getSuggestions(value))
+                     
+                  }
+                  }
+                  onSuggestionsClearRequested={() => setSuggestions([])}
+                  getSuggestionValue={(suggestion) => suggestion.Title}
+                  renderSuggestion={(suggestion) => (
+                    <div>{suggestion.Title}</div>
+                  )}
+                  inputProps={{
+                    placeholder: 'Product Name',
+                    value: product.productName,
+                    onChange: (e, { newValue }) =>
+                      handleInputChange(index, 'productName', newValue),
+                  }}
+                  onSuggestionSelected={(_, { suggestion }) => {
+                    handleInputChange(index, 'productName', suggestion.Title);
+                    handleInputChange(index, 'productCode', suggestion.ISBNCode);
+                    handleInputChange(index, 'author', suggestion.Author);
+                    handleInputChange(index, 'price', suggestion.Price);
+                  }}
                 />
                 <input
                   type="number"
@@ -212,11 +251,18 @@ if (availableProducts.isLoading) {
                     handleInputChange(index, "price", e.target.value)
                   }
                 />
+<input
+                  id='productdiscount'
+                  type="number"
+                  placeholder='Disc %'
+                  value={product.discount}
+                  onChange={(e) => handleInputChange(index, 'discount', e.target.value)}
+                />
                 <input
                   type="number"
-                  id="producttotal"
+                  id='producttotal'
                   placeholder="Total"
-                  value={product.quantity * product.price}
+                  value={((product.price * product.quantity) - ((product.discount / 100) * product.price * product.quantity)).toFixed(0)}
                   readOnly
                 />
 

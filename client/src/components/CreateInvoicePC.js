@@ -3,7 +3,8 @@ import '../PC-App.css'
 import Cookies from 'js-cookie';
 import recordContext from "../context/recordContext";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, } from "react-router-dom";
+import Autosuggest from 'react-autosuggest';
 export function CreateInvoicePC(props) {
     const currentDate = new Date();
     const utcOffset = 5.5 * 60 * 60 * 1000;
@@ -48,7 +49,6 @@ export function CreateInvoicePC(props) {
         setTotalItems(totalCount)
     }
     const searchProductByISBN = (isbn) => {
-        console.log(isbn);
         const foundProduct = availableProducts.data.find(product => product.ISBNCode === isbn);
         return foundProduct;
     };
@@ -69,6 +69,7 @@ export function CreateInvoicePC(props) {
     const handleInputChange = (index, field, value) => {
         const updatedProducts = [...products];
         updatedProducts[index][field] = value;
+        setProducts(updatedProducts);
 
         if (field === 'productCode') {
             const foundProduct = searchProductByISBN(value);
@@ -90,6 +91,19 @@ export function CreateInvoicePC(props) {
 
     };
 
+
+    const getSuggestions = (value) => {
+        const inputValue = value.trim().toLowerCase();
+
+        return availableProducts.data.filter(
+            (product) => {
+                return product.Title.toLowerCase().includes(inputValue) ||
+                    product.ISBNCode.toLowerCase().includes(inputValue)
+            }
+        );
+    };
+
+    const [suggestions, setSuggestions] = useState([]);
 
     const createInvoice = async (e) => {
         e.preventDefault();
@@ -216,7 +230,7 @@ export function CreateInvoicePC(props) {
                                             <input
                                                 type="text"
                                                 id='productCode-pc'
-                                                value={product.code}
+                                                value={product.productCode}
                                                 onChange={(e) => handleInputChange(index, 'productCode', e.target.value)}
                                             />
                                         </td>
@@ -228,14 +242,41 @@ export function CreateInvoicePC(props) {
                                                 onChange={(e) => handleInputChange(index, 'author', e.target.value)}
                                             />
                                         </td>
-                                        <td>
+                                        {/* <td>
                                             <input
                                                 type="text"
                                                 value={product.productName}
                                                 id='productName-pc'
                                                 onChange={(e) => handleInputChange(index, 'productName', e.target.value)}
                                             />
-                                        </td>
+                                        </td> */}
+                                        <Autosuggest
+                                            suggestions={suggestions}
+                                            onSuggestionsFetchRequested={({ value }) => {
+                                                setSuggestions(getSuggestions(value))
+
+                                            }
+                                            }
+                                            onSuggestionsClearRequested={() => setSuggestions([])}
+                                            getSuggestionValue={(suggestion) => suggestion.Title}
+                                            renderSuggestion={(suggestion) => (
+                                                <div>{suggestion.Title}</div>
+                                            )}
+                                            inputProps={{
+                                                placeholder: 'Product Name',
+                                                id:'productName-pc',
+                                                value: product.productName,
+                                                onChange: (e, { newValue }) =>
+                                                    handleInputChange(index, 'productName', newValue),
+                                            }}
+                                            onSuggestionSelected={(_, { suggestion }) => {
+                                                handleInputChange(index, 'productName', suggestion.Title);
+                                                handleInputChange(index, 'productCode', suggestion.ISBNCode);
+                                                handleInputChange(index, 'author', suggestion.Author);
+                                                handleInputChange(index, 'price', suggestion.Price);
+                                            }}
+                                        />
+                                        
                                         <td>
                                             <input
                                                 type="number"
@@ -273,6 +314,7 @@ export function CreateInvoicePC(props) {
                                         }
 
                                     </tr>
+
                                 ))}
                             </tbody>
                         </table>

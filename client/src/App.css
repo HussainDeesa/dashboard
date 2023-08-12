@@ -255,6 +255,12 @@ input[type="file"] {
     margin-left: 0px !important;
     padding-left: 44px !important    ;
   }
+  .react-autosuggest__suggestions-container{
+    background-color: #fff !important;
+  }
+  .react-autosuggest__suggestions-container--open{
+    height: 350px !important;
+  }
 }
 .table-box {
   height: 700px;
@@ -1522,3 +1528,24 @@ cursor: pointer;}
 .product-box{
   margin-left: -27px;
 }
+.react-autosuggest__suggestions-container{
+  z-index: 1000;
+  position: absolute;
+  background-color: var(--c-gray-800);
+  width:300px;
+  right: 10px;
+  top: 10px;
+  padding: 5px;
+  max-width: 400px;
+  border: 1px solid black;
+  padding-top: 20px;
+  display: none;
+  overflow: auto;
+}
+.react-autosuggest__suggestions-container--open{
+  display: block;
+  height:600px;
+}
+/* .react-autosuggest__suggestions-container li{
+  list-style: none;
+} */

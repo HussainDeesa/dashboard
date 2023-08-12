@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link,useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import recordContext from "../context/recordContext";
+import Autosuggest from 'react-autosuggest';
 export function CreateInvoice(props) {
   let navigate = useNavigate();
   const currentDate = new Date();
@@ -36,7 +37,6 @@ const supplierNames = [
 
   const handleAddRow = () => {
     setProducts([...products, { productCode: '', productName: '', author: '', price: '', quantity: '', discount: '' }]);
-    console.log(products);
   };
 
   const handleDeleteRow = (index) => {
@@ -90,6 +90,17 @@ const calculateTotalItems = () => {
     setTotalItems(totalCount)
 }
 
+const getSuggestions = (value) => {
+  const inputValue = value.trim().toLowerCase();
+  return availableProducts.data.filter(
+    (product) =>{
+     return product.Title.toLowerCase().includes(inputValue) ||
+      product.ISBNCode.toLowerCase().includes(inputValue)
+    } 
+  );
+};
+
+const [suggestions, setSuggestions] = useState([]);
 
 
   const createInvoice = async (e) => {
@@ -185,7 +196,7 @@ if (availableProducts.isLoading) {
                   type="text"
                   id='productCode'
                   placeholder=" Code"
-                  value={product.code}
+                  value={product.productCode}
                   onChange={(e) => handleInputChange(index, 'productCode', e.target.value)}
                 />
                 <input
@@ -195,12 +206,37 @@ if (availableProducts.isLoading) {
                   value={product.author}
                   onChange={(e) => handleInputChange(index, 'author', e.target.value)}
                 />
-                <input
+                {/* <input
                   type="text"
                   id='productName'
                   placeholder="Product Name"
                   value={product.productName}
                   onChange={(e) => handleInputChange(index, 'productName', e.target.value)}
+                /> */}
+                <Autosuggest
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={({ value }) =>{
+                    setSuggestions(getSuggestions(value))
+                     
+                  }
+                  }
+                  onSuggestionsClearRequested={() => setSuggestions([])}
+                  getSuggestionValue={(suggestion) => suggestion.Title}
+                  renderSuggestion={(suggestion) => (
+                    <div>{suggestion.Title}</div>
+                  )}
+                  inputProps={{
+                    placeholder: 'Product Name',
+                    value: product.productName,
+                    onChange: (e, { newValue }) =>
+                      handleInputChange(index, 'productName', newValue),
+                  }}
+                  onSuggestionSelected={(_, { suggestion }) => {
+                    handleInputChange(index, 'productName', suggestion.Title);
+                    handleInputChange(index, 'productCode', suggestion.ISBNCode);
+                    handleInputChange(index, 'author', suggestion.Author);
+                    handleInputChange(index, 'price', suggestion.Price);
+                  }}
                 />
                 <input
                   type="number"
@@ -232,6 +268,7 @@ if (availableProducts.isLoading) {
                 />
 
                 <button className="delete-button" onClick={() => handleDeleteRow(index)}>-</button>
+                
               </div>
             ))}
           </div>

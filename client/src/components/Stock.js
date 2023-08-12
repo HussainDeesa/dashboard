@@ -1,6 +1,5 @@
 
 import React, { useState, useContext, useEffect } from 'react';
-import Cookies from 'js-cookie';
 import { ProductTableItem } from './ProductTableItem';
 import recordContext from "../context/recordContext";
 
@@ -39,18 +38,7 @@ export function Stock(props) {
         }    
     };
     useEffect((e) => {
-        // const getallproducts = async (e) => {
-        //     const response = await fetch(`api/product/fetchallproducts`, {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'auth-token': Cookies.get("auth-token")
-        //         },
-        //     })
-        //     let json = await response.json()
-        //     console.log(json);
-        //     setState({ data: json, isLoading: false, success: json.success })
-        // };
+
         getallproducts()
         }, [])
     if (availableProducts.isLoading) {
