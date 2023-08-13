@@ -261,6 +261,9 @@ input[type="file"] {
   .react-autosuggest__suggestions-container--open{
     height: 350px !important;
   }
+  .edit-scroll-conatiner{
+    width: 370px !important;
+  }
 }
 .table-box {
   height: 700px;

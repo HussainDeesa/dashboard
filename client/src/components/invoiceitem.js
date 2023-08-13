@@ -88,8 +88,13 @@ export function InvoiceItem(props) {
   };
 
   const handleShowPDFClick = async (invoice) => {
-    calculateInvoiceFooter(invoice)
-      setShowPDF(true);
+    if(showPDF==false){
+      calculateInvoiceFooter(invoice)
+        setShowPDF(true);
+    }
+    if(showPDF==true){
+      setShowPDF(false)
+    }
       // try {
       //   const response = await axios.get(`api/invoice/generate-pdf/${invoice._id}`, {
       //     responseType: 'blob', // Important to specify that the response is a blob

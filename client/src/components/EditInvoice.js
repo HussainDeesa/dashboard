@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import recordContext from "../context/recordContext";
+import Autosuggest from 'react-autosuggest';
+
 export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
   if (invoiceType == "Estimate No.") {
     invoice.invoicenumber = "Estimate";
@@ -43,6 +45,18 @@ export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
     const foundProduct = availableProducts.data.find(product => product.ISBNCode === isbn);
     return foundProduct;
   };
+  
+const getSuggestions = (value) => {
+  const inputValue = value.trim().toLowerCase();
+  return availableProducts.data.filter(
+    (product) =>{
+     return product.Title.toLowerCase().includes(inputValue) ||
+      product.ISBNCode.toLowerCase().includes(inputValue)
+    } 
+  );
+};
+
+const [suggestions, setSuggestions] = useState([]);
   const handleInputChange = (index, field, value) => {
     const updatedProducts = [...products];
     updatedProducts[index][field] = value;
@@ -198,7 +212,7 @@ export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
                           }
                         />
                       </td>
-                      <td>
+                      {/* <td>
                         <input
                           type="text"
                           value={product.productName}
@@ -211,7 +225,32 @@ export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
                             )
                           }
                         />
-                      </td>
+                      </td> */}                <Autosuggest
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={({ value }) =>{
+                    setSuggestions(getSuggestions(value))
+                     
+                  }
+                  }
+                  onSuggestionsClearRequested={() => setSuggestions([])}
+                  getSuggestionValue={(suggestion) => suggestion.Title}
+                  renderSuggestion={(suggestion) => (
+                    <div>{suggestion.Title}</div>
+                  )}
+                  inputProps={{
+                    placeholder: 'Product Name',
+                    value: product.productName,
+                    onChange: (e, { newValue }) =>
+                      handleInputChange(index, 'productName', newValue),
+                  }}
+                  onSuggestionSelected={(_, { suggestion }) => {
+                    handleInputChange(index, 'productName', suggestion.Title);
+                    handleInputChange(index, 'productCode', suggestion.ISBNCode);
+                    handleInputChange(index, 'author', suggestion.Author);
+                    handleInputChange(index, 'price', suggestion.Price);
+                  }}
+                />
+
                       <td>
                         <input
                           type="number"
