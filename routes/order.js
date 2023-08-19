@@ -369,6 +369,22 @@ router.post('/upload', upload.single('file'), (req, res) => {
 
 
 });
+router.post('/checkupload', (req, res) => {
+    const { filename } = req.params;
+    const filePath = `uploads/dealer.txt`;
+  
+    // Check if the file exists
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        // File doesn't exist
+        res.json({ exists: false });
+      } else {
+        // File exists
+        res.json({ exists: true });
+      }
+    });
+  });
+  
 
 
 

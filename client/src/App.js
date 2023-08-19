@@ -48,6 +48,7 @@ function App() {
             <Route exact path="/stock" element={<POSDashboard showAlert={showAlert} alert={alert} page={"stock"} />} />
             <Route exact path="/invoice" element={<POSDashboard showAlert={showAlert} alert={alert} page={"invoice"} searchPage={"invoice"}/>} />
             <Route exact path="/estimate" element={<POSDashboard showAlert={showAlert} alert={alert} page={"invoice"} searchPage={"estimate"} />} />
+            <Route exact path="/orderreport" element={<POSDashboard showAlert={showAlert} alert={alert} page={"orderreport"}  />} />
         </Routes>
         </div>
           <div className='pc-container'>

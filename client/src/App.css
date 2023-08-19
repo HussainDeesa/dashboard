@@ -1552,3 +1552,9 @@ cursor: pointer;}
 /* .react-autosuggest__suggestions-container li{
   list-style: none;
 } */
+.orderReport{
+  margin-top: 15px;
+}
+.radio-buttons{
+  margin-top: 10px;
+}

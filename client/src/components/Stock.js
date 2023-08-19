@@ -22,7 +22,7 @@ export function Stock(props) {
             const formData = new FormData();
             formData.append('file', file, "products.csv");
  
-            const response = await fetch('api/product/upload', {
+            const response = await fetch('api/product/stockupload', {
                 method: 'POST',
                 body: formData,
             })

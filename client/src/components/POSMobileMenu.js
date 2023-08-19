@@ -36,6 +36,12 @@ const POSMobileMenu = (props) => {
               <span>Invoice</span>
             </Link>
           </li>
+          <li onClick={handleMenuItemClick}>
+            <Link to="/orderreport">
+              <i className="ph-check-square"></i>
+              <span>Report</span>
+            </Link>
+          </li>
           {/* <li onClick={handleMenuItemClick}>
             <Link to="/report">
               <i className="ph-check-square"></i>

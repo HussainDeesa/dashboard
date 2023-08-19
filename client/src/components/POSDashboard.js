@@ -6,6 +6,7 @@ import { Invoice } from './Invoice';
 import POSMobileMenu from './POSMobileMenu';
 import { CreateInvoice } from './Createinvoice';
 import { CreateEstimate } from './Createestimate';
+import { OrderReport } from './OrderReport';
 
 export const POSDashboard = (props) => {
 	let navigate = useNavigate();
@@ -83,6 +84,10 @@ export const POSDashboard = (props) => {
 					<i className="ph-check-square"></i>
 					<span>Invoice</span>
 				</Link>
+				<Link to="/orderreport">
+					<i className="ph-check-square"></i>
+					<span>Report</span>
+				</Link>
 				{/* <Link to="/allrecords">
 				<i className="ph-check-square"></i>
 					Records
@@ -123,6 +128,11 @@ export const POSDashboard = (props) => {
 				<CreateEstimate alert={alert} showAlert={props.showAlert}/>
 			)
         } 
+		if (props.page=="orderreport") {
+			return (
+				<OrderReport alert={alert} showAlert={props.showAlert}/>
+			)
+        }  
         
       })()}
     </div>
