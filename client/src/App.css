@@ -1557,4 +1557,14 @@ cursor: pointer;}
 }
 .radio-buttons{
   margin-top: 10px;
+  display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 500px;
+}
+.radio-button{
+  margin-right: 10px;
+}
+.radio-buttons input{
+  margin-right: 10px;
 }

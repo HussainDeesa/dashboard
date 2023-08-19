@@ -18,7 +18,7 @@ export function OrderReport(props) {
         e.preventDefault()
         if (file) {
             const formData = new FormData();
-            formData.append('file', file, "dealer.csv");
+            formData.append('file', file, "dealer.xlsx");
 
             const response = await fetch('api/product/dealerupload', {
                 method: 'POST',

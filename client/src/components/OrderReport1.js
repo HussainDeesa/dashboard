@@ -7,6 +7,7 @@ export function OrderReport1(props) {
 
     const [state, setState] = useState({ segArr: '', isLoading: true, success: false, notfound: '' })
     const [csvReady, setcsvReady] = useState({ success: true, csv: '',dealer:'' })
+    const [dealer, setdealer] = useState()
     const [file, setFile] = useState()
     const [hide, sethide] = useState(true)
     const generateCSV = async (e, data,dealer) => {
@@ -56,7 +57,8 @@ export function OrderReport1(props) {
         else {
             selectedDealerData = state.segArr[selectedDealerName];
         }
-        generateCSV(event, selectedDealerData,selectedDealerName)
+            generateCSV(event, selectedDealerData,selectedDealerName)
+
 
     };
     const handleFileChange = (event) => {
@@ -67,7 +69,7 @@ export function OrderReport1(props) {
         e.preventDefault()
         if (file) {
             const formData = new FormData();
-            formData.append('file', file, "order.csv");
+            formData.append('file', file, "order.xlsx");
 
             const response = await fetch('api/product/generatereport', {
                 method: 'POST',
@@ -109,9 +111,9 @@ export function OrderReport1(props) {
                 if (state.success) {
                     return (
                         <>
-                        <div className='radio-buttons'>
+                        <div className='radio-buttons '>
                             {Object.keys(state.segArr).map((dealerName, index) => (
-                                <div key={index}>
+                                <div className='radio-button' key={index}>
                                     <label>
                                         <input
                                             type='radio'
