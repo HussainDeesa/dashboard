@@ -3,10 +3,9 @@ import recordContext from "../context/recordContext";
 import { Alert } from './Alert';
 export function EditRecord({ onCancel, onConfirm, id, order,alert,showAlert }) {
     const [added, setadded] = useState(false)
-    const [record, setRecord] = useState({ orderid: order.orderID, trackingid: order.trackingID, date: order.date, post: order.post, status: order.status })
+    const [record, setRecord] = useState({ orderid: order.orderID, trackingid: order.trackingID, date: order.date.split("T")[0], post: order.post, status: order.status })
     const context = useContext(recordContext);
     const { editRecord, deleteRecord } = context;
-
     const handleSubmit = (e) => {
         e.preventDefault(); 
         editRecord(id, record.orderid, record.trackingid, record.post, record.date, record.status).then(() => {

@@ -217,10 +217,10 @@ input[type="file"] {
     margin-left: 27px !important;
   }
   .table-box {
-    width: 365px !important;
+    width: 322px !important;
     overflow: auto;
-    padding-left: 50px;
-    margin-left: -50px;
+    padding-left: 50px !important;
+    margin-left: -50px !important;
   }
   .product-list {
     width: 365px !important;
@@ -253,7 +253,7 @@ input[type="file"] {
   }
   .product-box {
     margin-left: 0px !important;
-    padding-left: 44px !important    ;
+    padding-left: 28px !important    ;
     /* max-width: 100% !important; */
   }
   .react-autosuggest__suggestions-container {
@@ -266,7 +266,7 @@ input[type="file"] {
     width: 370px !important;
   }
   .app-body-main-content {
-    max-width: 90vw !important;
+    max-width:80vw !important;
   }
 }
 .table-box {
@@ -1144,7 +1144,7 @@ button:focus {
 
 .delete-confirmation-dialog {
   background-color: #fff !important;
-  padding: 40px !important;
+  padding: 20px !important;
   border-radius: 15px;
   text-align: center;
   max-width: 400px;

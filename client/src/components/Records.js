@@ -52,7 +52,8 @@ export function Records(props) {
             <div>
                 <div >
                     <h3 className='allrecords-heading'>All Records</h3>
-                    <div className='table-box'>
+                    <div className='table-box-outer'>
+                    <div className='table-box '>
                         <table className="table">
                             <thead>
                                 <tr>
@@ -78,6 +79,7 @@ export function Records(props) {
                                 onConfirm={handleConfirmDelete}
                             />
                         )}
+                    </div>
                     </div>
                 </div>
             </div>

@@ -173,7 +173,7 @@ export function InvoiceItem(props) {
           >
             <div className="accordion-body">
               <div className="table-box-outer">
-                <div className="table-box">
+                <div className="table-box product-box">
                   <table className="table" id="table">
                     <thead>
                       <tr>

@@ -8,7 +8,7 @@ export function CreateInvoice(props) {
   const currentDate = new Date();
   const utcOffset = 5.5 * 60 * 60 * 1000;
   const istDate = new Date(currentDate.getTime() + utcOffset);
-  const today = istDate.toISOString().split("T")[0];
+  const today = istDate.toISOString().split("T")[0]; 
   const [invoiceTotal, setInvoiceTotal] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
