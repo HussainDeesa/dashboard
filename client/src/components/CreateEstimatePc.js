@@ -19,6 +19,7 @@ export function CreateEstimatePC(props) {
     );
     const context = useContext(recordContext);
     const { getallproducts, availableProducts } = context;
+    const [disable, setdisable] = useState(true)
 
     const supplierNames = [
         'SHAH BOOK DEPOT',
@@ -55,7 +56,9 @@ export function CreateEstimatePC(props) {
     };
     const handleInvoiceChange = (e) => {
         setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value })
-
+        if(invoiceDetails.customerName!=''){
+            setdisable(false)
+        }
     }
     const [products, setProducts] = useState([
         { productCode: '', productName: '', author: '', price: '', quantity: 0, discount: 0 }
@@ -180,6 +183,7 @@ export function CreateEstimatePC(props) {
                             value={invoiceDetails.customerName}
                             onChange={handleInvoiceChange}
                             name={"customerName"}
+                            required
                         />
                     </div>
                     <label className='search-label invoice-label'>Estimate Date:</label>
@@ -188,7 +192,8 @@ export function CreateEstimatePC(props) {
                         className='invoiceDetail-input'
                         value={invoiceDetails.invoiceDate}
                         onChange={handleInvoiceChange}
-                        name={"invoicedate"}
+                        name={"invoiceDate"}
+                        required
                     />
 
                 </div>
@@ -311,7 +316,7 @@ export function CreateEstimatePC(props) {
                     <span><b>Total Items: {totalItems}</b></span>
                     <span><b>Total Discount:  ₹{totalDiscount}</b></span>
                     <div className='generate-buttons'>
-                        <button className='btn btn-success search-btn generate-invoice-btn-pc'
+                        <button disabled={disable} className='btn btn-success search-btn generate-invoice-btn-pc'
                             onClick={(e) => {
                                 handleSubmit(e);
                             }}>Generate Estimate</button>

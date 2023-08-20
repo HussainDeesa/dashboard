@@ -2,10 +2,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Report1 } from './Report1';
 import Cookies from "js-cookie";
+import { Loader } from './Loader';
 
 export function OrderReport1(props) {
 
-    const [state, setState] = useState({ segArr: '', isLoading: true, success: false, notfound: '' })
+    const [state, setState] = useState({ segArr: '', isLoading: false, success: false, notfound: '' })
     const [csvReady, setcsvReady] = useState({ success: true, csv: '',dealer:'' })
     const [dealer, setdealer] = useState()
     const [file, setFile] = useState()
@@ -66,6 +67,8 @@ export function OrderReport1(props) {
         setFile(file);
     };
     const handleUpload = async (e) => {
+        setState({ data:'', isLoading: true, success: '',csv:''})
+
         e.preventDefault()
         if (file) {
             const formData = new FormData();
@@ -108,6 +111,11 @@ export function OrderReport1(props) {
 
             </div>
             {(() => {
+                if(state.isLoading){
+                    return (
+                        <Loader /> 
+                    )
+                }
                 if (state.success) {
                     return (
                         <>
@@ -121,7 +129,7 @@ export function OrderReport1(props) {
                                             value={dealerName}
                                             onChange={handleRadioChange}
                                         />
-                                        {dealerName}
+                                        {dealerName}  
 
                                     </label>
                                 </div>

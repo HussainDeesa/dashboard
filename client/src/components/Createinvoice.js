@@ -16,6 +16,8 @@ export function CreateInvoice(props) {
   const [invoiceDetails, setinvoiceDetails] = useState(
     { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0, supplierName: 'SHAH BOOK DEPOT' }
 );
+const [disable, setdisable] = useState(true)
+
 const context = useContext(recordContext);
 const { getallproducts, availableProducts } = context;
 const supplierNames = [
@@ -28,6 +30,9 @@ const supplierNames = [
 ];
   const handleInvoiceChange = (e) => {
     setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value })
+    if(invoiceDetails.customerName!=''&&invoiceDetails.invoiceNumber!=''){
+      setdisable(false)
+  }
 
   }
   const [products, setProducts] = useState([
@@ -156,14 +161,16 @@ if (availableProducts.isLoading) {
                     </select>
                 </div>
         <div className='invoice-details'>
+          <form>
           <div className='invoiceDetail-inputRow'>
-            <label className='search-label invoice-label'>Customer Name:</label>
+            <label  className='search-label invoice-label'>Customer Name:</label>
             <input
               type="text"
               className='invoiceDetail-input'
               value={invoiceDetails.customerName}
               onChange={handleInvoiceChange}
               name={"customerName"}
+              required
             />
           </div>
           <div className='invoiceDetail-inputRow'>
@@ -174,8 +181,10 @@ if (availableProducts.isLoading) {
               value={invoiceDetails.invoiceNumber}
               onChange={handleInvoiceChange}
               name={"invoiceNumber"}
+              required
             />
           </div>
+          </form>
         </div>
         <div >
           <label className='search-label invoice-label'>Invoice Date:</label>
@@ -279,7 +288,7 @@ if (availableProducts.isLoading) {
                     <span><b>Items: {totalItems}</b></span>
                     <span><b>Discount:  ₹{totalDiscount}</b></span>
                     <div className='generate-buttons'>
-                        <button className='btn btn-success search-btn generate-invoice-btn-pc'
+                        <button disabled={disable} className='btn btn-success search-btn generate-invoice-btn-pc'
                             onClick={(e) => {
                                 handleSubmit(e);
                             }}>Generate </button>

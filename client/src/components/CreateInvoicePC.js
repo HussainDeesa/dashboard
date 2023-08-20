@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import recordContext from "../context/recordContext";
 
 import { Link, useNavigate, } from "react-router-dom";
+
 import Autosuggest from 'react-autosuggest';
 export function CreateInvoicePC(props) {
     const currentDate = new Date();
@@ -16,6 +17,7 @@ export function CreateInvoicePC(props) {
     const [invoiceDetails, setinvoiceDetails] = useState(
         { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0, supplierName: 'SHAH BOOK DEPOT' }
     );
+    const [disable, setdisable] = useState(true)
     const context = useContext(recordContext);
     const { getallproducts, availableProducts } = context;
     const supplierNames = [
@@ -54,6 +56,9 @@ export function CreateInvoicePC(props) {
     };
     const handleInvoiceChange = (e) => {
         setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value })
+        if(invoiceDetails.customerName!=''&&invoiceDetails.invoiceNumber!=''){
+            setdisable(false)
+        }
 
     }
     const [products, setProducts] = useState([
@@ -88,7 +93,7 @@ export function CreateInvoicePC(props) {
             updatedProducts.push({ productCode: '', author: '', productName: '', quantity: 0, price: '', discount: 0 });
         }
         setProducts(updatedProducts);
-
+   
     };
 
 
@@ -185,6 +190,7 @@ export function CreateInvoicePC(props) {
                             value={invoiceDetails.customerName}
                             onChange={handleInvoiceChange}
                             name={"customerName"}
+                            required
                         />
                     </div>
                     <div className='invoiceDetail-inputRow-pc'>
@@ -195,6 +201,7 @@ export function CreateInvoicePC(props) {
                             value={invoiceDetails.invoiceNumber}
                             onChange={handleInvoiceChange}
                             name={"invoiceNumber"}
+                            required
                         />
                     </div>
                     <label className='search-label invoice-label'>Invoice Date:</label>
@@ -203,7 +210,8 @@ export function CreateInvoicePC(props) {
                         className='invoiceDetail-input'
                         value={invoiceDetails.invoiceDate}
                         onChange={handleInvoiceChange}
-                        name={"invoicedate"}
+                        name={"invoiceDate"}
+                        required
                     />
 
                 </div>
@@ -328,7 +336,7 @@ export function CreateInvoicePC(props) {
                     <span><b>Total Items: {totalItems}</b></span>
                     <span><b>Total Discount:  ₹{totalDiscount}</b></span>
                     <div className='generate-buttons'>
-                        <button className='btn btn-success search-btn generate-invoice-btn-pc'
+                        <button disabled={disable} className='btn btn-success search-btn generate-invoice-btn-pc'
                             onClick={(e) => {
                                 handleSubmit(e);
                             }}>Generate Invoice</button>

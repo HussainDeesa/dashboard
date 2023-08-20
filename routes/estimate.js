@@ -32,20 +32,6 @@ router.post('/createestimate', fetchuser, async (req, res) => {
     }
   });
 
-//   router.delete('/deleteestimate/:id', fetchuser, async (req, res) => {
-
-//     try {
-
-//         let order = await Estimate.findById(req.params.id)
-//         if (!order) { return res.status(404).send("Not Found") }
-//         order = await Estimate.findByIdAndDelete(req.params.id)
-//         res.json({ "success": "Deleted successfully", order: order })
-//     } catch (error) {
-//         console.error(error.message)
-//         res.status(500).send("Some Error Occured")
-//         return
-//     }
-// })
 router.put('/editestimate/:id', fetchuser, async (req, res) => {
   const { editedProducts,editedEstimateDetails } = req.body
   let products=editedProducts

@@ -3,13 +3,15 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Alert } from './Alert';
 import { CsvResult } from './CsvResult';
 import Cookies from 'js-cookie';
+import { Loader } from './Loader';
 export function CSV(props) {
 
-    const [state, setState] = useState({ data: {}, isLoading: true, success: false,csv:'' })
+    const [state, setState] = useState({ data: {}, isLoading: false, success: false,csv:'' })
 
     const [record, setRecord] = useState({ startDate: '', endDate: '' })
     let json;
     const getordersbetweendates = async () => {
+        setState({ data: '', isLoading: true, success: '',csv:''})
         const response = await fetch(`api/order/fetchordersbetweendates`, {
             method: 'POST',
             headers: {
@@ -59,9 +61,12 @@ export function CSV(props) {
 
             {(() => {
 
-                // if(!state.success){
-                //     <Alert alert={props.alert}/>
-                // }
+                if(state.isLoading){
+                    return(
+                        <Loader/>
+
+                    )
+                }
                 if (state.success) {
             
                     return (

@@ -74,14 +74,7 @@ router.post("/generatereport", upload.single("file"), (req, res) => {
       dealer = JSON.parse(row);
     })
     .on("end", () => {
-    //   fs.createReadStream(path.join(parentDir, "/uploads/order.xlsx"))
-    //     .pipe(csv())
-    //     .on("data", (row) => {
-    //       const isbnCode = row.ISBNCode;
-    //       const quantity = row.Quantity;
-    //       const title = row["Item Name"];
-    //       order.push({ isbn: isbnCode, quantity: quantity, title: title });
-    //     })
+
     const workbook = xlsx.readFile(
         path.join(parentDir, "/uploads/order.xlsx")
       ); 
@@ -95,7 +88,7 @@ router.post("/generatereport", upload.single("file"), (req, res) => {
               if (order[i].SKU === dealer[j].ISBNCode) {
                 const dealerName = dealer[j].Dealer;
                 const seg = {
-                  ISBNCode: order[i].SKU,
+                  ISBNCode: order[i].SKU, 
                   quantity: order[i].Quantity,
                   dealer: dealerName,
                   title: order[i]['Item Name'],
@@ -135,18 +128,24 @@ router.get("/fetchallproducts", fetchuser, async (req, res) => {
   try {
     let products = [];
     const parentDir = path.resolve(__dirname, "..");
-
-    fs.createReadStream(path.join(parentDir, "/uploads/products.csv"))
-      .pipe(csv())
-      .on("data", (row) => {
-        products.push(row);
-      })
-      .on("error", (error) => {
-        console.error(error);
-      })
-      .on("end", () => {
-        res.json(products);
-      });
+    const workbook = xlsx.readFile(
+      path.join(parentDir, "/uploads/products.xlsx")
+    ); 
+    const sheetName = workbook.SheetNames[0]; 
+    const worksheet = workbook.Sheets[sheetName];
+     products = xlsx.utils.sheet_to_json(worksheet, { raw: false }); 
+    // fs.createReadStream(path.join(parentDir, "/uploads/products.csv"))
+    //   .pipe(csv())
+    //   .on("data", (row) => {
+    //     products.push(row);
+    //   })
+    //   .on("error", (error) => {
+    //     console.error(error);
+    //   })
+    //   .on("end", () => {
+    //     res.json(products);
+    //   });
+    res.json(products)
   } catch (error) {
     console.error(error.message);
 

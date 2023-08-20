@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { TableItem } from './TableItem';
-import {DeleteConfirmation} from './DeleteConfirmtion'
+import { DeleteConfirmation } from './DeleteConfirmtion'
 import recordContext from "../context/recordContext";
 import Cookies from 'js-cookie';
+import { Loader } from './Loader';
 export function Records(props) {
 
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -29,7 +30,7 @@ export function Records(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth-token':Cookies.get("auth-token")
+                    'auth-token': Cookies.get("auth-token")
 
                 },
             })
@@ -42,43 +43,47 @@ export function Records(props) {
     }, [props.added])
 
     if (state.isLoading) {
-        return null;
+        return (
+            <Loader /> 
+        )
     }
-    return (
-        <div>
-            <div >
-                <h3 className='allrecords-heading'>All Records</h3>
-                <div className='table-box'>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">OrderID</th>
-                                <th scope="col">TrackingID</th>
-                                <th scope="col">POST</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {state.data.map((element) => {
-                                return <TableItem key={element._id} item={element}
-                                    handleDeleteClick={handleDeleteClick} />
+    else {
+        return (
+            <div>
+                <div >
+                    <h3 className='allrecords-heading'>All Records</h3>
+                    <div className='table-box'>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">OrderID</th>
+                                    <th scope="col">TrackingID</th>
+                                    <th scope="col">POST</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {state.data.map((element) => {
+                                    return <TableItem key={element._id} item={element}
+                                        handleDeleteClick={handleDeleteClick} />
 
-                            })}
-                        </tbody>
-                    </table>
-                    {showDeleteConfirmation && (
-                        <DeleteConfirmation
-                            onCancel={handleCancelDelete}
-                            onConfirm={handleConfirmDelete}
-                        />
-                    )}
+                                })}
+                            </tbody>
+                        </table>
+                        {showDeleteConfirmation && (
+                            <DeleteConfirmation
+                                onCancel={handleCancelDelete}
+                                onConfirm={handleConfirmDelete}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
 
-    )
+        )
+    }
 }
 
 

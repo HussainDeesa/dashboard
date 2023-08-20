@@ -16,6 +16,8 @@ export function CreateEstimate(props) {
   const [invoiceDetails, setinvoiceDetails] = useState(
     { customerName: '', invoiceNumber: '', invoiceDate: today, invoicetotal: 0, supplierName: 'SHAH BOOK DEPOT' }
 );
+const [disable, setdisable] = useState(true)
+
 const context = useContext(recordContext);
 const { getallproducts, availableProducts } = context;
 
@@ -29,6 +31,9 @@ const supplierNames = [
 ];
   const handleInvoiceChange = (e) => {
     setinvoiceDetails({ ...invoiceDetails, [e.target.name]: e.target.value });
+    if(invoiceDetails.customerName!=''){
+      setdisable(false)
+  }
   };
   const [products, setProducts] = useState([
     { productCode: "", productName: "", author: "", price: "", quantity: "" },
@@ -294,7 +299,7 @@ if (availableProducts.isLoading) {
                     <span><b>Items: {totalItems}</b></span>
                     <span><b>Discount:  ₹{totalDiscount}</b></span>
                     <div className='generate-buttons'>
-                        <button className='btn btn-success search-btn generate-invoice-btn-pc'
+                        <button disabled={disable} className='btn btn-success search-btn generate-invoice-btn-pc'
                             onClick={(e) => {
                                 handleSubmit(e);
                             }}>Generate </button>

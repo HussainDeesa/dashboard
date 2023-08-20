@@ -2,6 +2,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProductTableItem } from './ProductTableItem';
 import recordContext from "../context/recordContext";
+import { Loader } from './Loader';
 
 export function Stock(props) {
 
@@ -20,7 +21,7 @@ export function Stock(props) {
         e.preventDefault()
         if (file) {
             const formData = new FormData();
-            formData.append('file', file, "products.csv");
+            formData.append('file', file, "products.xlsx");
  
             const response = await fetch('api/product/stockupload', {
                 method: 'POST',
@@ -42,7 +43,9 @@ export function Stock(props) {
         getallproducts()
         }, [])
     if (availableProducts.isLoading) {
-        return null;
+        return (
+            <Loader /> 
+        )
     }
     return (
         <>
@@ -77,7 +80,6 @@ export function Stock(props) {
                                   />
 
                             })}
-                            {/* <TableItem key={props.data._id} alert={props.alert} showAlert={props.showAlert} item={props.data}/> */}
     
                         </tbody>
                     </table>

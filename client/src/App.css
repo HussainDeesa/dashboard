@@ -57,7 +57,7 @@ a {
 input[type="file"] {
   width: 240px;
 }
-.supplierName-select{
+.supplierName-select {
   font-size: 13px;
 }
 .textarea-input {
@@ -77,10 +77,10 @@ input[type="file"] {
 .allrecords-heading {
   margin-left: -37px;
 }
-.switch-order{
+.switch-order {
   white-space: nowrap;
 }
-.invoice-items{
+.invoice-items {
   width: 800px;
   margin-top: 25px;
 }
@@ -128,17 +128,16 @@ input[type="file"] {
   .table-responsive table {
     width: 100%;
   }
-  .invoice-items{
+  .invoice-items {
     width: 450px;
   }
 }
 
 .app-header {
   display: grid;
-  grid-template-columns: minmax(-webkit-min-content, 175px) minmax(
-      -webkit-min-content,
-      500px
-    ) minmax(-webkit-max-content, 400px);
+  grid-template-columns:
+    minmax(-webkit-min-content, 175px) minmax(-webkit-min-content, 500px)
+    minmax(-webkit-max-content, 400px);
   grid-template-columns: minmax(min-content, 175px) minmax(min-content, 500px) minmax(
       max-content,
       400px
@@ -164,10 +163,10 @@ input[type="file"] {
   .table {
     margin-left: -35px !important;
   }
-  .product-list{
+  .product-list {
     width: 400px;
   }
-  .accordion-body .table-box{
+  .accordion-body .table-box {
     padding-left: 60px;
   }
 }
@@ -223,46 +222,51 @@ input[type="file"] {
     padding-left: 50px;
     margin-left: -50px;
   }
-  .product-list{
+  .product-list {
     width: 365px !important;
   }
-  .generate-estimate-btn,.generate-invoice-btn{
+  .generate-estimate-btn,
+  .generate-invoice-btn {
     font-size: 13px;
   }
-  .invoiceDetail-input{
+  .invoiceDetail-input {
     width: 180px;
   }
-  .invoice-items{
+  .invoice-items {
     width: 344px !important;
   }
-  .invoice-details{
+  .invoice-details {
     width: 365px !important;
   }
-  .accordion-invoice-details{
-   display: block !important;
+  .accordion-invoice-details {
+    display: block !important;
   }
-  .accordion-invoice-number{
+  .accordion-invoice-number {
     margin-bottom: 5px;
     width: 160px !important;
   }
-  .mobile-tabs{
+  .mobile-tabs {
     margin-left: 35px;
   }
   .edit-invoice-dialoge-pc {
     width: auto !important;
   }
-  .product-box{
+  .product-box {
     margin-left: 0px !important;
     padding-left: 44px !important    ;
+    /* max-width: 100% !important; */
   }
-  .react-autosuggest__suggestions-container{
+  .react-autosuggest__suggestions-container {
     background-color: #fff !important;
   }
-  .react-autosuggest__suggestions-container--open{
+  .react-autosuggest__suggestions-container--open {
     height: 350px !important;
   }
-  .edit-scroll-conatiner{
+  .edit-scroll-conatiner {
     width: 370px !important;
+  }
+  .app-body-main-content {
+    max-width: 90vw !important;
   }
 }
 .table-box {
@@ -282,13 +286,13 @@ input[type="file"] {
   .table {
     font-size: 13px;
   }
-  .switch-order{
+  .switch-order {
     font-size: 13px;
   }
-  .product-list{
+  .product-list {
     width: 450px;
   }
-  .invoice-details{
+  .invoice-details {
     width: 600px;
   }
 }
@@ -303,7 +307,7 @@ input[type="file"] {
   }
 }
 @media (max-width: 1200px) {
-  .invoice-items{
+  .invoice-items {
     width: 600px;
   }
 }
@@ -493,7 +497,7 @@ input[type="file"] {
   margin-right: 25px;
   margin-top: 25px;
 }
-.invoice-label{
+.invoice-label {
   font-size: 14px;
 }
 .search-tracking {
@@ -1313,9 +1317,9 @@ input {
   width: 40px;
   height: 40px;
 }
-.delete-button{
+.delete-button {
   background-color: red;
-  color:#fff
+  color: #fff;
 }
 #productprice,
 #quantity,
@@ -1334,45 +1338,46 @@ input {
 #quantity {
   width: 54px;
 }
-#productprice,#productdiscount {
+#productprice,
+#productdiscount {
   width: 100px;
 }
 #producttotal {
   width: 100px;
   background-color: #cbcbcb;
 }
-#producttotal-pc{
+#producttotal-pc {
   background-color: #cbcbcb;
 }
-#producttotal:focus-visible,#producttotal-pc:focus-visible {
- border: none;
+#producttotal:focus-visible,
+#producttotal-pc:focus-visible {
+  border: none;
 }
-.product-list{
+.product-list {
   overflow: auto;
   padding-left: 73px;
   height: 40vh;
   overflow: auto;
 }
-.product-list-invoice{
+.product-list-invoice {
   height: 34vh;
 }
-.scroll-container{
-    
-    margin-left: -75px;
-    margin-top: 25px;
-    white-space: nowrap;
+.scroll-container {
+  margin-left: -75px;
+  margin-top: 25px;
+  white-space: nowrap;
 }
-.generate-invoice-btn{
+.generate-invoice-btn {
   margin-right: 15px;
 }
-.invoiceDetail-input{
- border: none;
- border-bottom: 2px solid #969593;
+.invoiceDetail-input {
+  border: none;
+  border-bottom: 2px solid #969593;
 }
 .invoice-details {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px; 
+  gap: 30px;
 }
 
 .invoiceDetail-inputRow {
@@ -1384,34 +1389,38 @@ input {
   .invoiceDetail-inputRow {
     width: 100%;
   }
-  .invoice-details{
+  .invoice-details {
     gap: 10px;
   }
-  .invoice-items{
+  .invoice-items {
     width: 450px;
   }
 }
 
-
-.accordion-del-img,.accordion-edit-img,.accordion-download-img{
+.accordion-del-img,
+.accordion-edit-img,
+.accordion-download-img {
   height: 20px;
   width: 20px;
   margin-top: 10px;
-  margin-right:3px;
+  margin-right: 3px;
 }
-.accordion-del-img:hover,.accordion-edit-img:hover,.accordion-download-img:hover{
-cursor: pointer;}
-.accordion-head{
+.accordion-del-img:hover,
+.accordion-edit-img:hover,
+.accordion-download-img:hover {
+  cursor: pointer;
+}
+.accordion-head {
   display: flex;
 }
-.accordion-body .table-box{
+.accordion-body .table-box {
   margin-left: -20px;
   height: fit-content;
 }
-.accordion-button{
+.accordion-button {
   background-color: #acacacb5 !important;
 }
-.accordion-button:focus{
+.accordion-button:focus {
   color: #000;
   border-color: 1px solid #000 !important;
   box-shadow: #000 !important;
@@ -1427,16 +1436,16 @@ cursor: pointer;}
 .accordion-invoice-number {
   width: 210px; /* Adjust the width as needed */
 }
-.invoice-pc-container{
+.invoice-pc-container {
   margin-left: 30px;
 }
-.scroll-container-pc{
+.scroll-container-pc {
   margin-top: 25px;
 }
 .vertical {
   border-left: 2px solid black;
   height: 200px;
-  position:absolute;
+  position: absolute;
 }
 .invoice-footer {
   position: absolute;
@@ -1455,10 +1464,10 @@ cursor: pointer;}
   align-items: center;
   height: 75px;
 }
-.invoice-footer span{
+.invoice-footer span {
   font-size: 18px;
 }
-.invoice-details-container{
+.invoice-details-container {
   max-height: 55vh;
   overflow: auto;
 }
@@ -1470,47 +1479,47 @@ cursor: pointer;}
 .generate-buttons {
   margin-left: 30px;
 }
-.generate-invoice-btn-pc{
+.generate-invoice-btn-pc {
   margin-top: 0;
 }
 .generate-invoice-btn-pc:hover {
   background-color: #ff9c11 !important;
   color: #000 !important;
 }
-#productName-pc{
+#productName-pc {
   width: 300px;
 }
-#productAuthor-pc{
+#productAuthor-pc {
   width: 250px;
 }
-#productQuantity-pc{
+#productQuantity-pc {
   width: 85px;
 }
-#productPrice-pc{
+#productPrice-pc {
   width: 110px;
 }
-#productDiscount-pc{
+#productDiscount-pc {
   width: 85px;
 }
-.invoice-pc-container table{
+.invoice-pc-container table {
   border-spacing: 7px;
   border-collapse: separate;
 }
-.invoice-back-button{
+.invoice-back-button {
   margin-top: -40px;
 }
-.invoice-footer-mobile{
-  padding: 10px
+.invoice-footer-mobile {
+  padding: 10px;
 }
-.edit-invoice-dialoge-pc{
+.edit-invoice-dialoge-pc {
   max-width: 800px !important;
   max-height: 700px !important;
 }
-.edit-scroll-conatiner{
+.edit-scroll-conatiner {
   max-height: 40vh;
-  width: 600px ;
+  width: 600px;
 }
-.edit-invoice-dialoge-pc .addrecord-form{
+.edit-invoice-dialoge-pc .addrecord-form {
   margin-left: 30px;
 }
 .edit-invoice-dialoge-pc .delete-button {
@@ -1519,23 +1528,24 @@ cursor: pointer;}
   margin-top: 0 !important;
   border-radius: 30px !important;
 }
-.edit-invoice-dialoge-pc .date-input,.edit-invoice-dialoge-pc .tracking-input{
+.edit-invoice-dialoge-pc .date-input,
+.edit-invoice-dialoge-pc .tracking-input {
   margin-left: 40px;
 }
-.edit-invoice-dialoge-pc .order-input{
+.edit-invoice-dialoge-pc .order-input {
   margin-left: 0px;
 }
-.edit-invoice-dialoge-pc .buttons{
+.edit-invoice-dialoge-pc .buttons {
   justify-content: flex-start;
 }
-.product-box{
+.product-box {
   margin-left: -27px;
 }
-.react-autosuggest__suggestions-container{
+.react-autosuggest__suggestions-container {
   z-index: 1000;
   position: absolute;
   background-color: var(--c-gray-800);
-  width:300px;
+  width: 300px;
   right: 10px;
   top: 10px;
   padding: 5px;
@@ -1545,26 +1555,143 @@ cursor: pointer;}
   display: none;
   overflow: auto;
 }
-.react-autosuggest__suggestions-container--open{
+.react-autosuggest__suggestions-container--open {
   display: block;
-  height:600px;
+  height: 600px;
 }
 /* .react-autosuggest__suggestions-container li{
   list-style: none;
 } */
-.orderReport{
+.orderReport {
   margin-top: 15px;
 }
-.radio-buttons{
+.radio-buttons {
   margin-top: 10px;
   display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    max-width: 500px;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 500px;
 }
-.radio-button{
+.radio-button {
   margin-right: 10px;
 }
-.radio-buttons input{
+.radio-buttons input {
   margin-right: 10px;
+}
+/* .product-box{
+  max-width: 57%;
+} */
+.app-body-main-content {
+  max-width: 65vw;
+}
+
+.loader {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 6.25em;
+  height: 6.25em;
+  animation: rotate 2.4s linear infinite;
+}
+.white {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  animation: flash 2.4s linear infinite;
+  opacity: 0;
+}
+.dot {
+  position: absolute;
+  margin: auto;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 100%;
+  transition: all 1s ease;
+}
+.dot:nth-child(2) {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: #ff4444;
+  animation: dotsY 2.4s linear infinite;
+}
+.dot:nth-child(3) {
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #ffbb33;
+  animation: dotsX 2.4s linear infinite;
+}
+.dot:nth-child(4) {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: #99cc00;
+  animation: dotsY 2.4s linear infinite;
+}
+.dot:nth-child(5) {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #33b5e5;
+  animation: dotsX 2.4s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  10% {
+    width: 6.25em;
+    height: 6.25em;
+  }
+  66% {
+    width: 2.4em;
+    height: 2.4em;
+  }
+  100% {
+    transform: rotate(360deg);
+    width: 6.25em;
+    height: 6.25em;
+  }
+}
+
+@keyframes dotsY {
+  66% {
+    opacity: 0.1;
+    width: 2.4em;
+  }
+  77% {
+    opacity: 1;
+    width: 0;
+  }
+}
+@keyframes dotsX {
+  66% {
+    opacity: 0.1;
+    height: 2.4em;
+  }
+  77% {
+    opacity: 1;
+    height: 0;
+  }
+}
+
+@keyframes flash {
+  33% {
+    opacity: 0;
+    border-radius: 0%;
+  }
+  55% {
+    opacity: 0.6;
+    border-radius: 100%;
+  }
+  66% {
+    opacity: 0;
+  }
 }
