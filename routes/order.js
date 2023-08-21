@@ -40,15 +40,27 @@ router.post('/fetchordersbetweendates', fetchuser, async (req, res) => {
 
     parts = req.body.endDate.split('-');
     let endDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-
+    let orders
     try {
+        if(req.body.location!="All"){
 
-        const orders = await Order.find({
-            date: {
-                $gte: startDate,
-                $lte: endDate
-            }
-        })
+             orders = await Order.find({
+                date: {
+                    $gte: startDate,
+                    $lte: endDate
+                },
+                location:req.body.location
+            })
+        }
+        if(req.body.location=="All"){
+
+             orders = await Order.find({
+                date: {
+                    $gte: startDate,
+                    $lte: endDate
+                }
+            })
+        }
         if (orders.length == 0) {
             success = false
             res.status(400).json({ success, error: "No records found between the selected dates" })
@@ -60,6 +72,7 @@ router.post('/fetchordersbetweendates', fetchuser, async (req, res) => {
                 { label: 'tracking_provider', value: 'post' },
                 { label: 'tracking_number', value: 'trackingID' },
                 { label: 'date_shipped', value: 'date', type: 'Date', dateFormat: 'mm/dd/yyyy' },
+                { label: 'location', value: 'location' },
                 { label: 'status_shipped', value: 'status' }
             ];
 
@@ -78,16 +91,21 @@ router.post('/fetchordersbetweendates', fetchuser, async (req, res) => {
     }
 })
 
-router.get('/gettodaycount', fetchuser, async (req, res) => {
+router.post('/gettodaycount', fetchuser, async (req, res) => {
 
     try {
-        // let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
-        // console.log(today_date);
         const currentDate = new Date();
         const utcOffset = 5.5 * 60 * 60 * 1000;
+        let count
         const istDate = new Date(currentDate.getTime() + utcOffset);
         let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
-        let count = await Order.count({ created_date: today_date })
+        if(req.body.location){
+             count = await Order.count({ created_date: today_date, location: req.body.location })
+        }
+        else{
+             count = await Order.count({ created_date: today_date })
+
+        }
         res.json({ count: count })
     } catch (error) {
         console.error(error.message)
@@ -151,7 +169,7 @@ router.post('/addorder', fetchuser, async (req, res) => {
         if (req.body.skip_check == false) {
             order = await Order.findOne({ orderID: req.body.orderid })
             if (order) {
-                res.status(400).json({ success: false, error: "Order already exists for this orderID" })
+                res.status(400).json({ success: false, error: `Order already exists for this orderID, and it is shipped from ${order.location}` })
                 return
             }
         }
@@ -164,7 +182,6 @@ router.post('/addorder', fetchuser, async (req, res) => {
         const parts = req.body.date.split('-');
         const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
         let today_date = new Date().toISOString().split('T')[0].split('-').reverse().join('-');
-        let count = await Order.count({ created_date: today_date }) + 1
 
         order = new Order({
             orderID: req.body.orderid,
@@ -172,8 +189,8 @@ router.post('/addorder', fetchuser, async (req, res) => {
             post: req.body.post,
             date: formattedDate,
             status: req.body.status,
-            created_date: today_date
-
+            created_date: today_date,
+            location: req.body.location
         })
         const saveOrder = await order.save()
         res.json({ success: true, data: saveOrder })
@@ -186,7 +203,7 @@ router.post('/addorder', fetchuser, async (req, res) => {
 })
 
 router.put('/updateorder/:id', fetchuser, async (req, res) => {
-    const { orderid, trackingid, post, date, status } = req.body
+    const { orderid, trackingid, post, date, status, location } = req.body
     const parts = req.body.date.split('-');
     const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
     try {
@@ -196,6 +213,7 @@ router.put('/updateorder/:id', fetchuser, async (req, res) => {
         if (post) { newOrder.post = post };
         if (date) { newOrder.date = formattedDate };
         if (status) { newOrder.status = status };
+        if (location) { newOrder.location = location };
         let order = await Order.findById(req.params.id)
         if (!order) { return res.status(404).send("Not Found") }
 
@@ -271,23 +289,23 @@ router.post('/generatereport', fetchuser, async (req, res) => {
         //         }
 
         //     })
-        let found=false
-        if(i!='\n'){
-        for (let r of csv_data_rows) {
-            if (r['Order Number'] === String(i)) {
-                let lower_case = r["First Name (Shipping)"] + " " + r["Last Name (Shipping)"];
-                cust_name = lower_case.toUpperCase();
-                cust_phone = r["Phone (Billing)"];
-                cust_pin = r["Postcode (Shipping)"];
-                found=true
-                break
+        let found = false
+        if (i != '\n') {
+            for (let r of csv_data_rows) {
+                if (r['Order Number'] === String(i)) {
+                    let lower_case = r["First Name (Shipping)"] + " " + r["Last Name (Shipping)"];
+                    cust_name = lower_case.toUpperCase();
+                    cust_phone = r["Phone (Billing)"];
+                    cust_pin = r["Postcode (Shipping)"];
+                    found = true
+                    break
+                }
+            }
+
+            if (found == false) {
+                not_present_in_excel.push(i)
             }
         }
-        
-        if(found==false){
-            not_present_in_excel.push(i)
-        }
-    }
         const row = {
             trackingId: cust_tracking,
             name: cust_name,
@@ -306,7 +324,7 @@ router.post('/generatereport', fetchuser, async (req, res) => {
     const opts = { fields };
     const parser = new json2csv.Parser(opts);
     const csvData = parser.parse(rows);
-    res.json({ success: true, csv: csvData,not_db:not_present_in_db,not_excel:not_present_in_excel })
+    res.json({ success: true, csv: csvData, not_db: not_present_in_db, not_excel: not_present_in_excel })
     return
 })
 
@@ -351,11 +369,11 @@ router.post('/track', (req, res) => {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); 
+        cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
         const fileName = file.originalname;
-        cb(null, fileName); 
+        cb(null, fileName);
     }
 });
 
@@ -372,19 +390,19 @@ router.post('/upload', upload.single('file'), (req, res) => {
 router.post('/checkupload', (req, res) => {
     const { filename } = req.params;
     const filePath = `uploads/dealer.txt`;
-  
+
     // Check if the file exists
     fs.access(filePath, fs.constants.F_OK, (err) => {
-      if (err) {
-        // File doesn't exist
-        res.json({ exists: false });
-      } else {
-        // File exists
-        res.json({ exists: true });
-      }
+        if (err) {
+            // File doesn't exist
+            res.json({ exists: false });
+        } else {
+            // File exists
+            res.json({ exists: true });
+        }
     });
-  });
-  
+});
+
 
 
 

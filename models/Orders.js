@@ -23,6 +23,9 @@ const OrdersSchema = new Schema({
         type: String,
         required:true
     },
+    location:{
+        type:String
+    },
     created_date:{
         type:String
     }

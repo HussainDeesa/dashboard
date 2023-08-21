@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react';
 import recordContext from "../context/recordContext";
 import { Alert } from './Alert';
-export function EditRecord({ onCancel, onConfirm, id, order,alert,showAlert }) {
+export function EditRecord({ onCancel, onConfirm, id, order, alert, showAlert }) {
     const [added, setadded] = useState(false)
-    const [record, setRecord] = useState({ orderid: order.orderID, trackingid: order.trackingID, date: order.date.split("T")[0], post: order.post, status: order.status })
+    const [record, setRecord] = useState({ orderid: order.orderID, trackingid: order.trackingID, date: order.date.split("T")[0], post: order.post, status: order.status,location:order.location })
     const context = useContext(recordContext);
     const { editRecord, deleteRecord } = context;
     const handleSubmit = (e) => {
-        e.preventDefault(); 
-        editRecord(id, record.orderid, record.trackingid, record.post, record.date, record.status).then(() => {
-      
+        e.preventDefault();
+        editRecord(id, record.orderid, record.trackingid, record.post, record.date, record.status,record.location).then(() => {
+
             onConfirm();
             window.location.reload()
         })
@@ -41,6 +41,12 @@ export function EditRecord({ onCancel, onConfirm, id, order,alert,showAlert }) {
 
                     <br />  <label className='search-label'>Date : </label>
                     <input required className='date-input' onChange={handleOnChange} value={record.date} name='date' type='date' />
+                    <br />  <label className='search-label'>Location : </label>
+                    <select required className='location-input' onChange={handleOnChange} value={record.location} name='location' type='date' >
+                    <option value="">Select</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Delhi">Delhi</option>
+                        </select>
                     <br />
 
                     <label className='search-label'>Status : </label>
@@ -58,7 +64,7 @@ export function EditRecord({ onCancel, onConfirm, id, order,alert,showAlert }) {
                     </div>
                 </form>
             </div>
-        
+
         </div>
 
     );

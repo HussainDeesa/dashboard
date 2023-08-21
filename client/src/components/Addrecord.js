@@ -11,14 +11,15 @@ export function Addrecord(props) {
   const { countRecord } = context;
   const [added, setadded] = useState(false);
   const [count, setCount] = useState();
+  const [location, setlocation] = useState()
   // console.log(new Date());
   // const today = new Date().toISOString().split('T')[0]
-  
+
   const currentDate = new Date();
   const utcOffset = 5.5 * 60 * 60 * 1000;
   const istDate = new Date(currentDate.getTime() + utcOffset);
   const today = istDate.toISOString().split("T")[0];
-//   console.log(today);
+  //   console.log(today);
   const [record, setRecord] = useState({
     orderid: "",
     trackingid: "",
@@ -28,9 +29,8 @@ export function Addrecord(props) {
     skip_check: false,
     count: "",
   });
-//   console.log(record);
-  const fetchCount = async () => {
-    const count = await countRecord();
+  const fetchCount = async (location) => {
+    const count = await countRecord(location);
     setCount(count);
   };
   const addRecord = async (e) => {
@@ -47,6 +47,7 @@ export function Addrecord(props) {
         post: record.post,
         date: record.date,
         status: record.status,
+        location:location,
         skip_check: false,
       }),
     });
@@ -65,7 +66,7 @@ export function Addrecord(props) {
         status: 1,
         count: json.count,
       });
-      fetchCount();
+      fetchCount(location);
     }
     orderInputRef.current.focus();
   };
@@ -79,14 +80,31 @@ export function Addrecord(props) {
       trackingInputRef.current.focus();
     }
   };
+  const handleOnChangeLocation = (e) => {
+    fetchCount(e.target.value);
+    Cookies.set('location', e.target.value)
+    setlocation(e.target.value)
+  };
   useEffect(() => {
+    if (Cookies.get('location') != undefined) {
+      setlocation(Cookies.get('location'))
+    }
     orderInputRef.current.focus();
-    fetchCount();
+    fetchCount(location);
   }, []);
 
   return (
     <>
       <div>
+        <select className="records-added location-option"
+          name="location"
+          onChange={handleOnChangeLocation}
+          value={location}
+        >
+          <option value="">Select</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Delhi">Delhi</option>
+        </select>
         <h3 className="records-added">Records Added : {count}</h3>
         <h3> Add Order Details </h3>
         <form
@@ -139,6 +157,19 @@ export function Addrecord(props) {
             name="date"
             type="date"
           />
+
+          <br /> <label className="search-label">Location : </label>
+          <select
+            required
+            className="location-input"
+            onChange={handleOnChangeLocation}
+            value={location}
+            name="location"
+          >
+            <option value="">Select</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Delhi">Delhi</option>
+          </select>
           <br />
           <label className="search-label">Status : </label>
           <input

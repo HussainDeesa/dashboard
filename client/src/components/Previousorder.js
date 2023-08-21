@@ -36,6 +36,7 @@ export function PreviousOrder(props) {
                                 <th scope="col">TrackingID</th>
                                 <th scope="col">POST</th>
                                 <th scope="col">Date</th>
+                                <th scope="col">Location</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>

@@ -193,6 +193,7 @@ input[type="file"] {
   .post-input,
   .date-input,
   .status-input,
+.location-input,
   .trackingid-input {
     width: 50%;
   }
@@ -267,6 +268,10 @@ input[type="file"] {
   }
   .app-body-main-content {
     max-width:80vw !important;
+  }
+  .btn-addanyways{
+    margin-top: 5px !important;
+    margin-left: 0px !important;
   }
 }
 .table-box {
@@ -526,7 +531,9 @@ select:focus-visible {
 .date-input {
   margin-left: 47px;
 }
-
+.location-input{
+  margin-left: 16px;
+}
 /* input[type=date]::-webkit-calendar-picker-indicator {
   filter: invert(100%);
 } */
@@ -1267,6 +1274,11 @@ button:focus {
   margin-bottom: 15px;
   color: #fff;
 }
+
+.location-option{
+  padding: 7px; 
+  width: 100px;
+ }
 ::-ms-reveal {
   filter: invert(100%);
 }

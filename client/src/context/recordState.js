@@ -52,15 +52,15 @@ const RecordState = (props) => {
       });
       
    }
-   const countRecord = async (id) => {
-      // API Call
+   const countRecord = async (location) => {
       const response = await fetch(`api/order/gettodaycount`, {
-         method: 'GET',
+         method: 'POST',
          headers: {
             'Content-Type': 'application/json',
             'auth-token':Cookies.get("auth-token")
-
          },
+         body: JSON.stringify({ location:location })
+
 
       });
       const json = await response.json()
@@ -69,7 +69,7 @@ const RecordState = (props) => {
       return json.count
    }
 
-   const editRecord = async (id, orderid, trackingid, post, date, status) => {
+   const editRecord = async (id, orderid, trackingid, post, date, status,location) => {
       // API Call
       const response = await fetch(`api/order/updateorder/${id}`, {
          method: 'PUT',
@@ -78,7 +78,7 @@ const RecordState = (props) => {
             'auth-token':Cookies.get("auth-token")
 
          },
-         body: JSON.stringify({ orderid, trackingid, post, date, status })
+         body: JSON.stringify({ orderid, trackingid, post, date, status,location })
 
       });
       const json = response.json()
@@ -91,6 +91,7 @@ const RecordState = (props) => {
             newOrder[index].post = post;
             newOrder[index].date = date;
             newOrder[index].status = status;
+            newOrder[index].location = location;
             break;
          }
       }

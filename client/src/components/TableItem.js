@@ -72,6 +72,7 @@ export function TableItem(props) {
         <td>{item.trackingID}</td>
         <td>{item.post}</td>
         <td>{item.date}</td>
+        <td>{item.location}</td>
         <td>{item.status}</td>
         <td>
           <span>
