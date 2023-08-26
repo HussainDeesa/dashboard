@@ -1,0 +1,581 @@
+[
+  {
+    "quantity": 41,
+    "title": "Kaniyan Police Exam Book 2023 Latest Edition",
+    "dealer": "CBSD"
+  },
+  {
+    "ISBNCode": "11th EIC001",
+    "quantity": 2,
+    "title": "11th Ethics &amp; Indian Culture (அறவியலும் இந்தியப் பண்பாடும்) Textbook (Samacheer Kalvi) (Tamil)",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Tamilnadu Board Economics Class 11 and 12  Original Combo Paperback",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789386480590",
+    "quantity": 1,
+    "dealer": "CBSD",
+    "title": "Short Cases In Surgery by R Rajamahendran  2nd Edition"
+  },
+  {
+    "quantity": 1,
+    "title": "Kaniyan TNPSC Pothu Tamil (Q&A) BOOK 2022",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Tamilnadu Board History Class 11 and 12 (Original) Combo PaperBack",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789381430583",
+    "quantity": 2,
+    "dealer": "JAYPEE",
+    "title": "Income Tax Theory, Law Practice  2023-24 By T.S. Reddy, Y. Hariprasad Reddy"
+  },
+  {
+    "ISBNCode": "9789354653216",
+    "quantity": 1,
+    "title": "The Essentials of Forensic Medicine &amp; Toxicology By KS Narayan Reddy, 35th Edition",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "SCHGUIDE10055",
+    "quantity": 1,
+    "title": "12th Bharathi Tamil (தமிழ்) Guide (Based On the New Syllabus2023-2024)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788172764814",
+    "quantity": 1,
+    "title": "To the Best of my Memory By P. B. Gajendragadkar",
+    "dealer": ""
+  },
+  {
+    "quantity": 2,
+    "title": "TNTET Paper 1 Book (Mathematics &amp; Environmental Studies) 5 in 1 Books Based on School New Text Books (English)",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Income Tax Law &amp; Practice 2023-24 By VP Gaur Db Narang (Kalyani Publishers)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354660184",
+    "quantity": 1,
+    "dealer": "CTL",
+    "title": "Textbook of Tuberculosis (PB) By Satyasri S"
+  },
+  {
+    "ISBNCode": "9789389776973",
+    "quantity": 1,
+    "title": "Mastering the BDS IVth Year-II by Hemant Gupta",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789353305413",
+    "quantity": 1,
+    "title": "11th Sura's Bio-Botany Guide (Based On New Syllabus 2023-2024)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "Margham-1043",
+    "quantity": 6,
+    "dealer": "ASSORTED",
+    "title": "Financial Accounting for Bharathidasan Universities - T.S. Reddy & A. Murthy"
+  },
+  {
+    "ISBNCode": "9789389941913",
+    "quantity": 1,
+    "title": "Pharmacy Practice (PB) By Agarwal G.",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354653209",
+    "quantity": 1,
+    "title": "Adult Health Nursing-II Medical Surgical Nursing By MJ Kumari",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "WC1001",
+    "quantity": 1,
+    "title": "Wireless Communication by Murali Babu From Lakshmi Publications",
+    "dealer": ""
+  },
+  {
+    "quantity": 6,
+    "title": "Self help books to read (BOOKS COMBO OF 7)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354656446",
+    "quantity": 1,
+    "title": "Companion for Final MBBS By Singi Yatiraj",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "11th HIS001",
+    "quantity": 1,
+    "title": "11th History TamilNadu Textbook (Samacheer Kalvi) (Tamil)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9th SOC001",
+    "quantity": 1,
+    "title": "9th Social Science TamilNadu Textbook (Samacheer Kalvi) (Tamil)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "RMB285490",
+    "quantity": 1,
+    "title": "10th Standard Science Textbook (Samacheer Kalvi) Tamilnadu",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "SCHGUIDE10013",
+    "quantity": 1,
+    "dealer": "R&D Chawla",
+    "title": "10th DON Tamil Guide [Based On New Syllabus 2023-2024]"
+  },
+  {
+    "ISBNCode": "9788174767707",
+    "quantity": 1,
+    "title": "Estimating and Costing in Civil Engineering Theory and Practice by BN Dutta, 28th Edition",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9780241567418",
+    "quantity": 1,
+    "title": "Diary of a Wimpy Kid Box Set Books (1-14) by Jeff Kinney (Paperback)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789351551669",
+    "quantity": 1,
+    "title": "10th Full Marks Tamil Guide [Based On New Syllabus 2023-2024]",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788194708254",
+    "quantity": 1,
+    "title": "Competency Based Questions and Answers in Physiology for First MBBS Professional Examination (PB) By Sushrutha Academy",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354654770",
+    "quantity": 1,
+    "title": "Adult Health Nursing-I Medical Surgical Nursing By MJ Kumari",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "SCHGUIDE10026",
+    "quantity": 1,
+    "title": "10th James Tamil (தமிழ்) Paper I&amp;II Guide (Based On the New Syllabus 2023-2024)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "12th EIC001",
+    "quantity": 1,
+    "title": "12th Ethics &amp; Indian Culture (அறவியலும் இந்தியப் பண்பாடும்) Textbook (Samacheer Kalvi) (Tamil)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "SCHGUIDE10051-1",
+    "quantity": 1,
+    "title": "10th Full Marks Tamil Guide [Based On New Syllabus 2023-2024] CBSE",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Self-Help Books Combo of 5 books",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788172345242",
+    "quantity": 2,
+    "title": "The Art of War - Fingerprint! by SUN TZU",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Kaniyan Maths (Kanidham) COMBO Tamil Part-1,2,3",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9781408856772",
+    "quantity": 3,
+    "title": "Harry Potter Box Set By JK Rowling 7 volume complete set",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "11th ECO001",
+    "quantity": 1,
+    "title": "11th Economics TamilNadu Textbook (Samacheer Kalvi) (Tamil)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788194523475",
+    "quantity": 16,
+    "title": "Essentials of Basic Nursing Procedures, 2e (PB) By Thresyamma C P",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "SAKTHISIENG",
+    "quantity": 1,
+    "dealer": "UDH",
+    "title": "TNUSRB  Sub Inspector (SI) Exam 3 in 1 Book (English)"
+  },
+  {
+    "ISBNCode": "RMB285487",
+    "quantity": 1,
+    "title": "10th Standard Tamil Textbook (Samacheer Kalvi)",
+    "dealer": ""
+  },
+  {
+    "quantity": 8,
+    "title": "Atomics Habits by James Clear",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354656811",
+    "quantity": 1,
+    "title": "Medicine Update (Volume 33, 2023) By Editor-in-Chief: Girish Mathur",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354661549",
+    "quantity": 1,
+    "title": "Manual Of Immunohistotechnology Histotechnology And Cytotechnology (Flexicover 2023) By Sood R.",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "MARGHAM020",
+    "quantity": 1,
+    "title": "Business Mathematics and Statistics By P.R Vittal",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354657269",
+    "quantity": 1,
+    "title": "Competency Based Logbook in \r\nEar, Nose and Throat for MBBS By Mohan Bansal",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789382219194",
+    "quantity": 2,
+    "title": "Park’s Text Book Of Preventive And Social Medicine 27th edition",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "SCHGUIDE10023",
+    "quantity": 3,
+    "title": "9th Way To Success English Guide [Based On The New Syllabus 2022-2023]",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "SGSMAT01",
+    "quantity": 1,
+    "title": "10th S.G.S Mathematics Solution Book (Based on New Syllabus 2023-2024)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788131264614",
+    "quantity": 1,
+    "title": "Physiology, 6e By Costanzo",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789390619931",
+    "quantity": 1,
+    "title": "Textbook Of Nursing Foundations For Bsc Nursing Students Based On Inc 2021-2022 I & II Semester, 2e (PB) By Goyal H.",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354655425",
+    "quantity": 1,
+    "title": "Review of Pharmacology by Gobind Rai Garg , Sparsh Gupta",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Review Of Pathology and Genetics, 14th Edition",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789352706020",
+    "quantity": 1,
+    "title": "Exam Preparatory Manual for Undergraduates Oral Medicine and Radiology\r\n By Anbarasi, K",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789390619757",
+    "quantity": 1,
+    "title": "Textbook Of Microbiology For Physiotherapy Students (PB) By Dhir A",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9th ECLPSOC01",
+    "quantity": 1,
+    "title": "9th EC Loyola Social Science Guide (Based On the New Syllabus 2023-24)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789356961883",
+    "quantity": 1,
+    "title": "Standard Operating Procedures and Regulatory Guidelines - Blood Banking by GP Saluja, 2nd Edition",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354654862",
+    "quantity": 1,
+    "title": "Postgraduate Orthopedics: An Exam Preparatory Manual By Manish Kumar Varshney",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789390619856",
+    "quantity": 1,
+    "title": "Textbook Of Pharmacology For Bsc Nursing Students 2Ed (PB) By Pathania J S",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Statistics And Numerical Methods By Balaji",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "11th POS001",
+    "quantity": 2,
+    "title": "11th Political Science TamilNadu Textbook (Samacheer Kalvi) (Tamil)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "COMBGEOT01",
+    "quantity": 1,
+    "title": "Tamilnadu Board Geography Class 11 and 12 (Tamil) Combo PaperBack",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354661877",
+    "quantity": 1,
+    "title": "Competency Based Questions And Answers In Anatomy For First Mbbs Professional Examination (PB) By Sushrutha Academy",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788172765170",
+    "quantity": 1,
+    "title": "The Ten Classical Upanishads : Vol. I Isa & Kena Upanishads By Justice P. B. Gajendragadkar",
+    "dealer": ""
+  },
+  {
+    "quantity": 2,
+    "title": "Income Tax Law & Practice 2023-24 By VP Gaur Db Narang (Kalyani Publishers)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788131247709",
+    "quantity": 1,
+    "title": "Understanding Liver Disorders, 1e By  Kakar & Nundy/ Arora & Kumar",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789350894804",
+    "quantity": 1,
+    "title": "The Liver (How My Body Works)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789352704644",
+    "quantity": 1,
+    "title": "Short Textbook of Anesthesia By Yadav Ajay",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9th ECLPTAM01",
+    "quantity": 2,
+    "title": "9th EC Loyola Tamil (தமிழ்) Guide (Based On the New Syllabus 2023-24)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354659614",
+    "quantity": 1,
+    "title": "Orthopedic Exam Review: A Comprehensive Manual for Postgraduates for MS, DNB &amp; Diploma Students by Ashraf Shaikh",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788131266069",
+    "quantity": 1,
+    "title": "The Elements of Fracture Fixation, 5e By Thakur",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788175993310",
+    "quantity": 2,
+    "title": "Mother Teresa: The Untold Story by Aroup Chatterjee",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789351293026",
+    "quantity": 1,
+    "title": "Textbook of Family Medicine, 3/e By Arulrhaj",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789388108744",
+    "quantity": 1,
+    "title": "My Microbiology Notes for FMGE (PB) By Murugesan",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Kaniyan Maths Part-2 (கணிதம்)  (NEW EDITION -2021)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "RMB283553",
+    "quantity": 1,
+    "title": "10th CBSE Tamil [தமிழ் உரை நூல்] Guide (Based On the New Syllabus)",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789390020829",
+    "quantity": 1,
+    "title": "Principles and Practice of Ultrasonography By Bhargava, Sumeet",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789386322890",
+    "quantity": 2,
+    "title": "Ophthalmology Clinics for Postgraduates By Maharana Prafulla Kumar",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354661464",
+    "quantity": 1,
+    "title": "Manipal Manual Of Clinical Anatomy, 2e Vol 2 (PB) By Madhyastha S.",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354405167",
+    "quantity": 1,
+    "title": "Shlokas and Mantras For Kids - Illustrated Padded Board Book - Learn About Indias Rich Culture and",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788131261828",
+    "quantity": 1,
+    "title": "Gordis Epidemiology, 6e By Celentano",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9780356518732",
+    "quantity": 1,
+    "title": "The Wheel of Time Box Set (Vol 1 to 15) by ROBERT JORDAN",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354660221",
+    "quantity": 1,
+    "title": "Practical Biochemistry 6Ed (PB) By Gupta R C",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "TANGEDCO(TNEB)  & CORPORATION OF CHENNAI / Assistant Engineer / Electronics & Communication Engineering",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9788131249154",
+    "quantity": 1,
+    "title": "Theory and Practice of Optics and Refraction, 4e By Khurana",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9781416974468",
+    "quantity": 1,
+    "title": "The Hardy Boys 26: Double Down By FRANKLIN W. DIXON",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354664670",
+    "quantity": 1,
+    "title": "BD Chaurasia's Human Anatomy, 9th Edition 2023 Set of (Volume 1, 2, 3 &amp; 4)",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "TNUSRB Sub Inspector Book from Kaniyan 2022 (Tamil)",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Power Plant Engineering  by Dr.G.K.Vijayaragavan and Dr.R.Rajappan",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "LPPCE",
+    "quantity": 1,
+    "title": "Process Planning and Cost Estimation By V. Jayakumar From Lakshmi Publication",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354653698",
+    "quantity": 1,
+    "title": "Review of Radiology By Rajat Jain",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Financial & Management Accounting By TS Reddy & Dr.Y.Hari Prasad Reddy",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "Margham-1039",
+    "quantity": 1,
+    "title": "Entrepreneurial Development - P. Saravanavel",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "LPROBOTICS",
+    "quantity": 1,
+    "title": "Robotics (Industrial Robotics) by P.Jaganathan from Lakshmi Publications",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789354653773",
+    "quantity": 1,
+    "title": "Higher Neural Functions: A Clinical Approach By M Madhusudanan",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789390612130",
+    "quantity": 1,
+    "title": "Pocket Psychiatry By Taylor",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Brand New Across Series(Vol 2) : Anesthesia & Orthopedics By Saumya and Anurag",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Transforms and Partial Differential Equations By G.Balaji",
+    "dealer": ""
+  },
+  {
+    "ISBNCode": "9789380155920",
+    "quantity": 2,
+    "title": "Community Medicine Falcon's Quick Review - Social Preventive Medicine - Notes to Efficient Exam Preparation",
+    "dealer": ""
+  },
+  {
+    "quantity": 1,
+    "title": "Budha Pothutamil Book for tnpsc exam 2022",
+    "dealer": ""
+  }
+]

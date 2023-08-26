@@ -193,7 +193,7 @@ input[type="file"] {
   .post-input,
   .date-input,
   .status-input,
-.location-input,
+  .location-input,
   .trackingid-input {
     width: 50%;
   }
@@ -267,11 +267,14 @@ input[type="file"] {
     width: 370px !important;
   }
   .app-body-main-content {
-    max-width:80vw !important;
+    max-width: 80vw !important;
   }
-  .btn-addanyways{
+  .btn-addanyways {
     margin-top: 5px !important;
     margin-left: 0px !important;
+  }
+  .edit-order-report-dialoge{
+    width: 100vw !important;
   }
 }
 .table-box {
@@ -531,7 +534,7 @@ select:focus-visible {
 .date-input {
   margin-left: 47px;
 }
-.location-input{
+.location-input {
   margin-left: 16px;
 }
 /* input[type=date]::-webkit-calendar-picker-indicator {
@@ -1275,10 +1278,10 @@ button:focus {
   color: #fff;
 }
 
-.location-option{
-  padding: 7px; 
+.location-option {
+  padding: 7px;
   width: 100px;
- }
+}
 ::-ms-reveal {
   filter: invert(100%);
 }
@@ -1706,4 +1709,45 @@ input {
   66% {
     opacity: 0;
   }
+}
+.edit-order-report-dialoge {
+  width: 80vw;
+  height: 90vh;
+  max-height: 119vh;
+  max-width: 119vw;
+  padding: 0 !important;
+}
+.edit-order-report-dialoge .addrecord-form {
+  max-width: none;
+}
+#order-report-edit-title{
+  width: 40vw;
+}
+.edit-order-report-dialoge .invoice-details-container{
+  max-height: 77vh;
+}
+#order-report-edit-dealer{
+  width: 185px;
+  border-bottom: none;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+}
+.edit-order-save-btn{
+  margin-top: 0px !important;
+  margin-top: 5px !important;
+}
+.edit-order-save-btns{
+  justify-content: flex-start !important; 
+}
+.order-report-edit-button{
+  margin-left: 10px;
+}
+
+.row-selected {
+  background-color: #89ff89;
+}
+
+.row-not-selected {
+  background-color: white;
 }

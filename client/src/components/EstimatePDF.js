@@ -166,13 +166,11 @@ const styles = StyleSheet.create({
 });
 
 const EstimatePDF = ({ invoice,invoiceFooter }) => {
-    console.log(invoice);
   return ( 
     <PDFViewer style={{ width: '100%', height: '100vh' }}>
       <Document>
         <Page size="A4" style={styles.page}>
           <View style={styles.container}>
-            {/* Shop Name and Address */}
             <View style={styles.shopContainer}>
               <Text style={styles.invoiceTitle}>ESTIMATE</Text>
               <Text style={styles.shopName}>{invoice.supplierName}</Text>
@@ -184,11 +182,8 @@ const EstimatePDF = ({ invoice,invoiceFooter }) => {
               </Text>
             </View>
 
-            {/* Invoice Details */}
             <View style={styles.invoiceDetails}>
-              {/* <View style={styles.invoiceNumber}>
-                <Text style={styles.label}>Invoice Number: {invoice.invoicenumber}</Text>
-              </View> */}
+        
               <View style={styles.invoiceDate}>
                 <Text style={styles.label}>Date: {invoice.invoiceDate}</Text>
               </View>
@@ -197,11 +192,9 @@ const EstimatePDF = ({ invoice,invoiceFooter }) => {
                 <Text style={styles.label}>Name: {invoice.customerName}</Text>
               </View>
 
-            {/* Rest of the content (Product Table, Total Amount) */}
-            {/* ... */}
+
             <View style={{ marginTop: 20 }}>
               <View style={styles.table}>
-                {/* Table Header */}
                 <View style={styles.tableHeader}>
                   <View style={[styles.tableHeaderCell,styles.productCode]}><Text>SNo.</Text></View>
                   <View style={[styles.tableHeaderCell,styles.author]}><Text>Author</Text></View>
@@ -211,7 +204,6 @@ const EstimatePDF = ({ invoice,invoiceFooter }) => {
                   <View style={[styles.tableHeaderCell,styles.discount]}><Text>Disc %</Text></View>
                   <View style={[styles.tableHeaderCell,styles.total]}><Text>Total</Text></View>
                 </View>
-                {/* Table Rows */}
                 {invoice.products.map((product, index) => (
                   
                   <View style={styles.tableRow} key={index}>

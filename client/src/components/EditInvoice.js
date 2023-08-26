@@ -34,7 +34,7 @@ export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
     },
   ]);
   const context = useContext(recordContext);
-  const { editInvoice, editEstimate,getallproducts,availableProducts } = context;
+  const { editInvoice, editEstimate, getallproducts, availableProducts } = context;
   const handleDeleteRow = (index, e) => {
     e.preventDefault();
     const updatedProducts = products.filter((_, i) => i !== index);
@@ -45,18 +45,18 @@ export function EditInvoice({ onCancel, onConfirm, id, invoice, invoiceType }) {
     const foundProduct = availableProducts.data.find(product => product.ISBNCode === isbn);
     return foundProduct;
   };
-  
-const getSuggestions = (value) => {
-  const inputValue = value.trim().toLowerCase();
-  return availableProducts.data.filter(
-    (product) =>{
-     return product.Title.toLowerCase().includes(inputValue) ||
-      product.ISBNCode.toLowerCase().includes(inputValue)
-    } 
-  );
-};
 
-const [suggestions, setSuggestions] = useState([]);
+  const getSuggestions = (value) => {
+    const inputValue = value.trim().toLowerCase();
+    return availableProducts.data.filter(
+      (product) => {
+        return product.Title.toLowerCase().includes(inputValue) ||
+          product.ISBNCode.toLowerCase().includes(inputValue)
+      }
+    );
+  };
+
+  const [suggestions, setSuggestions] = useState([]);
   const handleInputChange = (index, field, value) => {
     const updatedProducts = [...products];
     updatedProducts[index][field] = value;
@@ -68,11 +68,11 @@ const [suggestions, setSuggestions] = useState([]);
         updatedProducts[index]['productName'] = foundProduct.Title;
         updatedProducts[index]['price'] = foundProduct.Price;
       }
-            if (!foundProduct) {
-              updatedProducts[index]['author'] = '';
-              updatedProducts[index]['productName'] = '';
-              updatedProducts[index]['price'] = '';
-          } 
+      if (!foundProduct) {
+        updatedProducts[index]['author'] = '';
+        updatedProducts[index]['productName'] = '';
+        updatedProducts[index]['price'] = '';
+      }
     }
     if (index === products.length - 1) {
       setProducts([
@@ -113,7 +113,7 @@ const [suggestions, setSuggestions] = useState([]);
   }, [invoice.products]);
   useEffect((e) => {
     getallproducts()
-    }, []) 
+  }, [])
   if (availableProducts.isLoading) {
     return null;
   }
@@ -226,30 +226,30 @@ const [suggestions, setSuggestions] = useState([]);
                           }
                         />
                       </td> */}                <Autosuggest
-                  suggestions={suggestions}
-                  onSuggestionsFetchRequested={({ value }) =>{
-                    setSuggestions(getSuggestions(value))
-                     
-                  }
-                  }
-                  onSuggestionsClearRequested={() => setSuggestions([])}
-                  getSuggestionValue={(suggestion) => suggestion.Title}
-                  renderSuggestion={(suggestion) => (
-                    <div>{suggestion.Title}</div>
-                  )}
-                  inputProps={{
-                    placeholder: 'Product Name',
-                    value: product.productName,
-                    onChange: (e, { newValue }) =>
-                      handleInputChange(index, 'productName', newValue),
-                  }}
-                  onSuggestionSelected={(_, { suggestion }) => {
-                    handleInputChange(index, 'productName', suggestion.Title);
-                    handleInputChange(index, 'productCode', suggestion.ISBNCode);
-                    handleInputChange(index, 'author', suggestion.Author);
-                    handleInputChange(index, 'price', suggestion.Price);
-                  }}
-                />
+                        suggestions={suggestions}
+                        onSuggestionsFetchRequested={({ value }) => {
+                          setSuggestions(getSuggestions(value))
+
+                        }
+                        }
+                        onSuggestionsClearRequested={() => setSuggestions([])}
+                        getSuggestionValue={(suggestion) => suggestion.Title}
+                        renderSuggestion={(suggestion) => (
+                          <div>{suggestion.Title}</div>
+                        )}
+                        inputProps={{
+                          placeholder: 'Product Name',
+                          value: product.productName,
+                          onChange: (e, { newValue }) =>
+                            handleInputChange(index, 'productName', newValue),
+                        }}
+                        onSuggestionSelected={(_, { suggestion }) => {
+                          handleInputChange(index, 'productName', suggestion.Title);
+                          handleInputChange(index, 'productCode', suggestion.ISBNCode);
+                          handleInputChange(index, 'author', suggestion.Author);
+                          handleInputChange(index, 'price', suggestion.Price);
+                        }}
+                      />
 
                       <td>
                         <input

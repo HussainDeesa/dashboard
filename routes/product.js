@@ -32,25 +32,14 @@ router.post("/stockupload", upload.single("file"), (req, res) => {
 });
 router.post("/dealerupload", upload.single("file"), (req, res) => {
   if (req.file) {
-    let dealerArr = []; 
+    let dealerArr = [];
     const parentDir = path.resolve(__dirname, "..");
-    // fs.createReadStream(path.join(parentDir, '/uploads/dealer.csv'))
-    //     .pipe(csv())
-    //     .on('data', (row) => {
-    //         dealerArr.push(row);
-    //     })
-    //     .on('end', () => {
-    //         const jsonFilePath = path.join(parentDir, '/uploads/dealer.txt');
-    //         fs.writeFileSync(jsonFilePath, JSON.stringify(dealerArr, null, 2), 'utf8');
-    //         fs.unlinkSync(path.join(parentDir, '/uploads/dealer.csv'));
-    //         res.json({ message: "File uploaded successfully", success: true })
-    //     })
     const workbook = xlsx.readFile(
       path.join(parentDir, "/uploads/dealer.xlsx")
-    ); 
-    const sheetName = workbook.SheetNames[0]; 
+    );
+    const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
-    const rows = xlsx.utils.sheet_to_json(worksheet, { raw: false }); 
+    const rows = xlsx.utils.sheet_to_json(worksheet, { raw: false });
 
     const jsonFilePath = path.join(parentDir, "/uploads/dealer.txt");
     fs.writeFileSync(jsonFilePath, JSON.stringify(rows, null, 2), "utf8");
@@ -59,70 +48,101 @@ router.post("/dealerupload", upload.single("file"), (req, res) => {
     res.status(400).json({ error: "File upload unsuccessful", success: false });
   }
 });
-router.post("/generatereport", upload.single("file"), (req, res) => {
-  // if (req.file) {
 
-  let dealer = [];
-  let order = [];
-  let segArr = {};
+
+router.post("/uploadorder", upload.single("file"), (req, res) => {
+  const dealerFilePath = path.join(__dirname, "..", "uploads", "dealer.txt");
+  const orderFilePath = path.join(__dirname, "..", "uploads", "order.xlsx");
+  const dealerContent = fs.readFileSync(dealerFilePath, "utf-8");
+  const dealerData = JSON.parse(dealerContent);
+  const workbook = xlsx.readFile(orderFilePath);
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+  const orderData = xlsx.utils.sheet_to_json(worksheet, { raw: false });
+
+  const orderList = [];
+  const notFoundList = [];
+
+  const aggregatedItems = {};
+
+  for (let i = 0; i < orderData.length; i++) {
+    let found = false;
+
+    for (let j = 0; j < dealerData.length; j++) {
+      if (orderData[i].SKU === dealerData[j].ISBNCode) {
+        const dealerName = dealerData[j].Dealer;
+        const seg = {
+          ISBNCode: orderData[i].SKU,
+          quantity: Number(orderData[i].Quantity),
+          dealer: dealerName,
+          title: orderData[i]["Item Name"],
+        };
+        orderList.push(seg);
+        found = true;
+        const identifier = orderData[i].SKU || orderData[i]["Item Name"];
+        if (aggregatedItems[identifier]) {
+          aggregatedItems[identifier].quantity += Number(orderData[i].Quantity);
+        } else {
+          aggregatedItems[identifier] = { ...seg };
+        }
+
+        break;
+      }
+    }
+
+    if (!found) {
+      const seg = {
+        ISBNCode: orderData[i].SKU,
+        quantity: Number(orderData[i].Quantity),
+        title: orderData[i]["Item Name"],
+        dealer: "",
+      };
+      notFoundList.push(seg);
+      const identifier = orderData[i].SKU || orderData[i]["Item Name"];
+      if (aggregatedItems[identifier]) {
+        aggregatedItems[identifier].quantity += Number(orderData[i].Quantity);
+      } else {
+        aggregatedItems[identifier] = { ...seg };
+      }
+    }
+  }
+
+  const aggregatedOrderList = Object.values(aggregatedItems);
+
+  const orderListFilePath = path.join(__dirname, "..", "uploads", "orderlist.txt");
+  fs.writeFileSync(orderListFilePath, JSON.stringify(aggregatedOrderList, null, 2), "utf8");
+
+  res.json({
+    message: "Segregated successfully",
+    segArr: aggregatedOrderList,
+    notFoundArr: notFoundList,
+    success: true,
+  });
+});
+
+
+router.get("/generatereport", (req, res) => {
+  let categorizedJson = {};
   let notfound = [];
-  let seg;
-  let found;
   const parentDir = path.resolve(__dirname, "..");
-  fs.createReadStream(path.join(parentDir, "/uploads/dealer.txt"))
-    .on("data", (row) => {
-      dealer = JSON.parse(row);
-    })
-    .on("end", () => {
 
-    const workbook = xlsx.readFile(
-        path.join(parentDir, "/uploads/order.xlsx")
-      ); 
-      const sheetName = workbook.SheetNames[0]; 
-      const worksheet = workbook.Sheets[sheetName];
-      const order = xlsx.utils.sheet_to_json(worksheet, { raw: false });
-        // .on("end", () => {
-          for (let i = 0; i < order.length; i++) {
-            found = false;
-            for (let j = 0; j < dealer.length; j++) {
-              if (order[i].SKU === dealer[j].ISBNCode) {
-                const dealerName = dealer[j].Dealer;
-                const seg = {
-                  ISBNCode: order[i].SKU, 
-                  quantity: order[i].Quantity,
-                  dealer: dealerName,
-                  title: order[i]['Item Name'],
-                };
+  const jsonContent = fs.readFileSync(path.join(parentDir, "/uploads/orderlist.txt"), 'utf-8');
+  const originalJson = JSON.parse(jsonContent);
+  originalJson.forEach((item) => {
+    const dealer = item.dealer;
 
-                if (!segArr[dealerName]) {
-                  segArr[dealerName] = [];
-                }
+    if (dealer !== '') {
+      if (!categorizedJson[dealer]) {
+        categorizedJson[dealer] = [];
+      }
 
-                segArr[dealerName].push(seg);
+      categorizedJson[dealer].push(item);
+    } else {
+      notfound.push(item);
+    }
+  });
+  res.json({ success: true, segArr: categorizedJson, notfound: notfound, uncategorizedArr: originalJson })
 
-                found = true;
-                break;
-              }
-            }
-            if (found == false) {
-              seg = {
-                ISBNCode: order[i].SKU,
-                quantity: order[i].Quantity,
-                title: order[i]['Item Name'],
-              };
-              notfound.push(seg);
-            }
-          }
-        // })
-        // .on("end", () => {
-          res.json({
-            message: "Segerated succesfully",
-            segArr: segArr,
-            notfound: notfound,
-            success: true,
-          });
-        // });
-    });
 });
 router.get("/fetchallproducts", fetchuser, async (req, res) => {
   try {
@@ -130,21 +150,11 @@ router.get("/fetchallproducts", fetchuser, async (req, res) => {
     const parentDir = path.resolve(__dirname, "..");
     const workbook = xlsx.readFile(
       path.join(parentDir, "/uploads/products.xlsx")
-    ); 
-    const sheetName = workbook.SheetNames[0]; 
+    );
+    const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
-     products = xlsx.utils.sheet_to_json(worksheet, { raw: false }); 
-    // fs.createReadStream(path.join(parentDir, "/uploads/products.csv"))
-    //   .pipe(csv())
-    //   .on("data", (row) => {
-    //     products.push(row);
-    //   })
-    //   .on("error", (error) => {
-    //     console.error(error);
-    //   })
-    //   .on("end", () => {
-    //     res.json(products);
-    //   });
+    products = xlsx.utils.sheet_to_json(worksheet, { raw: false });
+
     res.json(products)
   } catch (error) {
     console.error(error.message);
@@ -165,6 +175,15 @@ router.post("/generatecsv", fetchuser, async (req, res) => {
   const parser = new json2csv.Parser(opts);
   const csvData = parser.parse(data);
   res.json({ success: true, csv: csvData, dealer: dealer });
+});
+
+router.post("/saveorder", fetchuser, async (req, res) => {
+  let { segOrder } = req.body;
+  const parentDir = path.resolve(__dirname, "..");
+
+  const jsonFilePath = path.join(parentDir, "/uploads/orderlist.txt");
+  fs.writeFileSync(jsonFilePath, JSON.stringify(segOrder, null, 2), "utf8");
+  res.json({ success: true });
 });
 
 module.exports = router;
