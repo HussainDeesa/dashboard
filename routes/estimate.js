@@ -6,6 +6,11 @@ const Estimate = require('../models/Estimate');
 router.post('/createestimate', fetchuser, async (req, res) => {
     try {
       const { invoiceDetails, products } = req.body;
+      for (let i = products.length - 1; i >= 0; i--) {
+        if (products[i].productCode === '' || products[i].productName === '') {
+          products.splice(i, 1); 
+        }
+      }
       const estimate = new Estimate({
         supplierName:invoiceDetails.supplierName,
         customerName:invoiceDetails.customerName,
@@ -35,6 +40,11 @@ router.post('/createestimate', fetchuser, async (req, res) => {
 router.put('/editestimate/:id', fetchuser, async (req, res) => {
   const { editedProducts,editedEstimateDetails } = req.body
   let products=editedProducts
+  for (let i = products.length - 1; i >= 0; i--) {
+    if (products[i].productCode === '' || products[i].productName === '') {
+      products.splice(i, 1); 
+    }
+  }
   try {
       const editedEstimate = {
         supplierName:editedEstimateDetails.supplierName,

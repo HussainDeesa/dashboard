@@ -2,7 +2,7 @@
   {
     "quantity": 41,
     "title": "Kaniyan Police Exam Book 2023 Latest Edition",
-    "dealer": "CBSD"
+    "dealer": ""
   },
   {
     "ISBNCode": "11th EIC001",

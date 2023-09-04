@@ -12,8 +12,9 @@ export function OrderReport1(props) {
     const [reportGenerating, setReportGenerating] = useState(false)
     const [csvGenerating, setCSVGenerating] = useState(false)
     const [uploaded, setUploaded] = useState(false)
+    const [Uploading, setUploading] = useState(false)
     const [file, setFile] = useState()
-    const [selectedDealerData, setselectedDealerData] = useState({selectedDate:'',selectedDealer:''})
+    const [selectedDealerData, setselectedDealerData] = useState({ selectedDate: '', selectedDealer: '' })
     const generateCSV = async (e) => {
         setCSVGenerating(true)
         e.preventDefault()
@@ -60,7 +61,7 @@ export function OrderReport1(props) {
                 quantity: rest.quantity,
             };
             return rearrangedItem
-        }); 
+        });
         const ws = XLSX.utils.json_to_sheet(newData);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
@@ -81,10 +82,10 @@ export function OrderReport1(props) {
         const selectedDealerName = event.target.value;
 
         if (selectedDealerName === "Unknown") {
-            setselectedDealerData({selectedDate:state.notfound,selectedDealer:event.target.value})
+            setselectedDealerData({ selectedDate: state.notfound, selectedDealer: event.target.value })
         }
         else {
-            setselectedDealerData({selectedDate:state.segArr[selectedDealerName],selectedDealer:event.target.value})
+            setselectedDealerData({ selectedDate: state.segArr[selectedDealerName], selectedDealer: event.target.value })
         }
         generateCSV(event)
 
@@ -95,11 +96,12 @@ export function OrderReport1(props) {
         setFile(file);
     };
     const handleUpload = async (e) => {
-        setUploaded(false)
-        setState({ data: '', isLoading: true, success: '', csv: '' })
-
+        setState({ data: '', success: '', csv: '' })
+        
         e.preventDefault()
         if (file) {
+            setUploading(true)
+            setUploaded(false)
             const formData = new FormData();
             formData.append('file', file, "order.xlsx");
 
@@ -110,12 +112,17 @@ export function OrderReport1(props) {
             let json = await response.json()
             if (json.success) {
                 setState({ success: json.success, uncategorizedArr: json.segArr, isLoading: false })
+                setUploading(false)
                 setUploaded(true)
             }
 
             else {
                 setState({ success: json.success, message: json.error })
+
             }
+        }
+        else{
+            setState({isLoading:false})
         }
     };
 
@@ -175,7 +182,7 @@ export function OrderReport1(props) {
 
             </div>
             {(() => {
-                if (state.isLoading || reportGenerating ) {
+                if (Uploading || state.isLoading || reportGenerating) {
                     return (
                         <Loader />
                     )

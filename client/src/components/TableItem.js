@@ -10,7 +10,7 @@ export function TableItem(props) {
   const { editRecord, deleteRecord } = context;
   const { item } = props;
   const [id, setID] = useState("");
-  const [trackDetail,setTrackDetail]=useState()
+  const [trackDetail, setTrackDetail] = useState()
   const [order, setOrder] = useState({});
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showEditModel, setShowEditModel] = useState(false);
@@ -37,33 +37,37 @@ export function TableItem(props) {
   const handelCancelEdit = () => {
     setShowEditModel(false);
   };
-  const track =async (e,id)=>{
+  const track = async (e, id) => {
+    let parsed_data
     e.preventDefault()
-      const response=await fetch('api/order/track', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ trackingNumber: id })
+    const response = await fetch('api/order/track', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ trackingNumber: id })
+    })
+      .then(response => response.text())
+      .then(data => {
+        parsed_data = JSON.parse(data);
+        console.log(parsed_data);
+        setTrackDetail(parsed_data)
+
       })
-        .then(response => response.text())
-        .then(data => {
-          const parsed_data = JSON.parse(data);
-          setTrackDetail(parsed_data)
-        })
-        .catch(error => {
-        });
-}
-  const handleTrackClick = (e,id) => {
+      .catch(error => {
+          console.log(error);
+      });
+  }
+  const handleTrackClick = (e, id) => {
     setShowTrack(true);
-    track(e,id);
+    track(e, id);
   };
 
   const handleCloseTrack = () => {
     setShowTrack(false);
   };
 
-  const handleCOnfirmEdit = () => {};
+  const handleCOnfirmEdit = () => { };
 
   return (
     <>
@@ -97,7 +101,7 @@ export function TableItem(props) {
               className="btn btn-success track"
               onClick={(e) => {
                 setID(item.trackingID);
-                handleTrackClick(e,item.trackingID);
+                handleTrackClick(e, item.trackingID);
               }}
             >
               Track
@@ -121,7 +125,7 @@ export function TableItem(props) {
           onConfirm={handleCOnfirmEdit}
         />
       )}
-      {(showTrack && trackDetail)&& (
+      {(showTrack && trackDetail) && (
         <Tracking
           alert={props.alert}
           showAlert={props.showAlert}

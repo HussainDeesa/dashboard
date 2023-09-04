@@ -7,15 +7,12 @@ const productSchema = new Schema({
   },
   productName: {
     type: String,
-    required: true,
   },
   author: {
     type: String,
-    required: true,
   },
   price: {
     type: Number,
-    required: true,
   },
   quantity: {
     type: Number,
