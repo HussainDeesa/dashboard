@@ -9,7 +9,7 @@ router.post('/createinvoice', fetchuser, async (req, res) => {
     try {
       const { invoiceDetails, products } = req.body;
       for (let i = products.length - 1; i >= 0; i--) {
-        if (products[i].productCode === '' || products[i].productName === '') {
+        if (products[i].productName === '') {
           products.splice(i, 1); 
         }
       }
@@ -66,7 +66,7 @@ router.put('/editinvoice/:id', fetchuser, async (req, res) => {
   const { editedProducts,editedInvoiceDetails } = req.body
   let products=editedProducts
   for (let i = products.length - 1; i >= 0; i--) {
-    if (products[i].productCode === '' || products[i].productName === '') {
+    if (products[i].productName === '') {
       products.splice(i, 1); 
     }
   }
