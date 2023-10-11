@@ -49,6 +49,7 @@ export function Addrecord(props) {
         status: record.status,
         location:location,
         skip_check: false,
+        
       }),
     });
     let json = await response.json();
