@@ -78,6 +78,7 @@ export function TableItem(props) {
         <td>{item.date}</td>
         <td>{item.location}</td>
         <td>{item.status}</td>
+        <td>{item.payment}</td>
         <td>
           <span>
             <img
@@ -97,7 +98,7 @@ export function TableItem(props) {
                 handleDeleteClick();
               }}
             ></img>
-            <button
+            {/* <button
               className="btn btn-success track"
               onClick={(e) => {
                 setID(item.trackingID);
@@ -105,7 +106,7 @@ export function TableItem(props) {
               }}
             >
               Track
-            </button>
+            </button> */}
           </span>
         </td>
       </tr>

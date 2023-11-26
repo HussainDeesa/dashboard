@@ -26,6 +26,17 @@ const OrdersSchema = new Schema({
     location:{
         type:String
     },
+    customerName:{
+        default: '',
+        type:String
+    },
+    payment:{
+        type:String
+    },
+    paymentStatus:{
+        default: false,
+        type: Boolean
+    },
     created_date:{
         type:String
     }

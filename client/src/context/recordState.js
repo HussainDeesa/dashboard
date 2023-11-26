@@ -69,7 +69,7 @@ const RecordState = (props) => {
       return json.count
    }
 
-   const editRecord = async (id, orderid, trackingid, post, date, status,location) => {
+   const editRecord = async (id, orderid, trackingid, post, date, status,location, payment) => {
       // API Call
       const response = await fetch(`api/order/updateorder/${id}`, {
          method: 'PUT',
@@ -78,7 +78,7 @@ const RecordState = (props) => {
             'auth-token':Cookies.get("auth-token")
 
          },
-         body: JSON.stringify({ orderid, trackingid, post, date, status,location })
+         body: JSON.stringify({ orderid, trackingid, post, date, status,location, payment })
 
       });
       const json = response.json()
@@ -92,6 +92,7 @@ const RecordState = (props) => {
             newOrder[index].date = date;
             newOrder[index].status = status;
             newOrder[index].location = location;
+            newOrder[index].payment = payment;
             break;
          }
       }
@@ -139,8 +140,20 @@ const RecordState = (props) => {
       setAvailableProducts({ data: json, isLoading: false, success: json.success })
   };
 
+  const changePaymentStatus = async (id, paymentStatus) => {
+      const response = await fetch(`api/order/paymentstatusupdate/${id}`, {
+         method: "PUT",
+         headers: {
+         "Content-Type": "application/json",
+         "auth-token": Cookies.get("auth-token"),
+         },
+         body: JSON.stringify({ paymentStatus: paymentStatus }),
+      });
+      let json = await response.json();
+      return json
+  }
    return (
-      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count,deleteInvoice,editInvoice,editEstimate,getallproducts,availableProducts }}>
+      <recordcontext.Provider value={{ orders, deleteRecord, editRecord, getallorders,countRecord,count,deleteInvoice,editInvoice,editEstimate,getallproducts,availableProducts,changePaymentStatus }}>
          {props.children}
       </recordcontext.Provider>
    )

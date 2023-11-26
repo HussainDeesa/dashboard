@@ -39,9 +39,11 @@ function App() {
             <Route exact path="/allrecords" element={<Dashboard page={"allrecords"} showAlert={showAlert} />} />
             <Route exact path="/dashboard" element={<Dashboard alert={alert} showAlert={showAlert} />} />
             <Route exact path="/search" element={<Dashboard alert={alert} showAlert={showAlert} page={"Search"} />} />
+            <Route exact path="/payment" element={<Dashboard alert={alert} showAlert={showAlert} page={"Payment"} />} />
             <Route exact path="/addrecord" element={<Dashboard showAlert={showAlert} alert={alert} page={"Addrecord"} />} />
             <Route exact path="/searchbyorderID" element={<Dashboard alert={alert} showAlert={showAlert} page={"Search"} searchPage={"searchbyorderID"} />} />
             <Route exact path="/searchbytrackingID" element={<Dashboard showAlert={showAlert} alert={alert} page={"Search"} searchPage={"searchbytrackingID"} />} />
+            <Route exact path="/searchbypayment" element={<Dashboard showAlert={showAlert} alert={alert} page={"Search"} searchPage={"searchbypayment"} />} />
             <Route exact path="/csv" element={<Dashboard showAlert={showAlert} alert={alert} page={"csv"} />} />
             <Route exact path="/report" element={<Dashboard showAlert={showAlert} alert={alert} page={"report"} />} />
             <Route exact path="/posdashboard" element={<POSDashboard showAlert={showAlert} alert={alert} />} />

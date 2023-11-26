@@ -7,6 +7,7 @@ import { CSV } from './CSV';
 import { Report } from './Report';
 import MobileMenu from './MobileMenu';
 import Cookies from 'js-cookie';
+import { Payment } from './Payment';
 
 export const Dashboard = (props) => {
 	let navigate = useNavigate();
@@ -45,9 +46,9 @@ export const Dashboard = (props) => {
 				<Link to="/search">
 					Search
 				</Link>
-				<a href="#">
-					
-				</a>
+				<Link to="/payment">
+					Payment
+				</Link>
 				<a href="#">
 					
 				</a>
@@ -106,6 +107,12 @@ export const Dashboard = (props) => {
 			
 			return (
 				<Search  alert={alert} showAlert={props.showAlert} searchpage={props.searchPage}/>
+			)
+        } 
+        if (props.page=="Payment") {
+			
+			return (
+				<Payment  alert={alert} showAlert={props.showAlert} searchpage={props.searchPage}/>
 			)
         } 
         if (props.page=="Addrecord") {

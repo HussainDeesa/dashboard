@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchByTrackingID } from './SearchByTrackingID';
 import { SearchByOrderID } from './SearchByOrderID';
+import { SearchByPayment } from './SearchByPayment';
 export function Search(props) {
  
 
@@ -18,6 +19,10 @@ export function Search(props) {
                         {/* <a href="#" className="active"> */}
                         Search by Tracking ID
                     </Link>
+                    <Link to="/searchbypayment" >
+                        {/* <a href="#" className="active"> */}
+                        Search by Payment Type
+                    </Link>
                     </div>
                     </div>
                     {(() => {
@@ -31,6 +36,12 @@ export function Search(props) {
                             
                             return (
                                 <SearchByOrderID  alert={props.alert} showAlert={props.showAlert} />
+                            )
+                        }
+                        if (props.searchpage == "searchbypayment") {
+                            
+                            return (
+                                <SearchByPayment  alert={props.alert} showAlert={props.showAlert} />
                             )
                         }
                     })()}

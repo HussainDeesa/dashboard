@@ -38,6 +38,7 @@ export function PreviousOrder(props) {
                                 <th scope="col">Date</th>
                                 <th scope="col">Location</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Payment</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>

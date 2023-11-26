@@ -12,6 +12,7 @@ export function Addrecord(props) {
   const [added, setadded] = useState(false);
   const [count, setCount] = useState();
   const [location, setlocation] = useState()
+  const [payment, setPayment] = useState()
   // console.log(new Date());
   // const today = new Date().toISOString().split('T')[0]
 
@@ -48,13 +49,12 @@ export function Addrecord(props) {
         date: record.date,
         status: record.status,
         location:location,
-        skip_check: false,
-        
+        payment:payment,
+        skip_check: false,  
       }),
     });
     let json = await response.json();
     setadded(added == false ? true : false);
-    // setadded(true)
     if (!json.success) {
       props.showAlert(json.error, 7000);
     }
@@ -86,9 +86,17 @@ export function Addrecord(props) {
     Cookies.set('location', e.target.value)
     setlocation(e.target.value)
   };
+  const handleOnChangePayment = (e) => {
+    Cookies.set('payment', e.target.value)
+    setRecord({ ...record, [e.target.name]: e.target.value });
+    setPayment(e.target.value)
+  };
   useEffect(() => {
     if (Cookies.get('location') != undefined) {
       setlocation(Cookies.get('location'))
+    }
+    if (Cookies.get('payment') != undefined) {
+      setPayment(Cookies.get('payment'))
     }
     orderInputRef.current.focus();
     fetchCount(location);
@@ -171,8 +179,20 @@ export function Addrecord(props) {
             <option value="Chennai">Chennai</option>
             <option value="Delhi">Delhi</option>
           </select>
-          <br />
-          <label className="search-label">Status : </label>
+          <br /> <label className="search-label">Payment: </label>
+          <select
+            required
+            className="location-input"
+            style={{marginLeft:"20px"}}
+            onChange={handleOnChangePayment}
+            value={payment}
+            name="payment"
+          >
+            <option value="">Select</option>
+            <option value="Prepaid">Prepaid</option>
+            <option value="COD">COD</option>
+          </select>
+          <br /> <label className="search-label">Status : </label>
           <input
             required
             className="status-input"
