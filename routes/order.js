@@ -186,7 +186,7 @@ router.post("/fetchorderbycustomer", fetchuser, async (req, res) => {
     const { customerName } = req.body;
     try {
       const regex = new RegExp(customerName, 'i'); // 'i' flag for case-insensitive search
-      let order = await Order.find({ payment:"COD",customerName: { $regex: regex } });
+      let order = await Order.find({ payment:"COD",customerName: { $regex: regex } }).sort({ _id: -1 });
   
       if (order.length === 0) {
         res.status(400).json({ success: false, error: "No record exists" });
@@ -215,10 +215,10 @@ router.get(
         order = await Order.find({
           payment: "COD",
           paymentStatus: paymentStatus,
-        });
+        }).sort({ _id: -1 });
       }
       if (req.params.payment == "all") {
-        order = await Order.find({ payment: "COD" });
+        order = await Order.find({ payment: "COD" }).sort({ _id: -1 });
       }
       if (order.length == 0) {
         success = false;
