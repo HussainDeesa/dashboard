@@ -77,7 +77,7 @@ export function Addrecord(props) {
   const handleOnChange = (e) => {
     setRecord({ ...record, [e.target.name]: e.target.value });
     const { name, value } = e.target;
-    if (name === "orderid" && value.length === 5) {
+    if (name === "orderid" && value.length === 6) {
       trackingInputRef.current.focus();
     }
   };
